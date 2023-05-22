@@ -1,0 +1,2 @@
+# ApartEase
+ ApartEase is a revolutionary property management platform that combines cutting-edge technology with exceptional customer service, providing seamless management solutions for property owners and a convenient, hassle-free renting experience for tenants. With advanced features like automated rent collection, maintenance coordination, and real-time communication, ApartEase simplifies and enhances the rental experience for all parties involved.
