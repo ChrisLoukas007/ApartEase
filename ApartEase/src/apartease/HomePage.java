@@ -72,13 +72,13 @@ public class HomePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void chooseServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseServActionPerformed
-        /// Create an instance of the ServiceList frame
+        /// Create an instance of the PageServices frame
         PageServices serviePage = new PageServices();
 
-        // Display the HomePage frame
+        // Display the PageServices frame
         serviePage.setVisible(true);
 
-        // Close the current ServiceList frame
+        // Close the current frame
         dispose();
     }//GEN-LAST:event_chooseServActionPerformed
 
