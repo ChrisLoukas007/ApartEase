@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
  * @author DELL
  */
 public class OwnerMessage extends javax.swing.JFrame {
-    
+
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     static ServerSocket ss;
@@ -29,7 +29,7 @@ public class OwnerMessage extends javax.swing.JFrame {
     public OwnerMessage() {
         initComponents();
     }
-   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,7 +114,7 @@ public class OwnerMessage extends javax.swing.JFrame {
             msg_text.setText("");
         }
         catch(Exception e){
-            
+
         }
     }//GEN-LAST:event_msg_sendActionPerformed
 
@@ -122,29 +122,28 @@ public class OwnerMessage extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new OwnerMessage().setVisible(true);
             }
         });
-        
+
         try{
             String msgin = "";
             ss= new ServerSocket(1201);   
             s=ss.accept();
             dis = new DataInputStream(s.getInputStream());
             dout = new DataOutputStream(s.getOutputStream());
-            
+
             while(!msgin.equals("exit")){
                 msgin = dis.readUTF(); // here we read the received message from the Owner
                 msg_area.setText(msg_area.getText() + "\n Owner: " + msgin);
             }
-                  
+
         } catch(Exception e){
-            
-        }    
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
