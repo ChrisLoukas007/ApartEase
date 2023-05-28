@@ -8,14 +8,14 @@ package apartease;
  *
  * @author DELL
  */
-public class PageChosenService extends javax.swing.JFrame {
+public class ChosenServicePage extends javax.swing.JFrame {
 
     private String selectedValue;
 
     /**
      * Creates new form PageChosenService
      */
-    public PageChosenService(String selectedValue) { //here  we will load the variable about the name of the service (specific)
+    public ChosenServicePage(String selectedValue) { //here  we will load the variable about the name of the service (specific)
         this.selectedValue = selectedValue;
         initComponents();
     }
@@ -198,14 +198,18 @@ public class PageChosenService extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageChosenService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChosenServicePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageChosenService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChosenServicePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageChosenService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChosenServicePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageChosenService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChosenServicePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -124,10 +124,10 @@ public class MessagePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Create an instance of the GroupMessage frame
-        GroupMessage groupMessage = new GroupMessage();
+        // Create an instance of the GroupMessagePage frame
+        GroupMessagePage groupMessage = new GroupMessagePage();
 
-        // Display the GroupMessage frame
+        // Display the GroupMessagePage frame
         groupMessage.setVisible(true);
 
         // Close the current MessagePage frame

@@ -128,9 +128,9 @@ public class ServiceRatingPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // Navigate to PageChosenService frame
+        // Navigate to ChosenServicePage frame
         String selectedValue = "";
-        PageChosenService pageChosenService = new PageChosenService(selectedValue); //CHECK THIS AFTER LOAD THE MYSQL DB!!
+        ChosenServicePage pageChosenService = new ChosenServicePage(selectedValue); //CHECK THIS AFTER LOAD THE MYSQL DB!!
         pageChosenService.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed

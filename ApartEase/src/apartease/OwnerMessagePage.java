@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
  *
  * @author DELL
  */
-public class OwnerMessage extends javax.swing.JFrame {
+public class OwnerMessagePage extends javax.swing.JFrame {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -26,7 +26,7 @@ public class OwnerMessage extends javax.swing.JFrame {
     /**
      * Creates new form OwnerMessage
      */
-    public OwnerMessage() {
+    public OwnerMessagePage() {
         initComponents();
     }
 
@@ -125,7 +125,7 @@ public class OwnerMessage extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OwnerMessage().setVisible(true);
+                new OwnerMessagePage().setVisible(true);
             }
         });
 
