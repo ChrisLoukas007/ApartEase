@@ -31,12 +31,18 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="233" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel2" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                      <Component id="chooseServ" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="chooseMessage" min="-2" max="-2" attributes="0"/>
+                          <Component id="chooseServ" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="224" max="32767" attributes="0"/>
+              <EmptySpace pref="215" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -50,7 +56,12 @@
                   <Component id="jLabel2" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="chooseServ" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="323" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel3" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="chooseMessage" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="266" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -73,6 +84,19 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseServActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="If you want to send a Message , click here "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="chooseMessage">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Messages"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseMessageActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -9,7 +9,9 @@ package apartease;
  * @author DELL
  */
 public class PageChosenService extends javax.swing.JFrame {
+
     private String selectedValue;
+
     /**
      * Creates new form PageChosenService
      */
@@ -169,18 +171,14 @@ public class PageChosenService extends javax.swing.JFrame {
         ratingPage.setVisible(true);
 
         // Close the current frame
-        dispose();                                        
+        dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Create an instance of the PageServices frame
-        PageServices servicePage = new PageServices();
-
-        // Display the PageServices frame
-        servicePage.setVisible(true);
-
-        // Close the current frame
-        dispose();    
+        // Navigate to PageServices frame
+        PageServices pageServices = new PageServices();
+        pageServices.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
