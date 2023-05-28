@@ -164,10 +164,10 @@ public class PageChosenService extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Create an instance of the RatingPage frame
-        RatingPage ratingPage = new RatingPage();
+        // Create an instance of the ServiceRatingPage frame
+        ServiceRatingPage ratingPage = new ServiceRatingPage();
 
-        // Display the RatingPage frame
+        // Display the ServiceRatingPage frame
         ratingPage.setVisible(true);
 
         // Close the current frame

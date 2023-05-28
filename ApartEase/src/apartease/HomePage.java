@@ -92,10 +92,10 @@ public class HomePage extends javax.swing.JFrame {
 
     private void chooseServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseServActionPerformed
         /// Create an instance of the PageServices frame
-        PageServices serviePage = new PageServices();
+        PageServices servicePage = new PageServices();
 
         // Display the PageServices frame
-        serviePage.setVisible(true);
+        servicePage.setVisible(true);
 
         // Close the current frame
         dispose();

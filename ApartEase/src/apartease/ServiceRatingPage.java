@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
  *
  * @author DELL
  */
-public class RatingPage extends javax.swing.JFrame {
+public class ServiceRatingPage extends javax.swing.JFrame {
 
     /**
      * Creates new form RatingPage
      */
-    public RatingPage() {
+    public ServiceRatingPage() {
         initComponents();
     }
 
@@ -121,7 +121,7 @@ public class RatingPage extends javax.swing.JFrame {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Sorry, you exceeded the words limit. Please fix it to submit your evaluation", "Error", JOptionPane.ERROR_MESSAGE);
-            RatingPage ratingPage = new RatingPage();
+            ServiceRatingPage ratingPage = new ServiceRatingPage();
             ratingPage.setVisible(true);
             this.dispose();
         }
@@ -152,20 +152,21 @@ public class RatingPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RatingPage().setVisible(true);
+                new ServiceRatingPage().setVisible(true);
             }
         });
     }
