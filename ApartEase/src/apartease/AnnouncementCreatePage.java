@@ -115,7 +115,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
         int wordCount = text.split("\\s+").length;
          if (wordCount > 2 && wordCount < 50) {
             JOptionPane.showMessageDialog(this, "Your Announcement submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            AnnouncementType AnnouncementType = new AnnouncementType();
+            AnnouncementTypePage AnnouncementType = new AnnouncementTypePage();
             AnnouncementType.setVisible(true);
             this.dispose();
         } else {
