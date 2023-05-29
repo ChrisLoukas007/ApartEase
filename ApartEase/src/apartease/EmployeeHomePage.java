@@ -81,8 +81,6 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         jScrollPane2 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,10 +120,6 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
             }
         });
 
-        jLabel1.setText("Επιλεγμένη Τιμή:");
-
-        jLabel2.setText("Καμία");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,11 +129,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel2))
+                .addComponent(jButton1)
                 .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -150,11 +140,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton1)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -179,7 +165,34 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String building = jList2.getSelectedValue();
-        
+        try
+            {
+                Statement stmt = connectdata();
+                ResultSet rs =   stmt.executeQuery("Select MONTH(utility_bills_building.publish_date) from utility_bills_building, building where utility_bills_building.id = building.id AND building.address  LIKE +'"+building+"' ORDER BY utility_bills_building.id DESC LIMIT 1");
+                rs.next();
+                int month_bill = Integer.valueOf(rs.getString(1));
+                if (month_bill==5){
+                    
+                    JOptionPane.showMessageDialog(this,"There are already posted utility bills for this building!");
+                } else {
+                    
+                    int result = JOptionPane.showConfirmDialog(this, "Do you wish to post utility bills for building with address "+building+".");
+        if (result == 0){
+            JOptionPane.showMessageDialog(this,"check");
+            this.dispose();
+            UtilityBillsForm ob = new UtilityBillsForm(building);
+            ob.setVisible(true);
+        }
+        else if (result == 1){
+            JOptionPane.showMessageDialog(this,"There are already posted utility bills for this building!1");
+        }
+        else{
+           JOptionPane.showMessageDialog(this,"There are already posted utility bills for this building!01");
+        }
+                }
+            } catch(Exception e) {
+                 JOptionPane.showMessageDialog(this,e);
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -220,8 +233,6 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
