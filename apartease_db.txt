@@ -254,3 +254,6 @@ CREATE TABLE `aparteasedb`.`login_status` (
 
 ALTER TABLE `aparteasedb`.`user` 
 CHANGE COLUMN `wallet` `wallet` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `aparteasedb`.`utility_bills_building` 
+CHANGE COLUMN `amount` `amount` INT NOT NULL ;
