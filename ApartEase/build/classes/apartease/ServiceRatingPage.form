@@ -23,6 +23,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -33,21 +38,16 @@
                       <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel2" pref="714" max="32767" attributes="0"/>
+                              <Component id="jLabel2" pref="763" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
-                              <Component id="jLabel3" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jTextField1" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
                           <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" pref="823" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="143" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+              <EmptySpace pref="103" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,7 +83,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Please write below what&apos;s your experience with our service . It really helps others to know if this service is what they are lookin for "/>
+        <Property name="text" type="java.lang.String" value="&#x3a0;&#x3b1;&#x3c1;&#x3b1;&#x3ba;&#x3b1;&#x3bb;&#x3ce; &#x3b1;&#x3be;&#x3b9;&#x3bf;&#x3bb;&#x3bf;&#x3b3;&#x3b5;&#x3af;&#x3c3;&#x3c4;&#x3b5; &#x3c4;&#x3b7;&#x3bd; &#x3c5;&#x3c0;&#x3b7;&#x3c1;&#x3b5;&#x3c3;&#x3af;&#x3b1; &#x3bc;&#x3b1;&#x3c2;. &#x397; &#x3ba;&#x3ac;&#x3b8;&#x3b5; &#x3b1;&#x3be;&#x3b9;&#x3bf;&#x3bb;&#x3cc;&#x3b3;&#x3b7;&#x3c3;&#x3b7; &#x3bc;&#x3b1;&#x3c2; &#x3c6;&#x3ad;&#x3c1;&#x3bd;&#x3b5;&#x3b9; &#x3ad;&#x3bd;&#x3b1; &#x3b2;&#x3ae;&#x3bc;&#x3b1; &#x3bd;&#x3b1; &#x3b3;&#x3af;&#x3bd;&#x3bf;&#x3c5;&#x3bc;&#x3b5; &#x3b1;&#x3ba;&#x3cc;&#x3bc;&#x3b7; &#x3ba;&#x3b1;&#x3bb;&#x3cd;&#x3c4;&#x3b5;&#x3c1;&#x3bf;&#x3b9; "/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -103,22 +103,22 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="From 0 to 5 please write how bad (if it was 0 ) or how good ( if it was 5) was our sevice for you , in the below text area : "/>
+        <Property name="text" type="java.lang.String" value="&#x391;&#x3c0;&#x3cc; &#x3c4;&#x3bf; 0 &#x3b5;&#x3ce;&#x3c2; &#x3c4;&#x3bf; 5 &#x3c0;&#x3cc;&#x3c3;&#x3bf; &#x3ba;&#x3b1;&#x3bb;&#x3ae; &#x3ae;&#x3c4;&#x3b1;&#x3bd; &#x3b7; &#x3b5;&#x3bc;&#x3c0;&#x3b5;&#x3b9;&#x3c1;&#x3af;&#x3b1; &#x3c3;&#x3b1;&#x3c2; &#x3bc;&#x3b5; &#x3c4;&#x3b7;&#x3bd; &#x3c5;&#x3c0;&#x3b7;&#x3c1;&#x3b5;&#x3c3;&#x3af;&#x3b1; &#x3bc;&#x3b1;&#x3c2; ? (&#x3a3;&#x3b7;&#x3bc;&#x3b5;&#x3b9;&#x3ce;&#x3c3;&#x3c4;&#x3b5; &#x3c3;&#x3c4;&#x3bf; &#x3ba;&#x3ac;&#x3c4;&#x3c9; &#x3c0;&#x3bb;&#x3b1;&#x3af;&#x3c3;&#x3b9;&#x3bf; &#x3c4;&#x3bf;&#x3bd; &#x3b1;&#x3c1;&#x3b9;&#x3b8;&#x3bc;&#x3cc; &#x3c0;&#x3bf;&#x3c5; &#x3c3;&#x3b1;&#x3c2; &#x3b1;&#x3bd;&#x3c4;&#x3b9;&#x3c0;&#x3c1;&#x3bf;&#x3c3;&#x3c9;&#x3c0;&#x3b5;&#x3cd;&#x3b5;&#x3b9;)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Submit"/>
+        <Property name="text" type="java.lang.String" value="&#x3a5;&#x3c0;&#x3bf;&#x3b2;&#x3bf;&#x3bb;&#x3ae;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runCheck"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Back"/>
+        <Property name="text" type="java.lang.String" value="&#x3a0;&#x3af;&#x3c3;&#x3c9;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
