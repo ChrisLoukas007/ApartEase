@@ -42,7 +42,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        Title = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -58,7 +58,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
 
         jLabel2.setText("ΔημιουργίαΑνακοίνωσης");
 
-        jTextField1.setText("Τίτλος");
+        Title.setText("Τίτλος");
 
         jLabel3.setText("Συμπληρώστε την Ανακοίνωση:");
 
@@ -93,7 +93,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(28, 28, 28)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addComponent(jLabel2)))
@@ -107,7 +107,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -123,8 +123,10 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
          if (checkWordcount()) {
+            String title = Title.getText();
+            String text = jTextArea2.getText();
             JOptionPane.showMessageDialog(this, "Your Announcement submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            AnnouncementTypePage AnnouncementType = new AnnouncementTypePage();
+            AnnouncementTypePage AnnouncementType = new AnnouncementTypePage(text,title);
             AnnouncementType.setVisible(true);
             this.dispose();
         } else {
@@ -171,6 +173,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Title;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -179,6 +182,5 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
