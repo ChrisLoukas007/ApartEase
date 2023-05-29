@@ -20,30 +20,18 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
         initComponents();
          
            try
-            {
-                DefaultListModel model = new DefaultListModel();
+            {            
                 
-                Statement stmt = connectdata();
-  
-                Connection con=DBConnection.getConnection();
-                Statement st=con.createStatement();
+                Statement stmt = connectdata();               
                 
-                ResultSet rs=st.executeQuery("Select title,content from announcements");
-                ResultSetMetaData rsmd=rs.getMetaData();
-                
-                
-                
-                while(rs.next()){
-                    
-                    String Announcement=rs.getString("content");
-                    AnnouncementsField.setText(Announcement);
-                    AnnouncementTitle.setText(rs.getString("title"));
-                }
-                st.close();
-                con.close();
-                    
-                
-            
+                ResultSet rs=stmt.executeQuery("Select title from announcements");
+                rs.next();
+                String Announcement_title = rs.getString(1);
+                AnnouncementTitle.setText(Announcement_title);
+                rs=stmt.executeQuery("Select content from announcements");
+                rs.next();
+                String Announcement_content = rs.getString(1);
+                AnnouncementsField.setText(Announcement_content);          
             }
             
         catch(Exception e)
