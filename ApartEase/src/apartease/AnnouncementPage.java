@@ -4,18 +4,53 @@
  */
 package apartease;
 import java.sql.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Bill
  */
 
-public class AnnouncementPage extends javax.swing.JFrame {
+public class AnnouncementPage extends javax.swing.JFrame implements DBConnection {
 
     /**
      * Creates new form Announcement
      */
     public AnnouncementPage() {
         initComponents();
+         
+           try
+            {
+                DefaultListModel model = new DefaultListModel();
+                
+                Statement stmt = connectdata();
+  
+                Connection con=DBConnection.getConnection();
+                Statement st=con.createStatement();
+                
+                ResultSet rs=st.executeQuery("Select title,content from announcements");
+                ResultSetMetaData rsmd=rs.getMetaData();
+                
+                
+                
+                while(rs.next()){
+                    
+                    String Announcement=rs.getString("content");
+                    AnnouncementsField.setText(Announcement);
+                    AnnouncementTitle.setText(rs.getString("title"));
+                }
+                st.close();
+                con.close();
+                    
+                
+            
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+        
     }
 
     /**
@@ -30,8 +65,9 @@ public class AnnouncementPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        AnnouncementsField = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        AnnouncementTitle = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,22 +80,28 @@ public class AnnouncementPage extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        AnnouncementsField.setEditable(false);
+        AnnouncementsField.setColumns(20);
+        AnnouncementsField.setRows(5);
+        jScrollPane1.setViewportView(AnnouncementsField);
 
         jLabel2.setText("Τελευταία Ανακοίνωση:");
+
+        AnnouncementTitle.setEditable(false);
+        AnnouncementTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnnouncementTitleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addGap(46, 46, 46))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -69,17 +111,25 @@ public class AnnouncementPage extends javax.swing.JFrame {
                         .addGap(160, 160, 160)
                         .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addComponent(AnnouncementTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                    .addComponent(AnnouncementTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(51, 51, 51))
         );
@@ -92,6 +142,10 @@ public class AnnouncementPage extends javax.swing.JFrame {
         AnnouncementCreatePage obj = new AnnouncementCreatePage();
         obj.setVisible(true); 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void AnnouncementTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnouncementTitleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AnnouncementTitleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,10 +184,11 @@ public class AnnouncementPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AnnouncementTitle;
+    private javax.swing.JTextArea AnnouncementsField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
