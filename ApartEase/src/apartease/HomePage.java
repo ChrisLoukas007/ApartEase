@@ -192,7 +192,7 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         try
         {
             Statement stmt = connectdata();
-            stmt.execute("delete from LOGIN_STATUS where login_status_id = 1");
+            stmt.execute("delete from LOGIN_STATUS where id = 1");
         }
         catch(Exception e)
         {
@@ -204,7 +204,9 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        Profile ob = new Profile();
+        ob.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     /**

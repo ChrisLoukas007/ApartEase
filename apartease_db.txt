@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`utility_bills_building` (
   INDEX `fk_utility_bills_Building1_idx` (`Building_id` ASC) VISIBLE,
   CONSTRAINT `fk_utility_bills_Building1`
     FOREIGN KEY (`Building_id`)
-    REFERENCES `mydb`.`Building` (`id`)
+    REFERENCES `aparteasedb`.`Building` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`apartment` (
   INDEX `fk_apartment_Building1_idx` (`Building_id` ASC) VISIBLE,
   CONSTRAINT `fk_apartment_Building1`
     FOREIGN KEY (`Building_id`)
-    REFERENCES `mydb`.`Building` (`id`)
+    REFERENCES `aparteasedb`.`Building` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -75,12 +75,12 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`utility_bills_apartment` (
   INDEX `fk_utility_bills_apartment_utility_bills_building1_idx` (`utility_bills_building_id` ASC) VISIBLE,
   CONSTRAINT `fk_utility_bills_apartment_apartment1`
     FOREIGN KEY (`apartment_id`)
-    REFERENCES `mydb`.`apartment` (`id`)
+    REFERENCES `aparteasedb`.`apartment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_utility_bills_apartment_utility_bills_building1`
     FOREIGN KEY (`utility_bills_building_id`)
-    REFERENCES `mydb`.`utility_bills_building` (`id`)
+    REFERENCES `aparteasedb`.`utility_bills_building` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -95,12 +95,12 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`user_has_apartment` (
   INDEX `fk_user_has_apartment_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_user_has_apartment_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_apartment_apartment1`
     FOREIGN KEY (`apartment_id`)
-    REFERENCES `mydb`.`apartment` (`id`)
+    REFERENCES `aparteasedb`.`apartment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`announcements` (
   INDEX `fk_announcements_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_announcements_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`service` (
   INDEX `fk_services_Building1_idx` (`Building_id` ASC) VISIBLE,
   CONSTRAINT `fk_services_Building1`
     FOREIGN KEY (`Building_id`)
-    REFERENCES `mydb`.`Building` (`id`)
+    REFERENCES `aparteasedb`.`Building` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`event` (
   INDEX `fk_event_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_event_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`message` (
   INDEX `fk_message_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_message_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -187,12 +187,12 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`review` (
   INDEX `fk_review_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_review_service1`
     FOREIGN KEY (`service_id`)
-    REFERENCES `mydb`.`service` (`id`)
+    REFERENCES `aparteasedb`.`service` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_review_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -213,7 +213,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`poll` (
   INDEX `fk_poll_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_poll_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`poll_choice` (
   INDEX `fk_poll_choice_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_poll_choice_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -251,3 +251,9 @@ CREATE TABLE `aparteasedb`.`login_status` (
     REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+ALTER TABLE `aparteasedb`.`user` 
+CHANGE COLUMN `wallet` `wallet` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `aparteasedb`.`utility_bills_building` 
+CHANGE COLUMN `amount` `amount` INT NOT NULL ;
