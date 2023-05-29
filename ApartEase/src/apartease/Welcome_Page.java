@@ -79,6 +79,10 @@ public class Welcome_Page extends javax.swing.JFrame implements DBConnection {
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
+<<<<<<< HEAD
+                        .addComponent(jLabel3)))
+                .addContainerGap(101, Short.MAX_VALUE))
+=======
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
@@ -87,6 +91,7 @@ public class Welcome_Page extends javax.swing.JFrame implements DBConnection {
                         .addGap(238, 238, 238)
                         .addComponent(jButton1)))
                 .addContainerGap(72, Short.MAX_VALUE))
+>>>>>>> 295e9a4d2fe689c3d26a1b03aec8a72e6c985f10
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +106,7 @@ public class Welcome_Page extends javax.swing.JFrame implements DBConnection {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         pack();

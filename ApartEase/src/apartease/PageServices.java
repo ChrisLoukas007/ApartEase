@@ -17,6 +17,8 @@ public class PageServices extends javax.swing.JFrame {
      */
     public PageServices() {
         initComponents();
+        Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
+
     }
 
     /**
@@ -115,22 +117,22 @@ public class PageServices extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void showChosenPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChosenPageService
-      String selectedValue = jList1.getSelectedValue();
-    
-    // Check if an item is selected from the list
-    if (selectedValue != null) {
-        // Create a new instance of the ChosenServicePage
-        ChosenServicePage targetFrame = new ChosenServicePage(selectedValue);
-        
-        // Set the visibility of the ChosenServicePage to true
-        targetFrame.setVisible(true);
-        
-        // Close the current frame (optional)
-        this.dispose();
-    } else {
-        // Display an error message if no item is selected
-        JOptionPane.showMessageDialog(rootPane, "Please select an item from the list.");
-    }
+        String selectedValue = jList1.getSelectedValue();
+
+        // Check if an item is selected from the list
+        if (selectedValue != null) {
+            // Create a new instance of the ChosenServicePage
+            ChosenServicePage targetFrame = new ChosenServicePage(selectedValue);
+
+            // Set the visibility of the ChosenServicePage to true
+            targetFrame.setVisible(true);
+
+            // Close the current frame (optional)
+            this.dispose();
+        } else {
+            // Display an error message if no item is selected
+            JOptionPane.showMessageDialog(rootPane, "Please select an item from the list.");
+        }
     }//GEN-LAST:event_showChosenPageService
 
     /**
