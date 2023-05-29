@@ -4,6 +4,8 @@
  */
 package apartease;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bill
@@ -13,12 +15,17 @@ public class AnnouncementTypePage extends javax.swing.JFrame {
     /**
      * Creates new form AnnouncementType
      */
+    public String AnnounceTitle;
+    public String AnnounceText;
     public AnnouncementTypePage() {
         initComponents();
     }
- public AnnouncementTypePage(String text,String title) {
+    public AnnouncementTypePage(String text,String title) {
         initComponents();
-    }
+         AnnounceText=text;
+         AnnounceTitle=title;
+    } 
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,9 +99,26 @@ public class AnnouncementTypePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            AnnouncementConfirmationPage AnnouncementConfirmationPage = new AnnouncementConfirmationPage();
+        String Selection = "";  
+        Selection=jList1.getSelectedValue();
+        if ("Ιδιοκτήτες".equals(Selection)){
+            String choice="owners";
+            AnnouncementConfirmationPage AnnouncementConfirmationPage = new AnnouncementConfirmationPage(AnnounceText,AnnounceTitle,choice);
             AnnouncementConfirmationPage.setVisible(true);
-            this.dispose();
+            this.dispose();}
+        else if(("Ένοικους").equals(Selection)){
+            String choice="tenants";
+            AnnouncementConfirmationPage AnnouncementConfirmationPage = new AnnouncementConfirmationPage(AnnounceText,AnnounceTitle,choice);
+            AnnouncementConfirmationPage.setVisible(true);
+            this.dispose();}
+        else if(("Όλους").equals(Selection)){
+            String choice="all";
+            AnnouncementConfirmationPage AnnouncementConfirmationPage = new AnnouncementConfirmationPage(AnnounceText,AnnounceTitle,choice);
+            AnnouncementConfirmationPage.setVisible(true);
+            this.dispose();}
+        else {
+        JOptionPane.showMessageDialog(this,"Παρακαλώ επιλέξετε μία από τις επιλογές");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
