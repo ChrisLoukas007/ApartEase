@@ -257,3 +257,9 @@ CHANGE COLUMN `wallet` `wallet` INT NULL DEFAULT NULL ;
 
 ALTER TABLE `aparteasedb`.`utility_bills_building` 
 CHANGE COLUMN `amount` `amount` INT NOT NULL ;
+
+ALTER TABLE `aparteasedb`.`announcements` 
+DROP COLUMN `viewed_by`,
+DROP COLUMN `creation_date`,
+ADD COLUMN `title` VARCHAR(45) NOT NULL AFTER `user_id`,
+CHANGE COLUMN `announcementscol` `content` VARCHAR(100) NOT NULL ;
