@@ -19,6 +19,16 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
         initComponents();
     }
 
+    private boolean checkWordcount(){
+        String text = jTextArea2.getText();
+        int wordCount = text.split("\\s+").length;
+        if (wordCount > 2 && wordCount < 50) {
+        return true;
+        }
+        else {
+        return false;
+        }
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,9 +121,8 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String text = jTextArea2.getText();
-        int wordCount = text.split("\\s+").length;
-         if (wordCount > 2 && wordCount < 50) {
+
+         if (checkWordcount()) {
             JOptionPane.showMessageDialog(this, "Your Announcement submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             AnnouncementTypePage AnnouncementType = new AnnouncementTypePage();
             AnnouncementType.setVisible(true);

@@ -4,7 +4,6 @@
  */
 package apartease;
 import java.sql.*;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 /**
  *
