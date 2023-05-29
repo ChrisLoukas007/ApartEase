@@ -10,17 +10,61 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-/**
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.*;
+/*
  *
  * @author Θεοδόσης
  */
 public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection{
-
+    
     /**
      * Creates new form EmployeeHomePage
      */
+    public void fillDataJList(JList jList){
+        
+        try
+            {
+                DefaultListModel model = new DefaultListModel();
+                
+                Statement stmt = connectdata();
+  
+                Connection con=DBConnection.getConnection();
+                Statement st=con.createStatement();
+                
+                ResultSet rs=st.executeQuery("Select id, address from building");
+                ResultSetMetaData rsmd=rs.getMetaData();
+                
+                
+                
+                while(rs.next()){
+                    
+                    String address=rs.getString("address");
+                    model.addElement(address);
+                }
+                jList.setModel(model);
+                st.close();
+                con.close();
+                    
+                
+            
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+    }
+    
+    
     public EmployeeHomePage() {
         initComponents();
+        fillDataJList(jList2);                    
+     
+
     }
 
     /**
@@ -34,8 +78,11 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
 
         jPanel2 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,63 +112,51 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jList2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jScrollPane2.setViewportView(jList2);
 
-            try
-            {
-                Statement stmt = connectdata();
-
-                Connection con=DBConnection.getConnection();
-                Statement st=con.createStatement();
-
-                rs=st.executeQuery("Select id, title, rating, release_year from series");
-                ResultSetMetaData rsmd=rs.getMetaData();
-
-                int cols=rsmd.getColumnCount();
-                String[] colName= new String[cols];
-                for (int i=0;i<cols;i++)
-                colName[i]=rsmd.getColumnName(i+1);
-                model.setColumnIdentifiers(colName);
-                String no,tit,leng,ratin,release,features;
-                while(rs.next()){
-                    no=rs.getString(1);
-                    tit=rs.getString(2);
-                    ratin=rs.getString(3);
-                    release=rs.getString(4);
-                    String[] row={no,tit,ratin,release};
-                    model.addRow(row);
-                }
-                st.close();
-                con.close();
-
+        jButton1.setText("Δημοσίευση Κοινοχρήστων");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
-
-            catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+
+        jLabel1.setText("Επιλεγμένη Τιμή:");
+
+        jLabel2.setText("Καμία");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(185, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(171, 171, 171))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 128, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -131,7 +166,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         try
         {
             Statement stmt = connectdata();
-            stmt.execute("delete from LOGIN_STATUS where login_status_id = 1");
+            stmt.execute("delete from LOGIN_STATUS where id = 1");
         }
         catch(Exception e)
         {
@@ -141,6 +176,11 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         Welcome_Page ob = new Welcome_Page();
         ob.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String building = jList2.getSelectedValue();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,9 +218,12 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton7;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
