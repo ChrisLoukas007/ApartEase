@@ -42,22 +42,22 @@ public class ServiceRatingPage extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Rating Page ");
 
-        jLabel2.setText("Please write below what's your experience with our service . It really helps others to know if this service is what they are lookin for ");
+        jLabel2.setText("Παρακαλώ αξιολογείστε την υπηρεσία μας. Η κάθε αξιολόγηση μας φέρνει ένα βήμα να γίνουμε ακόμη καλύτεροι ");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel3.setText("From 0 to 5 please write how bad (if it was 0 ) or how good ( if it was 5) was our sevice for you , in the below text area : ");
+        jLabel3.setText("Από το 0 εώς το 5 πόσο καλή ήταν η εμπειρία σας με την υπηρεσία μας ? (Σημειώστε στο κάτω πλαίσιο τον αριθμό που σας αντιπροσωπεύει)");
 
-        jButton1.setText("Submit");
+        jButton1.setText("Υποβολή");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                runCheck(evt);
             }
         });
 
-        jButton3.setText("Back");
+        jButton3.setText("Πίσω");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -68,6 +68,10 @@ public class ServiceRatingPage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(60, 60, 60))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -77,16 +81,12 @@ public class ServiceRatingPage extends javax.swing.JFrame {
                         .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1))
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))))
-                .addContainerGap(143, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(60, 60, 60))
+                            .addComponent(jButton3)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,21 +111,34 @@ public class ServiceRatingPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void showServiceConfirmPage() {
+//        JOptionPane.showMessageDialog(this, "Your evaluation was submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+        ServiceConfirmPage confirmPage = new ServiceConfirmPage();
+        confirmPage.setVisible(true);
+        this.dispose();
+    }
+
+    private void showServiceErrorPage() {
+//        JOptionPane.showMessageDialog(this, "Sorry, you have exceeded the word limit. Please fix it to submit your evaluation.", "Error", JOptionPane.ERROR_MESSAGE);
+        ServiceErrorPage errorPage = new ServiceErrorPage();
+        errorPage.setVisible(true);
+        this.dispose();
+    }
+
+    private void wordLimitCheck() {
         String text = jTextArea1.getText();
         int wordCount = text.split("\\s+").length;
+
         if (wordCount > 2 && wordCount < 50) {
-            JOptionPane.showMessageDialog(this, "Your evaluation submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            PageServices pageServices = new PageServices();
-            pageServices.setVisible(true);
-            this.dispose();
+            showServiceConfirmPage();
         } else {
-            JOptionPane.showMessageDialog(this, "Sorry, you exceeded the words limit. Please fix it to submit your evaluation", "Error", JOptionPane.ERROR_MESSAGE);
-            ServiceRatingPage ratingPage = new ServiceRatingPage();
-            ratingPage.setVisible(true);
-            this.dispose();
+            showServiceErrorPage();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
+
+    private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
+        wordLimitCheck();
+    }//GEN-LAST:event_runCheck
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Navigate to ChosenServicePage frame

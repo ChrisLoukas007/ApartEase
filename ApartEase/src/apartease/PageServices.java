@@ -48,19 +48,20 @@ public class PageServices extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
-        jButton2.setText("Back");
+        jButton2.setText("Πίσω");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("If you want to learn more about some of the below Services, click in the sevice you want to learn more about it:");
+        jLabel2.setText("Παρακάτω είναι όλες οι Υπηρεσίες μας, βρες αυτή που σε αφορά και Μάθε Περισσότερα για την ίδια ");
 
-        jButton3.setText("Learn More");
+        jButton3.setText("Μάθε Περισσότεα");
+        jButton3.setToolTipText("");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                showChosenPageService(evt);
             }
         });
 
@@ -78,7 +79,7 @@ public class PageServices extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addGap(22, 22, 22))
@@ -113,7 +114,7 @@ public class PageServices extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void showChosenPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChosenPageService
       String selectedValue = jList1.getSelectedValue();
     
     // Check if an item is selected from the list
@@ -130,7 +131,7 @@ public class PageServices extends javax.swing.JFrame {
         // Display an error message if no item is selected
         JOptionPane.showMessageDialog(rootPane, "Please select an item from the list.");
     }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_showChosenPageService
 
     /**
      * @param args the command line arguments
@@ -157,6 +158,12 @@ public class PageServices extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PageServices.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
