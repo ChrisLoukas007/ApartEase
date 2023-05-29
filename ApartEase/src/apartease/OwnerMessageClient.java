@@ -16,7 +16,7 @@ public class OwnerMessageClient extends javax.swing.JFrame {
     static Socket s;
     static DataInputStream dis;
     static DataOutputStream dout;
-    
+
     public OwnerMessageClient() {
         initComponents();
     }
@@ -106,7 +106,7 @@ public class OwnerMessageClient extends javax.swing.JFrame {
             msg_text.setText("");
         }
         catch(Exception e){
-            
+
         }
     }//GEN-LAST:event_msg_sendActionPerformed
 
@@ -143,20 +143,20 @@ public class OwnerMessageClient extends javax.swing.JFrame {
                 new OwnerMessageClient().setVisible(true);
             }
         });
-        
+
          try{
             String msgin = "";
             s = new Socket("127.0.0.1",1201); // ip address is of local host because server is running on the same machine
             dis = new DataInputStream(s.getInputStream());
             dout = new DataOutputStream(s.getOutputStream());
-            
+
             while(!msgin.equals("exit")){
                 msgin = dis.readUTF();
                 msg_area.setText(msg_area.getText() + "\n Resident" + ": " + msgin);
             }
-                  
+
         } catch(Exception e){
-            
+
         }
     }
 

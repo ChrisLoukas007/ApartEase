@@ -25,6 +25,8 @@ public class HomePage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         chooseServ = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        chooseMessage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,6 +42,15 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("If you want to send a Message , click here ");
+
+        chooseMessage.setText("Messages");
+        chooseMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseMessageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -51,10 +62,14 @@ public class HomePage extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(66, 66, 66)
-                        .addComponent(chooseServ)))
-                .addContainerGap(224, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chooseMessage)
+                            .addComponent(chooseServ))))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,22 +80,37 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chooseServ))
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chooseMessage))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void chooseServActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseServActionPerformed
-        /// Create an instance of the ServiceList frame
-        PageServices serviePage = new PageServices();
+        /// Create an instance of the PageServices frame
+        PageServices servicePage = new PageServices();
 
-        // Display the HomePage frame
-        serviePage.setVisible(true);
+        // Display the PageServices frame
+        servicePage.setVisible(true);
 
-        // Close the current ServiceList frame
+        // Close the current frame
         dispose();
     }//GEN-LAST:event_chooseServActionPerformed
+
+    private void chooseMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMessageActionPerformed
+         /// Create an instance of the MessagePage frame
+        MessagePage messagePage = new MessagePage();
+
+        // Display the MessagePage frame
+        messagePage.setVisible(true);
+
+        // Close the current frame
+        dispose();
+    }//GEN-LAST:event_chooseMessageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,8 +148,10 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chooseMessage;
     private javax.swing.JButton chooseServ;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

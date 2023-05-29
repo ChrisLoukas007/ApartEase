@@ -1,0 +1,250 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+CREATE SCHEMA IF NOT EXISTS `aparteasedb` DEFAULT CHARACTER SET utf8 ;
+USE `aparteasedb` ;
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`user` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `surname` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `user_type` ENUM('employee', 'manager', 'owner', 'tenant') NOT NULL DEFAULT 'tenant',
+  `birth_date` DATE NULL,
+  `description` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`Building` (
+  `id` INT NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `apartments_number` SMALLINT(3) NOT NULL,
+  `floors` SMALLINT(3) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `address_UNIQUE` (`address` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`utility_bills_building` (
+  `id` INT NOT NULL,
+  `publish_date` DATE NOT NULL,
+  `amount` DECIMAL(5,5) NOT NULL,
+  `Building_id` INT NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_utility_bills_Building1_idx` (`Building_id` ASC) VISIBLE,
+  CONSTRAINT `fk_utility_bills_Building1`
+    FOREIGN KEY (`Building_id`)
+    REFERENCES `mydb`.`Building` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`apartment` (
+  `id` INT NOT NULL,
+  `number` SMALLINT(3) NOT NULL,
+  `floor` SMALLINT(3) NOT NULL,
+  `Building_id` INT NOT NULL,
+  `apartment_size` DECIMAL(5,5) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_apartment_Building1_idx` (`Building_id` ASC) VISIBLE,
+  CONSTRAINT `fk_apartment_Building1`
+    FOREIGN KEY (`Building_id`)
+    REFERENCES `mydb`.`Building` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`utility_bills_apartment` (
+  `id` INT NOT NULL,
+  `apartment_amount` VARCHAR(45) NOT NULL,
+  `apartment_id` INT NOT NULL,
+  `utility_bills_building_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_utility_bills_apartment_apartment1_idx` (`apartment_id` ASC) VISIBLE,
+  INDEX `fk_utility_bills_apartment_utility_bills_building1_idx` (`utility_bills_building_id` ASC) VISIBLE,
+  CONSTRAINT `fk_utility_bills_apartment_apartment1`
+    FOREIGN KEY (`apartment_id`)
+    REFERENCES `mydb`.`apartment` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_utility_bills_apartment_utility_bills_building1`
+    FOREIGN KEY (`utility_bills_building_id`)
+    REFERENCES `mydb`.`utility_bills_building` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`user_has_apartment` (
+  `user_id` INT NOT NULL,
+  `apartment_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `apartment_id`),
+  INDEX `fk_user_has_apartment_apartment1_idx` (`apartment_id` ASC) VISIBLE,
+  INDEX `fk_user_has_apartment_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_has_apartment_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_apartment_apartment1`
+    FOREIGN KEY (`apartment_id`)
+    REFERENCES `mydb`.`apartment` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`announcements` (
+  `id` INT NOT NULL,
+  `announcementscol` VARCHAR(100) NOT NULL,
+  `creation_date` DATE NOT NULL,
+  `viewed_by` VARCHAR(45) NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_announcements_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_announcements_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`service` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `description` VARCHAR(100) NOT NULL,
+  `phone_number` INT NOT NULL,
+  `Building_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_services_Building1_idx` (`Building_id` ASC) VISIBLE,
+  CONSTRAINT `fk_services_Building1`
+    FOREIGN KEY (`Building_id`)
+    REFERENCES `mydb`.`Building` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`event` (
+  `id` INT NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_event_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_event_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`message` (
+  `id` INT NOT NULL,
+  `content` VARCHAR(100) NOT NULL,
+  `sent_date` DATE NOT NULL,
+  `user_id` INT NOT NULL,
+  `message_type` ENUM('private', 'public') NOT NULL,
+  `receiver_email` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_message_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_message_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`review` (
+  `id` INT NOT NULL,
+  `rating` SMALLINT(1) NOT NULL,
+  `description` VARCHAR(100) NULL,
+  `service_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_review_service1_idx` (`service_id` ASC) VISIBLE,
+  INDEX `fk_review_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_review_service1`
+    FOREIGN KEY (`service_id`)
+    REFERENCES `mydb`.`service` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`poll` (
+  `id` INT NOT NULL,
+  `question` VARCHAR(100) NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
+  `answer1_content` VARCHAR(45) NOT NULL,
+  `answer2_content` VARCHAR(45) NOT NULL,
+  `answer3_content` VARCHAR(45) NULL,
+  `answer4` VARCHAR(45) NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_poll_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_poll_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS `aparteasedb`.`poll_choice` (
+  `id` INT NOT NULL,
+  `choice` ENUM('1', '2', '3', '4') NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_poll_choice_user1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_poll_choice_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+CREATE TABLE `aparteasedb`.`login_status` (
+  `id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_login_status_user1_idx` (`user_id` ASC) INVISIBLE,
+  CONSTRAINT `fk_login_status_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `aparteasedb`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

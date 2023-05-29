@@ -118,10 +118,10 @@ public class PageServices extends javax.swing.JFrame {
     
     // Check if an item is selected from the list
     if (selectedValue != null) {
-        // Create a new instance of the PageChosenService
-        PageChosenService targetFrame = new PageChosenService(selectedValue);
+        // Create a new instance of the ChosenServicePage
+        ChosenServicePage targetFrame = new ChosenServicePage(selectedValue);
         
-        // Set the visibility of the PageChosenService to true
+        // Set the visibility of the ChosenServicePage to true
         targetFrame.setVisible(true);
         
         // Close the current frame (optional)

@@ -33,7 +33,7 @@ public class MessagePage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        retrnHome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,10 +66,10 @@ public class MessagePage extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Back");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        retrnHome.setText("Back");
+        retrnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                retrnHomeActionPerformed(evt);
             }
         });
 
@@ -92,7 +92,7 @@ public class MessagePage extends javax.swing.JFrame {
                             .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jButton4))
+                        .addComponent(retrnHome))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(149, 149, 149)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -116,7 +116,7 @@ public class MessagePage extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(retrnHome)
                 .addGap(28, 28, 28))
         );
 
@@ -124,10 +124,10 @@ public class MessagePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Create an instance of the GroupMessage frame
-        GroupMessage groupMessage = new GroupMessage();
+        // Create an instance of the GroupMessagePage frame
+        GroupMessagePage groupMessage = new GroupMessagePage();
 
-        // Display the GroupMessage frame
+        // Display the GroupMessagePage frame
         groupMessage.setVisible(true);
 
         // Close the current MessagePage frame
@@ -142,7 +142,7 @@ public class MessagePage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void retrnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrnHomeActionPerformed
         // Create an instance of the HomePage frame
         HomePage homePage = new HomePage();
 
@@ -151,7 +151,7 @@ public class MessagePage extends javax.swing.JFrame {
 
         // Close the current MessagePage frame
         dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_retrnHomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,10 +192,10 @@ public class MessagePage extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton retrnHome;
     // End of variables declaration//GEN-END:variables
 }
