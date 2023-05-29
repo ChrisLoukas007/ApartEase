@@ -44,11 +44,12 @@ public class OwnerMessagePage extends javax.swing.JFrame {
         msg_area = new javax.swing.JTextArea();
         msg_text = new javax.swing.JTextField();
         msg_send = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Here is what Owner sees");
+        jLabel1.setText("Συνομιλία με Ιδιοκτήτη");
 
         msg_area.setColumns(20);
         msg_area.setRows(5);
@@ -60,10 +61,17 @@ public class OwnerMessagePage extends javax.swing.JFrame {
             }
         });
 
-        msg_send.setText("Send");
+        msg_send.setText("Αποστολή");
         msg_send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 msg_sendActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Πίσω");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnMessage(evt);
             }
         });
 
@@ -74,17 +82,19 @@ public class OwnerMessagePage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(msg_text, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(msg_send))))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(134, 134, 134)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(msg_text, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(msg_send))))))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +107,9 @@ public class OwnerMessagePage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(msg_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(msg_send))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,6 +129,17 @@ public class OwnerMessagePage extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_msg_sendActionPerformed
+
+    private void returnMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessage
+        // Create an instance of the MessagePge frame
+        MessagePage messagePage = new MessagePage();
+
+        // Display the messagePage frame
+        messagePage.setVisible(true);
+
+        // Close the current messagePage frame
+        dispose();
+    }//GEN-LAST:event_returnMessage
 
     /**
      * @param args the command line arguments
@@ -147,6 +170,7 @@ public class OwnerMessagePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private static javax.swing.JTextArea msg_area;

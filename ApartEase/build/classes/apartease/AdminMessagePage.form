@@ -34,12 +34,12 @@
                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="33" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="131" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="196" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,7 +65,8 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Admin Message"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="&#x3a3;&#x3c5;&#x3bd;&#x3bf;&#x3bc;&#x3b9;&#x3bb;&#x3af;&#x3b1; &#x3bc;&#x3b5; &#x394;&#x3b9;&#x3b1;&#x3c7;&#x3b5;&#x3b9;&#x3c1;&#x3b9;&#x3c3;&#x3c4;&#x3ae;"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -85,15 +86,18 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Send"/>
+        <Property name="text" type="java.lang.String" value="&#x391;&#x3c0;&#x3bf;&#x3c3;&#x3c4;&#x3bf;&#x3bb;&#x3ae;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendMessage"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="returnMessage"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">

@@ -19,6 +19,7 @@ public class OwnerMessageClient extends javax.swing.JFrame {
 
     public OwnerMessageClient() {
         initComponents();
+        Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
     }
 
     /**

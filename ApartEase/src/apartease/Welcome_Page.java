@@ -87,7 +87,7 @@ public class Welcome_Page extends javax.swing.JFrame implements DBConnection {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
                         .addComponent(jLabel3)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +102,7 @@ public class Welcome_Page extends javax.swing.JFrame implements DBConnection {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         pack();

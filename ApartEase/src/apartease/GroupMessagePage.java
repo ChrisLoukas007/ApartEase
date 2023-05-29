@@ -51,9 +51,9 @@ public class GroupMessagePage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Group Chat");
+        jLabel1.setText("Ομαδική Συνομιλία");
 
-        sendMsg.setText("Send");
+        sendMsg.setText("Αποστολή");
         sendMsg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendMsgActionPerformed(evt);
@@ -64,10 +64,10 @@ public class GroupMessagePage extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        retrnMesagePg.setText("Back");
+        retrnMesagePg.setText("Πίσω");
         retrnMesagePg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                retrnMesagePgActionPerformed(evt);
+                returnMessage(evt);
             }
         });
 
@@ -78,9 +78,6 @@ public class GroupMessagePage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -88,16 +85,19 @@ public class GroupMessagePage extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(sendMsg))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(retrnMesagePg))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                            .addComponent(retrnMesagePg)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sendMsg)
@@ -130,7 +130,7 @@ public class GroupMessagePage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_sendMsgActionPerformed
 
-    private void retrnMesagePgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrnMesagePgActionPerformed
+    private void returnMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessage
         // Create an instance of the MessagePge frame
         MessagePage messagePage = new MessagePage();
 
@@ -139,7 +139,7 @@ public class GroupMessagePage extends javax.swing.JFrame {
 
         // Close the current messagePage frame
         dispose();
-    }//GEN-LAST:event_retrnMesagePgActionPerformed
+    }//GEN-LAST:event_returnMessage
 
     /**
      * @param args the command line arguments
