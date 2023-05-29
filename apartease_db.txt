@@ -263,3 +263,6 @@ DROP COLUMN `viewed_by`,
 DROP COLUMN `creation_date`,
 ADD COLUMN `title` VARCHAR(45) NOT NULL AFTER `user_id`,
 CHANGE COLUMN `announcementscol` `content` VARCHAR(100) NOT NULL ;
+
+ALTER TABLE aparteasedb.announcements
+ADD COLUMN viewed_by ENUM('all','tenants','owners') NOT NULL AFTER 
