@@ -251,3 +251,6 @@ CREATE TABLE `aparteasedb`.`login_status` (
     REFERENCES `aparteasedb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+ALTER TABLE `aparteasedb`.`user` 
+CHANGE COLUMN `wallet` `wallet` INT NULL DEFAULT NULL ;
