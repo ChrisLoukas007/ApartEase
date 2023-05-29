@@ -23,11 +23,11 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
                 
                 Statement stmt = connectdata();               
                 
-                ResultSet rs=stmt.executeQuery("Select title from announcements");
+                ResultSet rs=stmt.executeQuery("Select title from announcements order by id desc");
                 rs.next();
                 String Announcement_title = rs.getString(1);
                 AnnouncementTitle.setText(Announcement_title);
-                rs=stmt.executeQuery("Select content from announcements");
+                rs=stmt.executeQuery("Select content from announcements order by id desc");
                 rs.next();
                 String Announcement_content = rs.getString(1);
                 AnnouncementsField.setText(Announcement_content);          
