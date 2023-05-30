@@ -65,7 +65,7 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         jButton4.setText("Services");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                showPageServices(evt);
             }
         });
 
@@ -176,9 +176,12 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void showPageServices(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageServices
+        // Navigate to PageServices frame
+        PageServices pageServices = new PageServices();
+        pageServices.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_showPageServices
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
