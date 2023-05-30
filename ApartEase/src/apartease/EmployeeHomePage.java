@@ -190,7 +190,9 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         }
                 }
             } catch(Exception e) {
-                 JOptionPane.showMessageDialog(this,e);
+                 this.dispose();
+                 UtilityBillsForm ob = new UtilityBillsForm(building);
+                 ob.setVisible(true);
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 
