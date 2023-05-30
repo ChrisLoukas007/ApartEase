@@ -255,31 +255,36 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
                 int building_bill_id=Integer.valueOf(rs.getString(1));
                 rs =   stmt.executeQuery("Select apartment_size,apartment.id from apartment,building where '"+building+"' LIKE building.address AND building.id = apartment.Building_id ");
                 ResultSetMetaData rsmd=rs.getMetaData();
-                String apart_size,apart_id;
+                int apart_size,apart_id;
+                int i=0;
+                int[] apartsizearray= new int[1000] ;
+                int[] apartidarray = new int[1000];
                 while(rs.next()){
-                    apart_size=rs.getString(1);
-                    apart_id=rs.getString(2);
-                    String[] values={apart_size, apart_id};
-                    System.out.println(apart_size);
-                    System.out.println(values[0]);
+                    apart_size=Integer.valueOf(rs.getString(1));
+                    apart_id=Integer.valueOf(rs.getString(2));
+                    apartsizearray[i]= apart_size;
+                    apartidarray[i]=apart_id;
+                    
+                    i++;
                     
                 }
                 
+                for(int j=0; j<i; j++){
+                    
+                   
+                    
+                    float apartment_percentage= ((float)apartsizearray[j]/total_space);
+                    int apartment_bill=(int) (apartment_percentage*utility_bills);
+                    
+                    
+                    
+                    stmt.execute("insert into utility_bills_apartment(apartment_amount,apartment_id,utility_bills_building_id) values ('"+apartment_bill+"','"+apartidarray[j]+"','"+building_bill_id+"')");
+                    
+                    
+                }
                 st.close();
                 con.close();
-                /*for(int i=1; i<apartment_num+1; i++){
-                    
-                    rs.next();
-                    int apartment_size=Integer.valueOf(rs.getString(1));
-                    float apartment_percentage= ((float)apartment_size/total_space);
-                    int apartment_bill=(int) (apartment_percentage*utility_bills);
-                    rs.next();
-                    int apartment_id=Integer.valueOf(rs.getString(2));
-                    
-                    stmt.execute("insert into utility_bills_apartment(apartment_amount,apartment_id,utility_bills_building_id) values ('"+apartment_bill+"','"+apartment_id+"','"+building_bill_id+"')");
-                    
-                    
-                } */
+                
                 
                 
                 JOptionPane.showMessageDialog(this,"Τα κοινόχρηστα δημοσιεύθηκαν επιτυχώς!");
