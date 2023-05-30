@@ -4,22 +4,33 @@
  */
 package apartease;
 
+import java.sql.*;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author DELL
  */
-public class PageServices extends javax.swing.JFrame {
+public class PageServices extends javax.swing.JFrame implements DBConnection {
 
     /**
      * Creates new form ServiceList
      */
     public PageServices() {
         initComponents();
+        // Inside initComponents() method
+        serviceListModel = new DefaultListModel<>();
+        jList1.setModel(serviceListModel);
+        connectToDatabase();
+        loadServiceNames();
+
         Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
 
     }
+
+    private Connection connection;
+    private DefaultListModel<String> serviceListModel;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,7 +55,7 @@ public class PageServices extends javax.swing.JFrame {
         jLabel1.setText("Service List");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "ServiceName 1", "ServiceName 2", "ServiceName 3", "ServiceName 4", " " };
+            String[] strings = { "ServiceName 1", "ServiceName 2", "ServiceName 3", "ServiceName 4", "ServiceName5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -53,7 +64,7 @@ public class PageServices extends javax.swing.JFrame {
         jButton2.setText("Πίσω");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                retHomePage(evt);
             }
         });
 
@@ -105,7 +116,40 @@ public class PageServices extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void connectToDatabase() {
+        try {
+            // Establish a connection using the connectdata() method from the DBConnection interface
+            Statement statement = connectdata();
+            connection = statement.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to connect to the database.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void loadServiceNames() {
+        try {
+            // Execute the query to retrieve service names
+            String query = "SELECT name FROM service";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Clear the existing list
+            serviceListModel.clear();
+
+            // Populate the list with service names
+            while (resultSet.next()) {
+                String serviceName = resultSet.getString("name");
+                serviceListModel.addElement(serviceName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to load service names.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
+    private void retHomePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retHomePage
         // Create an instance of the HomePage frame
         HomePage homePage = new HomePage();
 
@@ -114,14 +158,14 @@ public class PageServices extends javax.swing.JFrame {
 
         // Close the current MessagePage frame
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_retHomePage
 
     private void showChosenPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChosenPageService
         String selectedValue = jList1.getSelectedValue();
 
         // Check if an item is selected from the list
         if (selectedValue != null) {
-            // Create a new instance of the ChosenServicePage
+            // Create a new instance of the ChosenServicePage and pass the selected service name
             ChosenServicePage targetFrame = new ChosenServicePage(selectedValue);
 
             // Set the visibility of the ChosenServicePage to true

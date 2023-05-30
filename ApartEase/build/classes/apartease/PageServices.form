@@ -88,7 +88,7 @@
                 <StringItem index="1" value="ServiceName 2"/>
                 <StringItem index="2" value="ServiceName 3"/>
                 <StringItem index="3" value="ServiceName 4"/>
-                <StringItem index="4" value=" "/>
+                <StringItem index="4" value="ServiceName5"/>
               </StringArray>
             </Property>
           </Properties>
@@ -103,7 +103,7 @@
         <Property name="text" type="java.lang.String" value="&#x3a0;&#x3af;&#x3c3;&#x3c9;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="retHomePage"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
