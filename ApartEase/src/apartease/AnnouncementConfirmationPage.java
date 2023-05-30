@@ -95,9 +95,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try
-            {            
-                
-                 
+            {                            
                 Connection con=DBConnection.getConnection();
                 Statement stm = con.createStatement();
                 String sql="INSERT INTO announcements VALUES (2,'"+AnnounceText+"',1,'"+AnnounceTitle+"','"+AnnounceChoice+"')";

@@ -137,12 +137,11 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
          if (checkWordcount()) {
             String title = Title.getText();
             String text = jTextArea2.getText();
-            JOptionPane.showMessageDialog(this, "Your Announcement submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             AnnouncementTypePage AnnouncementType = new AnnouncementTypePage(text,title);
             AnnouncementType.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Sorry, you exceeded the word limit. Please fix it to submit your announcement", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Η ανακοίνωση πρέπει να είναι από 3 μέχρι 49 λέξεις.", "Error", JOptionPane.ERROR_MESSAGE);
             AnnouncementCreatePage AnnouncementCreatePage = new AnnouncementCreatePage();
             AnnouncementCreatePage.setVisible(true);
             this.dispose();

@@ -15,14 +15,11 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
     /**
      * Creates new form Announcement
      */
-    public AnnouncementPage() {
-        initComponents();
-         
-           try
+    public void showAnnouncements(){
+        try
             {            
                 
-                Statement stmt = connectdata();               
-                
+                Statement stmt = connectdata();                             
                 ResultSet rs=stmt.executeQuery("Select title from announcements order by id desc");
                 rs.next();
                 String Announcement_title = rs.getString(1);
@@ -37,6 +34,11 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
             {
                 JOptionPane.showMessageDialog(this,e);
             }
+    }
+    public AnnouncementPage() {
+        initComponents();
+         
+           showAnnouncements();
         
     }
 
@@ -125,6 +127,8 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
         this.dispose(); 
         AnnouncementCreatePage obj = new AnnouncementCreatePage();
         obj.setVisible(true); 
