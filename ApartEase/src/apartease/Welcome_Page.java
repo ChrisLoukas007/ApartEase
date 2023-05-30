@@ -146,6 +146,11 @@ public class Welcome_Page extends javax.swing.JFrame implements DBConnection {
                     
                     }
                     else {
+                        rs = stmt.executeQuery("Select id from user where email = '"+ user +"'");
+                        rs.next();
+                        String user_id_S = rs.getString(1);
+                        int user_id_i = Integer.valueOf(user_id_S);
+                        stmt.executeUpdate("INSERT INTO LOGIN_STATUS VALUES(1,'"+ user_id_i +"');");
                         this.dispose();
                         HomePage ob = new HomePage();
                         ob.setVisible(true);

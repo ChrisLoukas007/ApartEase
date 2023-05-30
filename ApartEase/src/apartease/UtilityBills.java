@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package apartease;
+
 import java.sql.ResultSetMetaData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,58 +15,43 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;  
 import javax.swing.*;
-/*
+
+/**
  *
  * @author Θεοδόσης
  */
-public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection{
-    
+public class UtilityBills extends javax.swing.JFrame implements DBConnection{
+
     /**
-     * Creates new form EmployeeHomePage
+     * Creates new form UtilityBills
      */
-    public void fillDataJList(JList jList){
-        
-        try
+    public UtilityBills() {
+        initComponents();
+         try
             {
-                DefaultListModel model = new DefaultListModel();
                 
                 Statement stmt = connectdata();
-  
-                Connection con=DBConnection.getConnection();
-                Statement st=con.createStatement();
+                ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                rs =   stmt.executeQuery("select utility_bills_apartment.apartment_amount, utility_bills_apartment.paid from utility_bills_apartment, apartment, user_has_apartment, utility_bills_building where '"+user_id+"'=user_has_apartment.user_id AND user_has_apartment.apartment_id=apartment.id AND apartment.id=utility_bills_apartment.apartment_id AND utility_bills_apartment.utility_bills_building_id=utility_bills_building.id AND month(curdate())=month(utility_bills_building.publish_date) ");
+                rs.next();
                 
-                ResultSet rs=st.executeQuery("Select id, address from building");
-                ResultSetMetaData rsmd=rs.getMetaData();
+                String utility_bills=rs.getString(1);
                 
-                
-                
-                while(rs.next()){
-                    
-                    String address=rs.getString("address");
-                    model.addElement(address);
+                String paid=rs.getString(2);
+                jLabel1.setText("Τα κοινόχρηστα για τον τρέχον μήνα είναι:");
+                jLabel2.setText(utility_bills);
+                if ("true".equals(paid)){
+                    jLabel4.setText("Πληρωμένα");
+                }else{
+                    jLabel4.setText("Απλήρωτα");
                 }
-                jList.setModel(model);
-                st.close();
-                con.close();
-                    
-                
-            
+ 
+            } catch(Exception e) {
+                 JOptionPane.showMessageDialog(this,e);
             }
-            
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
-    }
-    
-    
-    public EmployeeHomePage() {
-        initComponents();
-        fillDataJList(jList2);                    
-     
-
     }
 
     /**
@@ -79,9 +65,12 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
 
         jPanel2 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,13 +100,25 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jList2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jScrollPane2.setViewportView(jList2);
+        jLabel1.setText(".");
 
-        jButton1.setText("Δημοσίευση Κοινοχρήστων");
+        jLabel2.setText(".");
+
+        jLabel3.setText("Κατάσταση:");
+
+        jLabel4.setText(".");
+
+        jButton1.setText("Πληρωμή");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Αναλυτικά");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -126,22 +127,41 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(170, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(192, 192, 192))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(81, 81, 81)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(0, 109, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,52 +183,12 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String building = jList2.getSelectedValue();
-        try
-            {
-                Statement stmt = connectdata();
-                ResultSet rs =   stmt.executeQuery("Select MONTH(utility_bills_building.publish_date) from utility_bills_building, building where building.address  LIKE +'"+building+"' AND utility_bills_building.Building_id = building.id ORDER BY utility_bills_building.id DESC LIMIT 1");
-                rs.next();
-                int month_bill = Integer.valueOf(rs.getString(1));
-                System.out.println(month_bill);
-                Date d = new Date();
-                System.out.println(d);
-                System.out.println(d.getMonth());
-                if ((d.getMonth()+1)==month_bill){
-                    
-                    JOptionPane.showMessageDialog(this,"There are already posted utility bills for this building!");
-                } else {
-                    
-                    int result = JOptionPane.showConfirmDialog(this, "Do you wish to post utility bills for building with address "+building+".");
-        if (result == 0){
-            
-            this.dispose();
-            UtilityBillsForm ob = new UtilityBillsForm(building);
-            ob.setVisible(true);
-        }
-        else if (result == 1){
-            JOptionPane.showMessageDialog(this,"Canceled");
-        }
-        else{
-           JOptionPane.showMessageDialog(this,"Canceled");
-        }
-                }
-            } catch(Exception e) {
-                 int result = JOptionPane.showConfirmDialog(this, "Do you wish to post utility bills for building with address "+building+".");
-                    if (result == 0){
-            
-                            this.dispose();
-                            UtilityBillsForm ob = new UtilityBillsForm(building);
-                            ob.setVisible(true);
-                    }
-                    else if (result == 1){
-                            JOptionPane.showMessageDialog(this,"Canceled");
-                    }
-                    else{
-                            JOptionPane.showMessageDialog(this,"Canceled");
-                    }
-            }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,29 +207,32 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeeHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UtilityBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeeHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UtilityBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeeHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UtilityBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeeHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UtilityBills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EmployeeHomePage().setVisible(true);
+                new UtilityBills().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton7;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,7 +15,7 @@ public interface DBConnection
         try{  
                 Class.forName("com.mysql.cj.jdbc.Driver");  
                 Connection con=DriverManager.getConnection(  
-                "jdbc:mysql://localhost:3306/aparteasedb", "root", "K@liM3r@!gxxn");  //here master is database name, root is username and password  
+                "jdbc:mysql://localhost:3307/aparteasedb", "root", "Andra2012@");  //here master is database name, root is username and password  
                 Statement stmt=con.createStatement();  
                 return stmt;
             }
@@ -29,7 +29,7 @@ public interface DBConnection
 		Connection con=null;
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/aparteasedb", "root", "K@liM3r@!gxxn");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3307/aparteasedb", "root", "Andra2012@");
 		}catch(Exception e){System.out.println(e);}
 		return con;
     }
