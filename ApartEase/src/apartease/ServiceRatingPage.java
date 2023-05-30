@@ -4,19 +4,36 @@
  */
 package apartease;
 
-//import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import apartease.DBConnection;
+import static apartease.DBConnection.getConnection;
+import java.sql.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+//import javax.swing.JOptionPane;
 /**
  *
  * @author DELL
  */
-public class ServiceRatingPage extends javax.swing.JFrame {
+public class ServiceRatingPage extends javax.swing.JFrame implements DBConnection {
 
     /**
      * Creates new form RatingPage
      */
     public ServiceRatingPage() {
         initComponents();
+        Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
+      
     }
 
     /**
@@ -60,7 +77,7 @@ public class ServiceRatingPage extends javax.swing.JFrame {
         jButton3.setText("Πίσω");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                retChosenServicePage(evt);
             }
         });
 
@@ -125,11 +142,23 @@ public class ServiceRatingPage extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void wordLimitCheck() {
+    private void limitCheck() {
         String text = jTextArea1.getText();
         int wordCount = text.split("\\s+").length;
 
-        if (wordCount > 2 && wordCount < 50) {
+        String ratingText = jTextField1.getText();
+        int rating = -1;
+        boolean isRatingValid = false;
+
+        // Check if the rating is a valid integer between 0 and 5
+        try {
+            rating = Integer.parseInt(ratingText);
+            isRatingValid = (rating >= 0 && rating <= 5);
+        } catch (NumberFormatException ex) {
+            isRatingValid = false;
+        }
+
+        if (wordCount > 2 && wordCount < 50 && isRatingValid) {
             showServiceConfirmPage();
         } else {
             showServiceErrorPage();
@@ -137,16 +166,16 @@ public class ServiceRatingPage extends javax.swing.JFrame {
     }
 
     private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
-        wordLimitCheck();
+        limitCheck();
     }//GEN-LAST:event_runCheck
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void retChosenServicePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retChosenServicePage
         // Navigate to ChosenServicePage frame
         String selectedValue = "";
         ChosenServicePage pageChosenService = new ChosenServicePage(selectedValue); //CHECK THIS AFTER LOAD THE MYSQL DB!!
         pageChosenService.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_retChosenServicePage
 
     /**
      * @param args the command line arguments

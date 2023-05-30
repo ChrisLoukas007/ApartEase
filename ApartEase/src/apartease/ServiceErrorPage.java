@@ -38,7 +38,7 @@ public class ServiceErrorPage extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Υπήρξε λάθος στο πλήθος λέξεων που γράψατε . Παρακαλώ διορθώστε τον αριθμό λέξεων\nσας έτσι ώστε να μπορέσει να υποβληθεί η αξιολόγηση σας . \nΣας ευχαριστούμε !");
+        jTextArea1.setText("Υπήρξε λάθος στο πλήθος λέξεων που γράψατε ή στην βαθμολόγηση που δώσατε . \nΠαρακαλώ διορθώστε τον αριθμό λέξεων σας έτσι ώστε να μπορέσει να υποβληθεί η \nαξιολόγηση σας . \nΣας ευχαριστούμε !");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Διόρθωση");

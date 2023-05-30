@@ -4,17 +4,27 @@
  */
 package apartease;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import java.sql.*;
+
 /**
  *
  * @author DELL
  */
-public class ServiceConfirmPage extends javax.swing.JFrame {
+public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnection {
+
+    public String ReviewText;
+    public int ReviewNum;
 
     /**
      * Creates new form ServiceConfirmPage
      */
-    public ServiceConfirmPage() {
+    public ServiceConfirmPage(String text, int numRev) {
         initComponents();
+        ReviewText = text;
+        ReviewNum = numRev;
     }
 
     /**
@@ -92,13 +102,13 @@ public class ServiceConfirmPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PageServices pageService = new PageServices(); 
+        PageServices pageService = new PageServices();
         pageService.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
-        ServiceRatingPage pageRateService = new ServiceRatingPage(); 
+        ServiceRatingPage pageRateService = new ServiceRatingPage();
         pageRateService.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_showPageService

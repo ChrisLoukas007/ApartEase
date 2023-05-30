@@ -191,7 +191,14 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+       // Create an instance of the MessagePge frame
+        MessagePage messagePage = new MessagePage();
+
+        // Display the messagePage frame
+        messagePage.setVisible(true);
+
+        // Close the current messagePage frame
+        dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
