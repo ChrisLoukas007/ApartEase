@@ -7,6 +7,18 @@ package apartease;
 import java.sql.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.sql.ResultSetMetaData;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.*;
 
 /**
  *
@@ -19,18 +31,25 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
      */
     public PageServices() {
         initComponents();
-        // Inside initComponents() method
-        serviceListModel = new DefaultListModel<>();
-        jList1.setModel(serviceListModel);
-        connectToDatabase();
-        loadServiceNames();
-
         Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
 
-    }
+        // Retrieve and display service names in the JList
+        try {
+            Statement stmt = connectdata();
+            ResultSet rs = stmt.executeQuery("SELECT name FROM service");
 
-    private Connection connection;
-    private DefaultListModel<String> serviceListModel;
+            DefaultListModel<String> model = new DefaultListModel<>();
+            while (rs.next()) {
+                String serviceName = rs.getString("name");
+                model.addElement(serviceName);
+            }
+            jList1.setModel(model);
+
+            rs.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Failed to retrieve service names from the database.");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,39 +134,6 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void connectToDatabase() {
-        try {
-            // Establish a connection using the connectdata() method from the DBConnection interface
-            Statement statement = connectdata();
-            connection = statement.getConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Failed to connect to the database.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void loadServiceNames() {
-        try {
-            // Execute the query to retrieve service names
-            String query = "SELECT name FROM service";
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            // Clear the existing list
-            serviceListModel.clear();
-
-            // Populate the list with service names
-            while (resultSet.next()) {
-                String serviceName = resultSet.getString("name");
-                serviceListModel.addElement(serviceName);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Failed to load service names.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
 
     private void retHomePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retHomePage
         // Create an instance of the HomePage frame
