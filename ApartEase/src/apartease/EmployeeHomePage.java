@@ -166,7 +166,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         try
             {
                 Statement stmt = connectdata();
-                ResultSet rs =   stmt.executeQuery("Select MONTH(utility_bills_building.publish_date) from utility_bills_building, building where building.address  LIKE +'"+building+"' AND utility_bills_building.id = building.id ORDER BY utility_bills_building.id DESC");
+                ResultSet rs =   stmt.executeQuery("Select MONTH(utility_bills_building.publish_date) from utility_bills_building, building where building.address  LIKE +'"+building+"' AND utility_bills_building.Building_id = building.id ORDER BY utility_bills_building.id DESC LIMIT 1");
                 rs.next();
                 int month_bill = Integer.valueOf(rs.getString(1));
                 System.out.println(month_bill);
@@ -190,7 +190,19 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         }
                 }
             } catch(Exception e) {
-                 JOptionPane.showMessageDialog(this,e);
+                 int result = JOptionPane.showConfirmDialog(this, "Do you wish to post utility bills for building with address "+building+".");
+                    if (result == 0){
+            
+                            this.dispose();
+                            UtilityBillsForm ob = new UtilityBillsForm(building);
+                            ob.setVisible(true);
+                    }
+                    else if (result == 1){
+                            JOptionPane.showMessageDialog(this,"Canceled");
+                    }
+                    else{
+                            JOptionPane.showMessageDialog(this,"Canceled");
+                    }
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 

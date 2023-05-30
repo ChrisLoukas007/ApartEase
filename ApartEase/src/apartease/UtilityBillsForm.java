@@ -235,7 +235,35 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
                 ResultSet rs =   stmt.executeQuery("Select id from building where address LIKE'"+building+"'");
                 rs.next();
                 int building_id= Integer.valueOf(rs.getString(1));
-                stmt.execute("insert into utility_bills_building(publish_date,amount,Building_id,description) values (CURDATE(),'"+utility_bills+"','"+building_id+"','"+context+"')");
+                rs =   stmt.executeQuery("Select apartments_number from building where '"+building+"' LIKE address");
+                rs.next();
+                int apartment_num = Integer.valueOf(rs.getString(1));
+                int total_space=0;
+                
+                rs =   stmt.executeQuery("Select apartment_size from apartment,building where '"+building+"' LIKE building.address AND building.id = apartment.Building_id");
+                for(int i=1; i<apartment_num+1; i++){
+                    rs.next();
+                    total_space = total_space + Integer.valueOf(rs.getString(1));
+                    
+                }
+                rs.next();
+                rs =   stmt.executeQuery("Select apartment_size,apartment.id from apartment,building where '"+building+"' LIKE building.address AND building.id = apartment.Building_id");
+                for(int i=1; i<apartment_num+1; i++){
+                    rs.next();
+                    int apartment_size=Integer.valueOf(rs.getString(1));
+                    float apartment_percentage= ((float)apartment_size/total_space);
+                    int apartment_bill=(int) (apartment_percentage*utility_bills);
+                    int apartment_id=Integer.valueOf(rs.getString(2));
+                    System.out.println(apartment_percentage);
+                    System.out.println(apartment_bill);
+                    System.out.println(apartment_id);
+                    System.out.println(apartment_size);
+                    System.out.println(total_space);
+                    System.out.println(utility_bills);
+                    
+                }  
+                //stmt.execute("insert into utility_bills_building(publish_date,amount,Building_id,description) values (CURDATE(),'"+utility_bills+"','"+building_id+"','"+context+"')");
+                
                 JOptionPane.showMessageDialog(this,"Τα κοινόχρηστα δημοσιεύθηκαν επιτυχώς!");
                 this.dispose();
                 EmployeeHomePage ob = new EmployeeHomePage();
