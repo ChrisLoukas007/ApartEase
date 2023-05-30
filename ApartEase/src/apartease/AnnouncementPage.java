@@ -15,14 +15,11 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
     /**
      * Creates new form Announcement
      */
-    public AnnouncementPage() {
-        initComponents();
-         
-           try
+    public void showAnnouncements(){
+        try
             {            
                 
-                Statement stmt = connectdata();               
-                
+                Statement stmt = connectdata();                             
                 ResultSet rs=stmt.executeQuery("Select title from announcements order by id desc");
                 rs.next();
                 String Announcement_title = rs.getString(1);
@@ -37,9 +34,36 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
             {
                 JOptionPane.showMessageDialog(this,e);
             }
+    }
+    public AnnouncementPage() {
+        initComponents();
+         
+           showAnnouncements();
         
     }
-
+    
+    public void checkRights(){
+         try
+            {               
+                Statement stmt = connectdata();                             
+                ResultSet rs=stmt.executeQuery("Select user_type from user");
+                rs.next();
+                String user_type = rs.getString(1);    
+                    if ("tenant".equals(user_type)){
+                        JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
+                    }
+                    else {
+                        this.dispose(); 
+                        AnnouncementCreatePage obj = new AnnouncementCreatePage();
+                        obj.setVisible(true); 
+                    }
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,9 +149,8 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose(); 
-        AnnouncementCreatePage obj = new AnnouncementCreatePage();
-        obj.setVisible(true); 
+        
+        checkRights();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AnnouncementTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnouncementTitleActionPerformed
