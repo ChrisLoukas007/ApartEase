@@ -28,6 +28,7 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
      */
     public UtilityBills() {
         initComponents();
+        
          try
             {
                 
@@ -48,9 +49,15 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
                 }else{
                     jLabel4.setText("Απλήρωτα");
                 }
- 
+                rs = stmt.executeQuery("select wallet from user where '"+user_id+"'=id");
+                rs.next();
+                String wallet = rs.getString(1);
+                jLabel6.setText(wallet);
             } catch(Exception e) {
-                 JOptionPane.showMessageDialog(this,e);
+                 JOptionPane.showMessageDialog(this,"Δεν υπάρχουν ακόμα κοινόχρηστα για τον τρέχον μήνα.");
+                 this.dispose();
+                 HomePage ob = new HomePage();
+                 ob.setVisible(true);
             }
     }
 
@@ -65,6 +72,9 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
 
         jPanel2 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -83,12 +93,29 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
             }
         });
 
+        jLabel5.setText("Διαθέσιμο υπόλοιπο χρήστη:");
+
+        jLabel6.setText(".");
+
+        jButton8.setText("Πίσω");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -96,8 +123,12 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setText(".");
@@ -128,28 +159,28 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(123, 123, 123)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -161,7 +192,7 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(0, 109, Short.MAX_VALUE))
+                .addGap(0, 154, Short.MAX_VALUE))
         );
 
         pack();
@@ -183,12 +214,66 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try
+            {
+                Connection con=DBConnection.getConnection();
+                Statement st=con.createStatement();
+                Statement stmt = connectdata();
+                ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                rs =   stmt.executeQuery("select utility_bills_apartment.apartment_amount, utility_bills_apartment.paid, utility_bills_apartment.id from utility_bills_apartment, apartment, user_has_apartment, utility_bills_building where '"+user_id+"'=user_has_apartment.user_id AND user_has_apartment.apartment_id=apartment.id AND apartment.id=utility_bills_apartment.apartment_id AND utility_bills_apartment.utility_bills_building_id=utility_bills_building.id AND month(curdate())=month(utility_bills_building.publish_date) ");
+                rs.next();
+                int utility_bills=Integer.valueOf(rs.getString(1));
+                String paid=rs.getString(2);
+                int bills_id = Integer.valueOf(rs.getString(3));
+                if (paid.equals("true")){
+                    JOptionPane.showMessageDialog(this,"Έχετε πληρώσει ήδη τα κοινόχρηστα για αυτόν τον μήνα.");
+                } else{
+                    rs = stmt.executeQuery("select wallet from user where '"+user_id+"'=id");
+                    rs.next();
+                    int wallet = Integer.valueOf(rs.getString(1));
+                    if (wallet<utility_bills){
+                         JOptionPane.showMessageDialog(this,"Δεν έχετε διαθέσιμο υπόλοιπο για να πραγματοποιήσετε αυτή την συναλλαγή.");
+                    } else{
+                        int result = JOptionPane.showConfirmDialog(this, "Θέλετε να πληρώσετε τα κοινόχρηστα για τον τρέχον μήνα;");
+                            if (result == 0){
+                                int new_wallet=wallet-utility_bills;
+                                stmt.execute("UPDATE utility_bills_apartment SET paid = 'true' WHERE id='"+bills_id+"'");
+                                stmt.execute("UPDATE user SET wallet = '"+new_wallet+"' WHERE id='"+user_id+"'");
+                                JOptionPane.showMessageDialog(this,"Επιτυχής Πληρωμή Κοινοχρήστων.");
+                                this.dispose();
+                                UtilityBills ob = new UtilityBills();
+                                ob.setVisible(true);
+                            }
+                            else if (result == 1){
+                                JOptionPane.showMessageDialog(this,"Canceled");
+                            }
+                            else{
+                               JOptionPane.showMessageDialog(this,"Canceled");
+                            }
+                                        }
+                }
+                
+                
+                
+            } catch(Exception e) {
+                 JOptionPane.showMessageDialog(this,e);
+                 
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+                 this.dispose();
+                 UtilityBillsRev ob = new UtilityBillsRev();
+                 ob.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+                 this.dispose();
+                 HomePage ob = new HomePage();
+                 ob.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,10 +314,13 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
