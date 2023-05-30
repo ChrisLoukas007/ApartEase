@@ -284,19 +284,7 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
                 }
                 st.close();
                 con.close();
-                /*for(int i=1; i<apartment_num+1; i++){
-                    
-                    rs.next();
-                    int apartment_size=Integer.valueOf(rs.getString(1));
-                    float apartment_percentage= ((float)apartment_size/total_space);
-                    int apartment_bill=(int) (apartment_percentage*utility_bills);
-                    rs.next();
-                    int apartment_id=Integer.valueOf(rs.getString(2));
-                    
-                    stmt.execute("insert into utility_bills_apartment(apartment_amount,apartment_id,utility_bills_building_id) values ('"+apartment_bill+"','"+apartment_id+"','"+building_bill_id+"')");
-                    
-                    
-                } */
+                
                 
                 
                 JOptionPane.showMessageDialog(this,"Τα κοινόχρηστα δημοσιεύθηκαν επιτυχώς!");
