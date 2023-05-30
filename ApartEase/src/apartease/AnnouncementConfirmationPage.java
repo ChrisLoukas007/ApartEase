@@ -100,7 +100,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
                  
                 Connection con=DBConnection.getConnection();
                 Statement stm = con.createStatement();
-                String sql="INSERT INTO announcements VALUES (2,'"+AnnounceText+"',1,'"+AnnounceChoice+"','"+AnnounceTitle+"')";
+                String sql="INSERT INTO announcements VALUES (3,'"+AnnounceText+"',1,'"+AnnounceChoice+"','"+AnnounceTitle+"')";
                 stm.executeUpdate(sql);
       
                 JOptionPane.showMessageDialog(this,"Επιτυχία");
