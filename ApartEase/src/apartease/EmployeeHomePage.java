@@ -166,9 +166,10 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         try
             {
                 Statement stmt = connectdata();
-                ResultSet rs =   stmt.executeQuery("Select MONTH(utility_bills_building.publish_date) from utility_bills_building, building where utility_bills_building.id = building.id AND building.address  LIKE +'"+building+"' ORDER BY utility_bills_building.id DESC LIMIT 1");
+                ResultSet rs =   stmt.executeQuery("Select MONTH(utility_bills_building.publish_date) from utility_bills_building, building where building.address  LIKE +'"+building+"' AND utility_bills_building.id = building.id ORDER BY utility_bills_building.id DESC");
                 rs.next();
                 int month_bill = Integer.valueOf(rs.getString(1));
+                System.out.println(month_bill);
                 if (month_bill==5){
                     
                     JOptionPane.showMessageDialog(this,"There are already posted utility bills for this building!");

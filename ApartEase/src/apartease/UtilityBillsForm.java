@@ -208,7 +208,9 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+        EmployeeHomePage ob = new EmployeeHomePage();
+        ob.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -224,7 +226,7 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
         String context = jTextField2.getText();
         
         if (context.length()>99){
-            JOptionPane.showMessageDialog(this,"Text cant be longer than 100 characters.");
+            JOptionPane.showMessageDialog(this,"Το κείμενο δεν μπορεί να είναι μεγαλύτερο από 100 χαρακτήρες.");
         } else {
             try{
                 Connection con=DBConnection.getConnection();
@@ -234,6 +236,10 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
                 rs.next();
                 int building_id= Integer.valueOf(rs.getString(1));
                 stmt.execute("insert into utility_bills_building(publish_date,amount,Building_id,description) values (CURDATE(),'"+utility_bills+"','"+building_id+"','"+context+"')");
+                JOptionPane.showMessageDialog(this,"Τα κοινόχρηστα δημοσιεύθηκαν επιτυχώς!");
+                this.dispose();
+                EmployeeHomePage ob = new EmployeeHomePage();
+                ob.setVisible(true);
             }catch(Exception e)
             {
                 JOptionPane.showMessageDialog(this,e);
