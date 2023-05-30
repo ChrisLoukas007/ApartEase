@@ -7,18 +7,11 @@ package apartease;
 import java.sql.*;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import java.sql.ResultSetMetaData;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,8 +28,16 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
 
         // Retrieve and display service names in the JList
         try {
-            Statement stmt = connectdata();
-            ResultSet rs = stmt.executeQuery("SELECT name FROM service");
+            displayServiceNames();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayServiceNames() {
+        try {
+            Statement statement = connectdata();
+            ResultSet rs = statement.executeQuery("SELECT name FROM service");
 
             DefaultListModel<String> model = new DefaultListModel<>();
             while (rs.next()) {
@@ -48,6 +49,9 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
             rs.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Failed to retrieve service names from the database.");
+            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(PageServices.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -109,7 +113,7 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
