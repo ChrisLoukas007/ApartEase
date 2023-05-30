@@ -41,7 +41,29 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
            showAnnouncements();
         
     }
-
+    
+    public void checkRights(){
+         try
+            {               
+                Statement stmt = connectdata();                             
+                ResultSet rs=stmt.executeQuery("Select user_type from user");
+                rs.next();
+                String user_type = rs.getString(1);    
+                    if ("tenant".equals(user_type)){
+                        JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
+                    }
+                    else {
+                        this.dispose(); 
+                        AnnouncementCreatePage obj = new AnnouncementCreatePage();
+                        obj.setVisible(true); 
+                    }
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -128,10 +150,7 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        
-        this.dispose(); 
-        AnnouncementCreatePage obj = new AnnouncementCreatePage();
-        obj.setVisible(true); 
+        checkRights();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void AnnouncementTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnouncementTitleActionPerformed

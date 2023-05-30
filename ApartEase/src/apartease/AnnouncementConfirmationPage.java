@@ -98,7 +98,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
             {                            
                 Connection con=DBConnection.getConnection();
                 Statement stm = con.createStatement();
-                String sql="INSERT INTO announcements VALUES (2,'"+AnnounceText+"',1,'"+AnnounceTitle+"','"+AnnounceChoice+"')";
+                String sql="INSERT INTO announcements VALUES (2,'"+AnnounceText+"',2,'"+AnnounceTitle+"','"+AnnounceChoice+"')";
                 stm.executeUpdate(sql);
       
                 JOptionPane.showMessageDialog(this,"Επιτυχία");
