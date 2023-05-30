@@ -108,9 +108,20 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
-        ServiceRatingPage pageRateService = new ServiceRatingPage();
-        pageRateService.setVisible(true);
-        this.dispose();
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stm = con.createStatement();
+            String sql = "INSERT INTO review (service_id, description, rating, review_number) VALUES (2, '" + ReviewText + "'," + ReviewNum + ")";
+            stm.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(this, "Επιτυχία");
+            PageServices pageService = new PageServices();
+            pageService.setVisible(true);
+            this.dispose();
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
     }//GEN-LAST:event_showPageService
 
     /**

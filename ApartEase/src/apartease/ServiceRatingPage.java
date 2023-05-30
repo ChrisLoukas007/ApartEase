@@ -33,7 +33,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
     public ServiceRatingPage() {
         initComponents();
         Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
-      
+
     }
 
     /**
@@ -129,7 +129,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
     }// </editor-fold>//GEN-END:initComponents
 
     private void showServiceConfirmPage() {
-//        JOptionPane.showMessageDialog(this, "Your evaluation was submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+//      JOptionPane.showMessageDialog(this, "Your evaluation was submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
         ServiceConfirmPage confirmPage = new ServiceConfirmPage();
         confirmPage.setVisible(true);
         this.dispose();
@@ -164,6 +164,14 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
             showServiceErrorPage();
         }
     }
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {
+        int rating = Integer.parseInt(jTextField1.getText());
+        ServiceConfirmPage confirmPage = new ServiceConfirmPage(jTextArea1.getText(), reviewNumber, rating);
+        confirmPage.setVisible(true);
+        this.dispose();
+    }
+
 
     private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
         limitCheck();

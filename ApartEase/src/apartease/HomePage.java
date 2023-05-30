@@ -58,7 +58,7 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         jButton3.setText("Calendar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                showCallendarPage(evt);
             }
         });
 
@@ -72,14 +72,14 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         jButton5.setText("Polls");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                showPollsPage(evt);
             }
         });
 
         jButton6.setText("Messages");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                showMessagePage(evt);
             }
         });
 
@@ -175,9 +175,9 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void showCallendarPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCallendarPage
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_showCallendarPage
 
     private void showPageServices(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageServices
         // Navigate to PageServices frame
@@ -186,11 +186,11 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         this.dispose();
     }//GEN-LAST:event_showPageServices
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void showPollsPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPollsPage
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_showPollsPage
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void showMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMessagePage
        // Create an instance of the MessagePge frame
         MessagePage messagePage = new MessagePage();
 
@@ -199,7 +199,7 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
 
         // Close the current messagePage frame
         dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_showMessagePage
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try
