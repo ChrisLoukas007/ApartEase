@@ -85,14 +85,14 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton7.setText("Logout");
+        jButton7.setText("Αποσύνδεση");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("View Profile");
+        jButton8.setText("Προφίλ");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
