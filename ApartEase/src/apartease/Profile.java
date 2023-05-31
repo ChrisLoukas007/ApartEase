@@ -112,14 +112,14 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
             }
         });
 
-        jButton6.setText("Save");
+        jButton6.setText("Αποθήκευση");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("Insert Value");
+        jTextField1.setText("Πληκτρολογείστε..");
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -175,13 +175,9 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                                 .addGap(272, 272, 272)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField1)
-                                    .addComponent(jComboBox2, 0, 115, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)))))
+                                    .addComponent(jComboBox2, 0, 115, Short.MAX_VALUE)
+                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton6)
-                .addGap(331, 331, 331))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -198,9 +194,9 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                         .addGap(28, 28, 28)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6)
-                .addGap(0, 101, Short.MAX_VALUE))
+                .addGap(0, 100, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,8 +223,10 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                         int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
                             if (result == 0){
                                 stmt.executeUpdate("update user set name='"+new_value+"' where id='"+user_id+"'");
-                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το όνομα σας σε "+new_value+"!");}
-                            
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το όνομα σας σε "+new_value+"!");
+                                this.dispose();
+                                Profile ob = new Profile();
+                                ob.setVisible(true);}
                             else if (result == 1){
                                 JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
                             }
@@ -245,7 +243,10 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                         int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
                             if (result == 0){
                                 stmt.executeUpdate("update user set surname='"+new_value+"' where id='"+user_id+"'");
-                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το επώνυμο σας σε "+new_value+"!");}
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το επώνυμο σας σε "+new_value+"!");
+                                this.dispose();
+                                Profile ob = new Profile();
+                                ob.setVisible(true);}
                             
                             else if (result == 1){
                                 JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
@@ -263,7 +264,10 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                         int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
                             if (result == 0){
                                 stmt.executeUpdate("update user set email='"+new_value+"' where id='"+user_id+"'");
-                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το E-mail σας σε "+new_value+"!");}
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το E-mail σας σε "+new_value+"!");
+                                this.dispose();
+                                Profile ob = new Profile();
+                                ob.setVisible(true);}
                             
                             else if (result == 1){
                                 JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
@@ -281,7 +285,10 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                         int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
                             if (result == 0){
                                 stmt.executeUpdate("update user set description='"+new_value+"' where id='"+user_id+"'");
-                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς την περιγραφή σας σε "+new_value+"!");}
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς την περιγραφή σας σε "+new_value+"!");
+                                this.dispose();
+                                Profile ob = new Profile();
+                                ob.setVisible(true);}
                             
                             else if (result == 1){
                                 JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
@@ -347,13 +354,13 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Customer_Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Customer_Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Customer_Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Customer_Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Profile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
