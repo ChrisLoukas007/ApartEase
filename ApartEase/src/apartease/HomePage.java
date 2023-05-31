@@ -48,35 +48,35 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
             }
         });
 
-        jButton2.setText("Announcements");
+        jButton2.setText("Ανακοινώσεις");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Calendar");
+        jButton3.setText("Συμβάντα");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showCallendarPage(evt);
+                showEventsPage(evt);
             }
         });
 
-        jButton4.setText("Services");
+        jButton4.setText("Υπηρεσίες");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showPageServices(evt);
             }
         });
 
-        jButton5.setText("Polls");
+        jButton5.setText("Δημοσκοπήσεις");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showPollsPage(evt);
             }
         });
 
-        jButton6.setText("Messages");
+        jButton6.setText("Μηνύματα");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showMessagePage(evt);
@@ -175,9 +175,12 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void showCallendarPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showCallendarPage
-        // TODO add your handling code here:
-    }//GEN-LAST:event_showCallendarPage
+    private void showEventsPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showEventsPage
+        this.dispose();
+        EventsPage ob = new EventsPage();
+        ob.setVisible(true);
+        
+    }//GEN-LAST:event_showEventsPage
 
     private void showPageServices(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageServices
         // Navigate to PageServices frame
