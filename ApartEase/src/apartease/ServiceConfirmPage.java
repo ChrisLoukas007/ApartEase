@@ -4,27 +4,38 @@
  */
 package apartease;
 
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
+import apartease.DBConnection;
 import javax.swing.JOptionPane;
-import java.sql.*;
-
 /**
  *
  * @author DELL
  */
 public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnection {
 
-    public String ReviewText;
-    public int ReviewNum;
+    private String ratingValue;
+    private String descriptionValue;
+    private int serviceId;
+    private int userId;
 
     /**
      * Creates new form ServiceConfirmPage
      */
-    public ServiceConfirmPage(String text, int numRev) {
+    public ServiceConfirmPage(String ratingValue, String descriptionValue) {
         initComponents();
-        ReviewText = text;
-        ReviewNum = numRev;
+        this.ratingValue = ratingValue;
+        this.descriptionValue = descriptionValue;
+    }
+
+    // Add a new constructor that takes serviceId and userId as parameters
+    public ServiceConfirmPage(int serviceId, int userId, String ratingValue, String descriptionValue) {
+        initComponents();
+        this.serviceId = serviceId;
+        this.userId = userId;
+        this.ratingValue = ratingValue;
+        this.descriptionValue = descriptionValue;
+        jTextField1.setText(ratingValue);
+        jTextArea1.setText(descriptionValue);
     }
 
     /**
@@ -109,16 +120,13 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
 
     private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
         try {
-            Connection con = DBConnection.getConnection();
-            Statement stm = con.createStatement();
-            String sql = "INSERT INTO review (service_id, description, rating, review_number) VALUES (2, '" + ReviewText + "'," + ReviewNum + ")";
-            stm.executeUpdate(sql);
-
-            JOptionPane.showMessageDialog(this, "Επιτυχία");
-            PageServices pageService = new PageServices();
-            pageService.setVisible(true);
-            this.dispose();
-            con.close();
+            String sql = "INSERT INTO review (id, rating, description, service_id, user_id) VALUES (NULL, ?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, ratingValue);
+            pstmt.setString(2, descriptionValue);
+            pstmt.setInt(3, serviceId);
+            pstmt.setInt(4, userId);
+            pstmt.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
