@@ -4,9 +4,15 @@
  */
 package apartease;
 
-import java.sql.PreparedStatement;
 import apartease.DBConnection;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,29 +22,21 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
 
     private String ratingValue;
     private String descriptionValue;
-    private int serviceId;
-    private int userId;
+    
 
     /**
      * Creates new form ServiceConfirmPage
      */
-    public ServiceConfirmPage(String ratingValue, String descriptionValue) {
+    public ServiceConfirmPage() {
         initComponents();
-        this.ratingValue = ratingValue;
-        this.descriptionValue = descriptionValue;
     }
 
     // Add a new constructor that takes serviceId and userId as parameters
-    public ServiceConfirmPage(String ratingValue, String descriptionValue, int serviceId, int userId) {
+    public ServiceConfirmPage(String ratingValue, String descriptionValue) {
         initComponents();
-        this.serviceId = serviceId;
-        this.userId = userId;
-        this.ratingValue = ratingValue;
-        this.descriptionValue = descriptionValue;
-        jTextField1.setText(ratingValue);
-        jTextArea1.setText(descriptionValue);
+        ratingValue = ratingValue;
+        ratingValue = descriptionValue;
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,34 +114,29 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
-        try {
-            // Get the rating and description values from ServiceRatingPage
-            String ratingValue = this.ratingValue;
-            String descriptionValue = this.descriptionValue;
+        try
+            {   
+                Statement stmt = connectdata();
+                ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                Connection con=DBConnection.getConnection();
+                Statement stm = con.createStatement();
+                String sql="INSERT INTO review VALUES (user_id'"+ratingValue+"','"+descriptionValue+"',1,1)";
+                stm.executeUpdate(sql);
+      
+                JOptionPane.showMessageDialog(this,"Επιτυχία");
+                PageServices pageService = new PageServices();
+                pageService.setVisible(true);
+                this.dispose();
+                con.close();
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
 
-            // Insert the values into the 'review' table
-            String sql = "INSERT INTO review (rating, description, service_id, user_id) VALUES (?, ?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(sql);
-
-            pstmt.setString(1, ratingValue);
-            pstmt.setString(2, descriptionValue);
-            pstmt.setInt(3, serviceId);
-            pstmt.setInt(4, userId);
-            pstmt.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Review added successfully!");
-
-            // Reset the rating and description values
-            this.ratingValue = null;
-            this.descriptionValue = null;
-
-            // Go back to the service page
-            PageServices pageService = new PageServices();
-            pageService.setVisible(true);
-            this.dispose();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }
     }//GEN-LAST:event_showPageService
 
     /**
