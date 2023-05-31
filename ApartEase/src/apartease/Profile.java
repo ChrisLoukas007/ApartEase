@@ -21,6 +21,51 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
      */
     public Profile() {
         initComponents();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        try
+        {
+            
+            Connection con=DBConnection.getConnection();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("Select user_id from LOGIN_STATUS where id = 1");
+
+            rs.next();
+            int user_id = Integer.valueOf(rs.getString(1));
+            rs=st.executeQuery("select user.id AS 'ID',user.name AS 'Name',user.surname AS 'Surname',user.email AS 'E-mail',user.user_type AS 'Type',user.birth_date AS 'Birth Date',user.description AS 'Description',user.wallet AS 'wallet',building.address AS 'Address',apartment.number AS 'Number' ,apartment.floor AS 'Floor' from user,user_has_apartment,apartment,building where user.id='"+user_id+"' AND user.id=user_has_apartment.user_id AND user_has_apartment.apartment_id=apartment.id AND apartment.Building_id=building.id");
+            ResultSetMetaData rsmd=rs.getMetaData();
+
+            int cols=rsmd.getColumnCount();
+            String[] colName= new String[cols];
+            for (int i=0;i<cols;i++)
+            colName[i]=rsmd.getColumnName(i+1);
+            model.setColumnIdentifiers(colName);
+            String no,f_name,l_name,email,u_type,date,description,wallet,address,apart_num,apart_floor;
+            while(rs.next()){
+                no=rs.getString(1);
+                f_name=rs.getString(2);
+                l_name=rs.getString(3);
+                email=rs.getString(4);
+                u_type=rs.getString(5);
+                date=rs.getString(6);
+                description=rs.getString(7);
+                wallet=rs.getString(8);
+                address=rs.getString(9);
+                apart_num=rs.getString(10);
+                apart_floor=rs.getString(11);
+                
+                String[] row={no,f_name,l_name,email,u_type, date, description,wallet,address,apart_num,apart_floor};
+                model.addRow(row);
+            }
+            st.close();
+            con.close();
+
+        }
+
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this,e);
+        }
     }
 
     /**
@@ -35,9 +80,6 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton6 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
@@ -61,30 +103,9 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
         jScrollPane3.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("ACCOUNT DETAILS TABLE");
+        jLabel1.setText("Πληροφορίες Λογαριασμού");
 
-        jButton4.setText("View Account Info");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Movies", "Series", "Movies and Series"}));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Save");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "First Name", "Last Name", "Address","District","Postal Code","Phone Number","City","Country"}));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Όνομα", "Επώνυμο", "E-mail","Περιγραφή"}));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -102,14 +123,14 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton7.setText("Logout");
+        jButton7.setText("Αποσύνδεση");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Main Menu");
+        jButton8.setText("Πίσω");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -148,20 +169,14 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addGap(146, 146, 146)
+                                .addGap(272, 272, 272)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextField1)
                                     .addComponent(jComboBox2, 0, 115, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButton5)
-                                        .addGap(18, 18, 18)))))))
+                                .addGap(18, 18, 18)))))
                 .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -180,124 +195,16 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(jButton6)
-                .addGap(0, 294, Short.MAX_VALUE))
+                .addGap(0, 101, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-         model.setRowCount(0);
-        try
-            {
-                
-                
-                Connection con=DBConnection.getConnection();
-                Statement st=con.createStatement();
-                ResultSet rs=st.executeQuery("Select user_id from login_status where Login_Status_id=1");
-                
-                rs.next();
-                int user_id = Integer.valueOf(rs.getString(1));
-                rs=st.executeQuery("select user.id,user.first_name,user.last_name,user.email,user.create_date,user.user_type,user.discount,address.address,address.district,address.postal_code,address.phone,city.city,country.country from user, address,city,country where user.id='"+user_id+"' AND user.address_id=address.id AND address.city_id=city.id AND city.country_id=country.id");
-                ResultSetMetaData rsmd=rs.getMetaData();
-                
-                
-                int cols=rsmd.getColumnCount();
-                String[] colName= new String[cols];
-                for (int i=0;i<cols;i++)
-                    colName[i]=rsmd.getColumnName(i+1);
-                model.setColumnIdentifiers(colName);
-                String no,f_name,l_name,email,date,type,discount,address,district,postal,phone,city,country;
-                while(rs.next()){
-                    no=rs.getString(1);
-                    f_name=rs.getString(2);
-                    l_name=rs.getString(3);
-                    email=rs.getString(4);
-                    date=rs.getString(5);
-                    type=rs.getString(6);
-                    discount=rs.getString(7);
-                    address=rs.getString(8);
-                    district=rs.getString(9);
-                    postal=rs.getString(10);
-                    phone=rs.getString(11);
-                    city=rs.getString(12);
-                    country=rs.getString(13);
-                    String[] row={no,f_name,l_name,email,date,type,discount,address,district,postal,phone,city,country};
-                    model.addRow(row);
-                }
-                st.close();
-                con.close();
-                    
-                
-            }
-            
-            
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
-     
-    
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        try
-            {
-                
-                
-                Connection con=DBConnection.getConnection();
-                Statement st=con.createStatement();
-                ResultSet rs=st.executeQuery("Select user_id from login_status where Login_Status_id=1");
-                rs.next();
-                int user_id = Integer.valueOf(rs.getString(1));
-                rs=st.executeQuery("Select plan_type from login_status where Login_Status_id=1");
-                rs.next();
-                int newplan1=0;
-                int oldplan = Integer.valueOf(rs.getString(1));
-                String newplan=jComboBox1.getSelectedItem().toString();
-                if(newplan.equals("Movies")){
-                    newplan1=1;
-                }else if(newplan.equals("Series")){
-                    newplan1=2;
-                }else if(newplan.equals("Movies and Series")){
-                    newplan1=3;
-                }
-                if (newplan1==oldplan){
-                    JOptionPane.showMessageDialog(this,"Your selected plan type must not match with your current plan type!");
-                } else {
-                    Statement stmt = connectdata();
-                    stmt.executeUpdate("update plan set plan_type_id='"+newplan1+"' where user_id='"+user_id+"'");
-                    stmt.executeUpdate("update login_status set plan_type='"+newplan1+"' where user_id='"+user_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your plan type to "+newplan+"!");
-                }
-                
-                
-                    
-                
-            }
-            
-            
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
@@ -310,69 +217,82 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                 String new_value=jTextField1.getText();
                 Connection con=DBConnection.getConnection();
                 Statement st=con.createStatement();
-                ResultSet rs=st.executeQuery("Select user_id from login_status where Login_Status_id=1");
+                ResultSet rs=st.executeQuery("Select user_id from login_status where id=1");
                 rs.next();
                 int user_id = Integer.valueOf(rs.getString(1));
                 String column=jComboBox2.getSelectedItem().toString();
-                if(column.equals("First Name")){
+                if(column.equals("Όνομα")){
                     Statement stmt = connectdata();
-                    stmt.executeUpdate("update user set first_name='"+new_value+"' where id='"+user_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your first name to "+new_value+"!");
-                }else if(column.equals("Last Name")){
+                    if (new_value.length()<45){
+                        int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
+                            if (result == 0){
+                                stmt.executeUpdate("update user set name='"+new_value+"' where id='"+user_id+"'");
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το όνομα σας σε "+new_value+"!");}
+                            
+                            else if (result == 1){
+                                JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                            else{
+                               JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,"Το όριο χαρακτήρων είναι 45. Προσπαθήστε ξανά!");
+                    }
+                }else if(column.equals("Επώνυμο")){
                     Statement stmt = connectdata();
-                    stmt.executeUpdate("update user set last_name='"+new_value+"' where id='"+user_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your last name to "+new_value+"!");
-                }else if(column.equals("Address")){
-                    rs=st.executeQuery("Select address_id from user where id='"+user_id+"'");
-                    rs.next();
-                    int address_id=Integer.valueOf(rs.getString(1));
+                    if (new_value.length()<45){
+                        int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
+                            if (result == 0){
+                                stmt.executeUpdate("update user set surname='"+new_value+"' where id='"+user_id+"'");
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το επώνυμο σας σε "+new_value+"!");}
+                            
+                            else if (result == 1){
+                                JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                            else{
+                               JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,"Το όριο χαρακτήρων είναι 45. Προσπαθήστε ξανά!");
+                    }
+                }else if(column.equals("E-mail")){
                     Statement stmt = connectdata();
-                    stmt.executeUpdate("update address set address='"+new_value+"' where id='"+address_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your address to "+new_value+"!");
-                }else if(column.equals("District")){
-                    rs=st.executeQuery("Select address_id from user where id='"+user_id+"'");
-                    rs.next();
-                    int address_id=Integer.valueOf(rs.getString(1));
+                    if (new_value.length()<45){
+                        int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
+                            if (result == 0){
+                                stmt.executeUpdate("update user set email='"+new_value+"' where id='"+user_id+"'");
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς το E-mail σας σε "+new_value+"!");}
+                            
+                            else if (result == 1){
+                                JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                            else{
+                               JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,"Το όριο χαρακτήρων είναι 45. Προσπαθήστε ξανά!");
+                    }
+                }else if(column.equals("Περιγραφή")){
                     Statement stmt = connectdata();
-                    stmt.executeUpdate("update address set district='"+new_value+"' where id='"+address_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your district to "+new_value+"!");
-                }else if(column.equals("Postal Code")){
-                    rs=st.executeQuery("Select address_id from user where id='"+user_id+"'");
-                    rs.next();
-                    int address_id=Integer.valueOf(rs.getString(1));
-                    Statement stmt = connectdata();
-                    stmt.executeUpdate("update address set postal_code='"+new_value+"' where id='"+address_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your postal code to "+new_value+"!");
-                }else if(column.equals("Phone Number")){
-                    rs=st.executeQuery("Select address_id from user where id='"+user_id+"'");
-                    rs.next();
-                    int address_id=Integer.valueOf(rs.getString(1));
-                    Statement stmt = connectdata();
-                    stmt.executeUpdate("update address set phone='"+new_value+"' where id='"+address_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your phone number to "+new_value+"!");
-                }else if(column.equals("City")){
-                    rs=st.executeQuery("Select address_id from user where id='"+user_id+"'");
-                    rs.next();
-                    int address_id=Integer.valueOf(rs.getString(1));
-                    rs=st.executeQuery("Select city_id from address where id='"+address_id+"'");
-                    rs.next();
-                    int city_id=Integer.valueOf(rs.getString(1));
-                    Statement stmt = connectdata();
-                    stmt.executeUpdate("update city set city='"+new_value+"' where id='"+city_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your city to "+new_value+"!");
-                }else if(column.equals("Country")){
-                    rs=st.executeQuery("Select address_id from user where id='"+user_id+"'");
-                    rs.next();
-                    int address_id=Integer.valueOf(rs.getString(1));
-                    rs=st.executeQuery("Select city_id from address where id='"+address_id+"'");
-                    rs.next();
-                    int city_id=Integer.valueOf(rs.getString(1));
-                    rs=st.executeQuery("Select country_id from city where id='"+city_id+"'");
-                    rs.next();
-                    int country_id=Integer.valueOf(rs.getString(1));
-                    Statement stmt = connectdata();
-                    stmt.executeUpdate("update country set country='"+new_value+"' where id='"+country_id+"'");
-                    JOptionPane.showMessageDialog(this,"You have succesfully changed your country to "+new_value+"!");
+                    if (new_value.length()<100){
+                        int result = JOptionPane.showConfirmDialog(this, "Θέλετε σίγουρα να πραγματοποιήσετε αυτή την αλλαγή;");
+                            if (result == 0){
+                                stmt.executeUpdate("update user set description='"+new_value+"' where id='"+user_id+"'");
+                                JOptionPane.showMessageDialog(this,"Αλλάξατε επιτυχώς την περιγραφή σας σε "+new_value+"!");}
+                            
+                            else if (result == 1){
+                                JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                            else{
+                               JOptionPane.showMessageDialog(this,"Ακύρωση ενέργειας");
+                            }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this,"Το όριο χαρακτήρων είναι 45. Προσπαθήστε ξανά!");
+                    }
                 }
                 
                 
@@ -393,7 +313,7 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
         try
         {
             Statement stmt = connectdata();
-            stmt.execute("delete from LOGIN_STATUS where login_status_id = 1");
+            stmt.execute("delete from LOGIN_STATUS where id = 1");
         }
         catch(Exception e)
         {
@@ -441,18 +361,15 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Customer_Account().setVisible(true);
+                new Profile().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
