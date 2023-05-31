@@ -7,6 +7,7 @@ package apartease;
 import java.sql.PreparedStatement;
 import apartease.DBConnection;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
@@ -28,7 +29,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
     }
 
     // Add a new constructor that takes serviceId and userId as parameters
-    public ServiceConfirmPage(int serviceId, int userId, String ratingValue, String descriptionValue) {
+    public ServiceConfirmPage(String ratingValue, String descriptionValue, int serviceId, int userId) {
         initComponents();
         this.serviceId = serviceId;
         this.userId = userId;
@@ -48,20 +49,14 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Επιβεβαιώση ");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Αν είστε σίγουροι για την αξιολόγηση σας και επιθυμείτε να ανέβει πατήστε Επιβεβαίωση ,\nαλλιώς αν θέλετε να την επεξεργαστείτε περαιτέρω πατήσητε Πίσω");
-        jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Πίσω");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -77,12 +72,14 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
             }
         });
 
+        jLabel2.setText("Αν είστε σίγουροι γαι την αξιολόγηση σας και θέλετε να ανέβει πατήστε 'Επιβεβαίωση' , αλλιώς 'Πίσω'");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(290, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(284, 284, 284))
             .addGroup(layout.createSequentialGroup()
@@ -92,8 +89,8 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,8 +98,8 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -120,15 +117,32 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
 
     private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
         try {
-            String sql = "INSERT INTO review (id, rating, description, service_id, user_id) VALUES (NULL, ?, ?, ?, ?)";
+            // Get the rating and description values from ServiceRatingPage
+            String ratingValue = this.ratingValue;
+            String descriptionValue = this.descriptionValue;
+
+            // Insert the values into the 'review' table
+            String sql = "INSERT INTO review (rating, description, service_id, user_id) VALUES (?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
+
             pstmt.setString(1, ratingValue);
             pstmt.setString(2, descriptionValue);
             pstmt.setInt(3, serviceId);
             pstmt.setInt(4, userId);
             pstmt.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e);
+
+            JOptionPane.showMessageDialog(this, "Review added successfully!");
+
+            // Reset the rating and description values
+            this.ratingValue = null;
+            this.descriptionValue = null;
+
+            // Go back to the service page
+            PageServices pageService = new PageServices();
+            pageService.setVisible(true);
+            this.dispose();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_showPageService
 
@@ -171,7 +185,6 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
