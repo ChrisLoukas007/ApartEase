@@ -92,9 +92,6 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(332, 332, 332)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -102,15 +99,18 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
                                 .addComponent(jScrollPane1))
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(357, 357, 357)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,7 +130,10 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
 
     private void showServiceConfirmPage() {
 //      JOptionPane.showMessageDialog(this, "Your evaluation was submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-        ServiceConfirmPage confirmPage = new ServiceConfirmPage();
+        String ratingValue = jTextField1.getText(); // Get the rating value from jTextField1
+        String descriptionValue = jTextArea1.getText();
+        
+        ServiceConfirmPage confirmPage = new ServiceConfirmPage(ratingValue, descriptionValue);
         confirmPage.setVisible(true);
         this.dispose();
     }
@@ -144,7 +147,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
 
     private void limitCheck() {
         String text = jTextArea1.getText();
-        int wordCount = text.split("\\s+").length;
+        int wordCount = text.trim().split("\\s+").length;
 
         String ratingText = jTextField1.getText();
         int rating = -1;
@@ -158,18 +161,11 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
             isRatingValid = false;
         }
 
-        if (wordCount > 2 && wordCount < 50 && isRatingValid) {
+        if (wordCount >= 2 && wordCount <= 50 && isRatingValid) {
             showServiceConfirmPage();
         } else {
             showServiceErrorPage();
         }
-    }
-
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {
-        int rating = Integer.parseInt(jTextField1.getText());
-        ServiceConfirmPage confirmPage = new ServiceConfirmPage(jTextArea1.getText(), reviewNumber, rating);
-        confirmPage.setVisible(true);
-        this.dispose();
     }
 
 

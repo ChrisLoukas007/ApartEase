@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="290" max="32767" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="89" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="284" max="-2" attributes="0"/>
           </Group>
@@ -36,9 +36,9 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="565" max="-2" attributes="0"/>
+                  <Component id="jLabel2" pref="565" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,8 +48,8 @@
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="28" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="54" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" pref="65" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -66,22 +66,6 @@
         <Property name="text" type="java.lang.String" value="&#x395;&#x3c0;&#x3b9;&#x3b2;&#x3b5;&#x3b2;&#x3b1;&#x3b9;&#x3ce;&#x3c3;&#x3b7; "/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="&#x391;&#x3bd; &#x3b5;&#x3af;&#x3c3;&#x3c4;&#x3b5; &#x3c3;&#x3af;&#x3b3;&#x3bf;&#x3c5;&#x3c1;&#x3bf;&#x3b9; &#x3b3;&#x3b9;&#x3b1; &#x3c4;&#x3b7;&#x3bd; &#x3b1;&#x3be;&#x3b9;&#x3bf;&#x3bb;&#x3cc;&#x3b3;&#x3b7;&#x3c3;&#x3b7; &#x3c3;&#x3b1;&#x3c2; &#x3ba;&#x3b1;&#x3b9; &#x3b5;&#x3c0;&#x3b9;&#x3b8;&#x3c5;&#x3bc;&#x3b5;&#x3af;&#x3c4;&#x3b5; &#x3bd;&#x3b1; &#x3b1;&#x3bd;&#x3ad;&#x3b2;&#x3b5;&#x3b9; &#x3c0;&#x3b1;&#x3c4;&#x3ae;&#x3c3;&#x3c4;&#x3b5; &#x395;&#x3c0;&#x3b9;&#x3b2;&#x3b5;&#x3b2;&#x3b1;&#x3af;&#x3c9;&#x3c3;&#x3b7; ,&#xa;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3ce;&#x3c2; &#x3b1;&#x3bd; &#x3b8;&#x3ad;&#x3bb;&#x3b5;&#x3c4;&#x3b5; &#x3bd;&#x3b1; &#x3c4;&#x3b7;&#x3bd; &#x3b5;&#x3c0;&#x3b5;&#x3be;&#x3b5;&#x3c1;&#x3b3;&#x3b1;&#x3c3;&#x3c4;&#x3b5;&#x3af;&#x3c4;&#x3b5; &#x3c0;&#x3b5;&#x3c1;&#x3b1;&#x3b9;&#x3c4;&#x3ad;&#x3c1;&#x3c9; &#x3c0;&#x3b1;&#x3c4;&#x3ae;&#x3c3;&#x3b7;&#x3c4;&#x3b5; &#x3a0;&#x3af;&#x3c3;&#x3c9;"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x3a0;&#x3af;&#x3c3;&#x3c9;"/>
@@ -97,6 +81,11 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showPageService"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x391;&#x3bd; &#x3b5;&#x3af;&#x3c3;&#x3c4;&#x3b5; &#x3c3;&#x3af;&#x3b3;&#x3bf;&#x3c5;&#x3c1;&#x3bf;&#x3b9; &#x3b3;&#x3b1;&#x3b9; &#x3c4;&#x3b7;&#x3bd; &#x3b1;&#x3be;&#x3b9;&#x3bf;&#x3bb;&#x3cc;&#x3b3;&#x3b7;&#x3c3;&#x3b7; &#x3c3;&#x3b1;&#x3c2; &#x3ba;&#x3b1;&#x3b9; &#x3b8;&#x3ad;&#x3bb;&#x3b5;&#x3c4;&#x3b5; &#x3bd;&#x3b1; &#x3b1;&#x3bd;&#x3ad;&#x3b2;&#x3b5;&#x3b9; &#x3c0;&#x3b1;&#x3c4;&#x3ae;&#x3c3;&#x3c4;&#x3b5; &apos;&#x395;&#x3c0;&#x3b9;&#x3b2;&#x3b5;&#x3b2;&#x3b1;&#x3af;&#x3c9;&#x3c3;&#x3b7;&apos; , &#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3ce;&#x3c2; &apos;&#x3a0;&#x3af;&#x3c3;&#x3c9;&apos;"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
