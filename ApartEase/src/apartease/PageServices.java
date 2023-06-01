@@ -46,7 +46,6 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
             }
             jList1.setModel(model);
 
-            
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Failed to retrieve service names from the database.");
             e.printStackTrace();
