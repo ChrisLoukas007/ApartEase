@@ -13,10 +13,14 @@ public class PollAnswerPage extends javax.swing.JFrame {
     /**
      * Creates new form PollAnswerPage
      */
+    public String pollQuestion;
     public PollAnswerPage() {
         initComponents();
     }
-
+    public PollAnswerPage(String question) {
+        initComponents();
+        pollQuestion = question;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
