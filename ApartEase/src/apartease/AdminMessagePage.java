@@ -149,7 +149,9 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
             int user_id = getUserId();
             String receiver_email = getReceiverEmail();
 
-            PreparedStatement statement = connection.prepareStatement(sql);
+            Connection con = DBConnection.getConnection();
+            PreparedStatement statement = con.prepareStatement(sql);
+
             statement.setString(1, messageText);
             statement.setObject(2, LocalDateTime.now());
             statement.setInt(3, user_id);
@@ -177,6 +179,35 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
             rs.next();
             return rs.getString("email");
+        }
+    }
+
+    private void loadMessages() {
+        String sql = "SELECT content FROM table WHERE user_id = ? "
+                + "UNION "
+                + "SELECT content FROM message WHERE receiver_email = ? "
+                + "ORDER BY sent_date DESC";
+
+        try {
+            Connection connection = DBConnection.getConnection();
+            int user_id = getUserId();
+            String receiver_email = getReceiverEmail();
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, user_id);
+            statement.setString(2, receiver_email);
+
+            ResultSet rs = statement.executeQuery();
+
+            StringBuilder sb = new StringBuilder();
+            while (rs.next()) {
+                String content = rs.getString("content");
+                sb.append(content).append("\n");
+            }
+
+            jTextArea1.setText(sb.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
