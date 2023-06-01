@@ -181,7 +181,6 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
 
     private void retChosenServicePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retChosenServicePage
         // Navigate to ChosenServicePage frame
-        String selectedValue = "";
         ChosenServicePage pageChosenService = new ChosenServicePage(selectedValue); //CHECK THIS AFTER LOAD THE MYSQL DB!!
         pageChosenService.setVisible(true);
         this.dispose();
