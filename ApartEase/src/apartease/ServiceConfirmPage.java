@@ -35,7 +35,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
         initComponents();
         this.ratingValue = ratingValue;
         this.descriptionValue = descriptionValue;
-        this.selectedValue = selectedValue;
+            this.selectedValue = selectedValue;
     }
 
     /**
@@ -127,7 +127,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
             ResultSet rrs = stm.executeQuery("SELECT id FROM service WHERE name = '" + selectedValue + "'");
             rrs.next();
             int service_id = rrs.getInt(1);
-
+            
             String sql = "INSERT INTO review(rating, description , service_id, user_id) VALUES ('" + ratingValue + "','" + descriptionValue + "','" + service_id + "','" + user_id + "')";
             stm.executeUpdate(sql);
 

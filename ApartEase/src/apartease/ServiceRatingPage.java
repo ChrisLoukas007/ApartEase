@@ -36,6 +36,8 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         this.selectedValue = selectedValue; // Assign the parameter value to the field
         initComponents();
         Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
+
+        jLabel1.setText(selectedValue);
     }
 
     /**
@@ -136,7 +138,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showServiceConfirmPage(String ratingValue, String descriptionValue) {
+    private void showServiceConfirmPage(String ratingValue, String descriptionValue, String selectedValue) {
         ServiceConfirmPage confirmPage = new ServiceConfirmPage(ratingValue, descriptionValue, selectedValue);
         confirmPage.setVisible(true);
         this.dispose();
@@ -150,9 +152,9 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
     }
 
     private void limitCheck() {
-        String descriptionValue = jTextArea1.getText();        
+        String descriptionValue = jTextArea1.getText();
         int wordCount = descriptionValue.trim().split("\\s+").length;
-        
+
         String ratingValue = jTextField1.getText();
         int rating = -1;
         boolean isRatingValid = false;
@@ -166,7 +168,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         }
 
         if (wordCount >= 2 && wordCount <= 50 && isRatingValid) {
-            showServiceConfirmPage(ratingValue, descriptionValue);
+            showServiceConfirmPage(ratingValue, descriptionValue,selectedValue);
         } else {
             showServiceErrorPage();
         }
@@ -240,4 +242,5 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }
