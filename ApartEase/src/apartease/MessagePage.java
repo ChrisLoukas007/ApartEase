@@ -118,8 +118,9 @@ public class MessagePage extends javax.swing.JFrame {
     }//GEN-LAST:event_showGroupMessagePage
 
     private void showAdminMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAdminMessagePage
-        // TODO add your handling code here:
-    }//GEN-LAST:event_showAdminMessagePage
+        AdminMessagePage adminMessage = new AdminMessagePage();
+        adminMessage.setVisible(true);
+        dispose();    }//GEN-LAST:event_showAdminMessagePage
 
     private void showOwnerMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOwnerMessagePage
         // TODO add your handling code here:

@@ -4,11 +4,25 @@
  */
 package apartease;
 
+import com.mysql.cj.xdevapi.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
  */
-public class AdminMessagePage extends javax.swing.JFrame {
+public class AdminMessagePage extends javax.swing.JFrame implements DBConnection {
 
     /**
      * Creates new form AdminMessage
@@ -105,9 +119,66 @@ public class AdminMessagePage extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_returnMessage
 
+    private boolean isWordCountValid(String text) {
+        String[] words = text.trim().split("\\s+");
+        int wordCount = words.length;
+        return wordCount >= 1 && wordCount <= 15;
+    }
+
     private void sendMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMessage
-        // TODO add your handling code here:
+        String messageText = jTextField1.getText().trim();
+        boolean isWordCountValid = isWordCountValid(messageText);
+
+        if (isWordCountValid && messageText.toLowerCase().contains("insert")) {
+            boolean isInsertSuccessful = insertMessageIntoTable(messageText);
+
+            if (isInsertSuccessful) {
+                JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to send message. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_sendMessage
+
+    private boolean insertMessageIntoTable(String messageText) {
+        String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, ?, ?, 'public', ?)";
+
+        try {
+            int user_id = getUserId();
+            String receiver_email = getReceiverEmail();
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, messageText);
+            statement.setObject(2, LocalDateTime.now());
+            statement.setInt(3, user_id);
+            statement.setString(4, receiver_email);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    private int getUserId() throws SQLException {
+        String query = "SELECT user_id FROM login_status WHERE id = 1";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
+            rs.next();
+            return rs.getInt("user_id");
+        }
+    }
+
+    private String getReceiverEmail() throws SQLException {
+        String query = "SELECT email FROM user WHERE user_type = 'manager'";
+        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
+            rs.next();
+            return rs.getString("email");
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -123,16 +194,24 @@ public class AdminMessagePage extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -153,4 +232,5 @@ public class AdminMessagePage extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }
