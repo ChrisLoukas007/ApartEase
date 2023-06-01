@@ -132,8 +132,8 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
             stm.executeUpdate(sql);
 
             JOptionPane.showMessageDialog(this, "Επιτυχία");
-            PageServices pageService = new PageServices();
-            pageService.setVisible(true);
+            ChosenServicePage pagechosenService = new ChosenServicePage(selectedValue);
+            pagechosenService.setVisible(true);
             this.dispose();
             con.close();
         } catch (Exception e) {
