@@ -35,7 +35,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
         initComponents();
         this.ratingValue = ratingValue;
         this.descriptionValue = descriptionValue;
-            this.selectedValue = selectedValue;
+        this.selectedValue = selectedValue;
     }
 
     /**
@@ -67,7 +67,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
         jButton2.setText("Επιβεβαίωση");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showPageService(evt);
+                saveRating(evt);
             }
         });
 
@@ -114,10 +114,10 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
+    private void saveRating(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRating
         try {
             Statement stmt = connectdata();
-            ResultSet rs = stmt.executeQuery("select user_id from login_status where id=1");
+            ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
             rs.next();
             int user_id = Integer.valueOf(rs.getString(1));
 
@@ -127,20 +127,27 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
             ResultSet rrs = stm.executeQuery("SELECT id FROM service WHERE name = '" + selectedValue + "'");
             rrs.next();
             int service_id = rrs.getInt(1);
-            
-            String sql = "INSERT INTO review(rating, description , service_id, user_id) VALUES ('" + ratingValue + "','" + descriptionValue + "','" + service_id + "','" + user_id + "')";
+
+            String sql = "INSERT INTO review(rating, description, service_id, user_id) VALUES ('" + ratingValue + "','" + descriptionValue + "','" + service_id + "','" + user_id + "')";
             stm.executeUpdate(sql);
 
             JOptionPane.showMessageDialog(this, "Επιτυχία");
-            ChosenServicePage pagechosenService = new ChosenServicePage(selectedValue);
-            pagechosenService.setVisible(true);
-            this.dispose();
+
+            // Call the continue method
+            continueToChosenServicePage(selectedValue);
+
             con.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e);
         }
 
-    }//GEN-LAST:event_showPageService
+    }//GEN-LAST:event_saveRating
+
+    private void continueToChosenServicePage(String selectedValue) {
+        ChosenServicePage pagechosenService = new ChosenServicePage(selectedValue);
+        pagechosenService.setVisible(true);
+        this.dispose();
+    }
 
     /**
      * @param args the command line arguments

@@ -151,7 +151,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         this.dispose();
     }
 
-    private void limitCheck() {
+    private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
         String descriptionValue = jTextArea1.getText();
         int wordCount = descriptionValue.trim().split("\\s+").length;
 
@@ -168,16 +168,10 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         }
 
         if (wordCount >= 2 && wordCount <= 50 && isRatingValid) {
-            showServiceConfirmPage(ratingValue, descriptionValue,selectedValue);
+            showServiceConfirmPage(ratingValue, descriptionValue, selectedValue);
         } else {
             showServiceErrorPage();
-        }
-    }
-
-
-    private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
-        limitCheck();
-    }//GEN-LAST:event_runCheck
+        }    }//GEN-LAST:event_runCheck
 
     private void retChosenServicePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retChosenServicePage
         // Navigate to ChosenServicePage frame
