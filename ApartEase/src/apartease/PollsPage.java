@@ -53,6 +53,28 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
             }
     }
     
+    public void checkRights(){
+         try
+            {               
+                Statement stmt = connectdata();                             
+                ResultSet rs=stmt.executeQuery("Select user_type from user");
+                rs.next();
+                String user_type = rs.getString(1);    
+                    if ("tenant".equals(user_type)){
+                        JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
+                    }
+                    else {
+                        this.dispose(); 
+                        PollQuestionPage obj = new PollQuestionPage();
+                        obj.setVisible(true); 
+                    }
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+    }
     public PollsPage() {
         initComponents();
         showPolls();
@@ -162,9 +184,7 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-             this.dispose(); 
-             PollQuestionPage obj = new PollQuestionPage();
-             obj.setVisible(true);
+            checkRights();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void PollQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PollQuestionActionPerformed
