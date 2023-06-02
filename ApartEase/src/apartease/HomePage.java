@@ -44,14 +44,14 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         jButton1.setText("Πληρωμή Κοινοχρήστων");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                showUtilityBills(evt);
             }
         });
 
         jButton2.setText("Ανακοινώσεις");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                showAnnouncementPage(evt);
             }
         });
 
@@ -88,14 +88,14 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         jButton7.setText("Αποσύνδεση");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                Disconection(evt);
             }
         });
 
         jButton8.setText("Προφίλ");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                showProfilePage(evt);
             }
         });
 
@@ -165,11 +165,15 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void showUtilityBills(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUtilityBills
         this.dispose();
         UtilityBills ob = new UtilityBills();
         ob.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_showUtilityBills
+
+    private void showAnnouncementPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAnnouncementPage
+        // TODO add your handling code here:
+    }//GEN-LAST:event_showAnnouncementPage
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
             AnnouncementPage AnnouncementPage = new AnnouncementPage();
@@ -208,7 +212,7 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         dispose();
     }//GEN-LAST:event_showMessagePage
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void Disconection(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Disconection
         try
         {
             Statement stmt = connectdata();
@@ -221,13 +225,13 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         this.dispose();
         Welcome_Page ob = new Welcome_Page();
         ob.setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_Disconection
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void showProfilePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showProfilePage
         this.dispose();
         Profile ob = new Profile();
         ob.setVisible(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_showProfilePage
 
     /**
      * @param args the command line arguments
