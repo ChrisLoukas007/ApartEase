@@ -31,7 +31,7 @@ public class PollAnswerPage extends javax.swing.JFrame {
         String answer2=jTextField2.getText();
         String answer3=jTextField3.getText();
         String answer4=jTextField4.getText();
-        if ("".equals(answer3) || "".equals(answer4)){
+        if ("".equals(answer1) || "".equals(answer2)){
             return false;
       }
         else {
@@ -87,7 +87,7 @@ public class PollAnswerPage extends javax.swing.JFrame {
         jButton2.setText("Πίσω");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                goBack(evt);
             }
         });
 
@@ -172,11 +172,11 @@ public class PollAnswerPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void goBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBack
             this.dispose(); 
             PollQuestionPage obj = new PollQuestionPage();
             obj.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_goBack
 
     /**
      * @param args the command line arguments
