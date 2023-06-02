@@ -117,7 +117,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         jButton1.setText("Δημοσίευση Κοινοχρήστων");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buildingSelectButton(evt);
             }
         });
 
@@ -162,7 +162,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
         ob.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buildingSelectButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buildingSelectButton
         String building = jList2.getSelectedValue();
         try
             {
@@ -208,7 +208,7 @@ public class EmployeeHomePage extends javax.swing.JFrame implements DBConnection
                             JOptionPane.showMessageDialog(this,"Canceled");
                     }
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buildingSelectButton
 
     /**
      * @param args the command line arguments
