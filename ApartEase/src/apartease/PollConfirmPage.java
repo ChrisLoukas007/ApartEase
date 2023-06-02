@@ -57,7 +57,7 @@ public class PollConfirmPage extends javax.swing.JFrame {
         jButton1.setText("Πίσω");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                goBack(evt);
             }
         });
 
@@ -107,11 +107,11 @@ public class PollConfirmPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void goBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBack
             PollAnswerPage PollAnswer = new PollAnswerPage(Poll_question);
             PollAnswer.setVisible(true);
             this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_goBack
 
     private void storePoll(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storePoll
        try
