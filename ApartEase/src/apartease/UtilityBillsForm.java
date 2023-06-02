@@ -123,7 +123,7 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
         jButton2.setText("Συμπλήρωση");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                utilityBillsPostButton(evt);
             }
         });
 
@@ -168,7 +168,6 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel1)
                             .addGap(18, 18, 18)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +220,7 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void utilityBillsPostButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilityBillsPostButton
         int utility_bills=Integer.valueOf(jTextField1.getText());
         String context = jTextField2.getText();
         
@@ -298,7 +297,7 @@ public class UtilityBillsForm extends javax.swing.JFrame implements DBConnection
         }
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_utilityBillsPostButton
 
     /**
      * @param args the command line arguments

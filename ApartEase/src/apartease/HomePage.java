@@ -175,6 +175,12 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
         // TODO add your handling code here:
     }//GEN-LAST:event_showAnnouncementPage
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            AnnouncementPage AnnouncementPage = new AnnouncementPage();
+            AnnouncementPage.setVisible(true);
+            this.dispose();        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void showEventsPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showEventsPage
         this.dispose();
         EventsPage ob = new EventsPage();
@@ -190,7 +196,9 @@ public class HomePage extends javax.swing.JFrame implements DBConnection{
     }//GEN-LAST:event_showPageServices
 
     private void showPollsPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPollsPage
-        // TODO add your handling code here:
+        PollsPage PollsPage = new PollsPage();
+        PollsPage.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_showPollsPage
 
     private void showMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMessagePage
