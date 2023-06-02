@@ -43,8 +43,14 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
                 jList1.setModel(model);
                 model.addElement(answer1);
                 model.addElement(answer2);
-                model.addElement(answer3);
-                model.addElement(answer4);
+                if ("".equals(answer3)){}
+                else{
+                    model.addElement(answer3);
+                }
+                if ("".equals(answer4)){}
+                else{
+                    model.addElement(answer4);
+                }
             }
             
         catch(Exception e)

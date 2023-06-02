@@ -15,8 +15,8 @@ public class AnnouncementTypePage extends javax.swing.JFrame {
     /**
      * Creates new form AnnouncementType
      */
-    public String AnnounceTitle;
-    public String AnnounceText;
+    private String AnnounceTitle;
+    private String AnnounceText;
     public AnnouncementTypePage() {
         initComponents();
     }
