@@ -5,18 +5,11 @@
 package apartease;
 
 import com.mysql.cj.xdevapi.Statement;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.sun.jdi.connect.spi.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +22,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
      */
     public AdminMessagePage() {
         initComponents();
+        loadMessages();
     }
 
     /**
@@ -66,7 +60,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnMessage(evt);
+                returnMessagePage(evt);
             }
         });
 
@@ -108,7 +102,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void returnMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessage
+    private void returnMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessagePage
         // Create an instance of the MessagePge frame
         MessagePage messagePage = new MessagePage();
 
@@ -117,23 +111,20 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
 
         // Close the current messagePage frame
         dispose();
-    }//GEN-LAST:event_returnMessage
-
-    private boolean isWordCountValid(String text) {
-        String[] words = text.trim().split("\\s+");
-        int wordCount = words.length;
-        return wordCount >= 1 && wordCount <= 15;
-    }
+    }//GEN-LAST:event_returnMessagePage
 
     private void sendMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMessage
-        String messageText = jTextField1.getText().trim();
-        boolean isWordCountValid = isWordCountValid(messageText);
+        String messageText = jTextArea1.getText().trim();
+        String[] words = messageText.split("\\s+");
+        int wordCount = words.length;
 
-        if (isWordCountValid && messageText.toLowerCase().contains("insert")) {
+        if (wordCount >= 1 && wordCount <= 15 && messageText.toLowerCase().contains("insert")) {
             boolean isInsertSuccessful = insertMessageIntoTable(messageText);
 
             if (isInsertSuccessful) {
                 JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                loadMessages(); // Refresh the messages after sending a new one
+                jTextField1.setText(""); // Clear the text field
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to send message. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -143,63 +134,47 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
     }//GEN-LAST:event_sendMessage
 
     private boolean insertMessageIntoTable(String messageText) {
-        String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, ?, ?, 'public', ?)";
-
         try {
-            int user_id = getUserId();
-            String receiver_email = getReceiverEmail();
-
             Connection con = DBConnection.getConnection();
-            PreparedStatement statement = con.prepareStatement(sql);
+            Statement st = con.createStatement();
+            Statement stmt = connectdata();
+            ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
+            rs.next();
+            int user_id = rs.getInt("user_id");
 
+            Statement stmt2 = connectdata();
+            ResultSet rs2 = stmt2.executeQuery("SELECT email FROM user WHERE user_type = 'manager'");
+            rs2.next();
+            String receiver_email = rs2.getString("email");
+
+            String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, CURDATE(), ?, 'private', ?)";
+            PreparedStatement statement = connectdata().prepareStatement(sql);
             statement.setString(1, messageText);
-            statement.setObject(2, LocalDateTime.now());
-            statement.setInt(3, user_id);
-            statement.setString(4, receiver_email);
+            statement.setInt(2, user_id);
+            statement.setString(3, receiver_email);
 
             int rowsAffected = statement.executeUpdate();
+
             return rowsAffected > 0;
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             e.printStackTrace();
         }
 
         return false;
     }
-
-    private int getUserId() throws SQLException {
-        String query = "SELECT user_id FROM login_status WHERE id = 1";
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
-            rs.next();
-            return rs.getInt("user_id");
-        }
-    }
-
-    private String getReceiverEmail() throws SQLException {
-        String query = "SELECT email FROM user WHERE user_type = 'manager'";
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(query); ResultSet rs = statement.executeQuery()) {
-            rs.next();
-            return rs.getString("email");
-        }
-    }
+// user -> user_has_apartment -> apartment -> building 
 
     private void loadMessages() {
-        String sql = "SELECT content FROM table WHERE user_id = ? "
-                + "UNION "
-                + "SELECT content FROM message WHERE receiver_email = ? "
+        String sql = "SELECT content FROM message WHERE user_id = (SELECT user_id FROM login_status WHERE id = 1) "
+                + "AND user_id IN (SELECT id FROM user WHERE user_type = 'manager') "
                 + "ORDER BY sent_date DESC";
 
         try {
-            Connection connection = DBConnection.getConnection();
-            int user_id = getUserId();
-            String receiver_email = getReceiverEmail();
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, user_id);
-            statement.setString(2, receiver_email);
-
-            ResultSet rs = statement.executeQuery();
+            Statement stmt = connectdata();
+            ResultSet rs = stmt.executeQuery(sql);
 
             StringBuilder sb = new StringBuilder();
+
             while (rs.next()) {
                 String content = rs.getString("content");
                 sb.append(content).append("\n");
@@ -211,10 +186,10 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -226,23 +201,27 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-                }
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminMessagePage.class  
 
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AdminMessagePage.class  
 
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AdminMessagePage.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AdminMessagePage.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

@@ -4,9 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/HomePage.java</file>
-            <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/AdminMessagePage.java</file>
             <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/ServiceConfirmPage.java</file>
-            <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/MessagePage.java</file>
+            <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/ServiceRatingPage.java</file>
+            <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/ChosenServicePage.java</file>
+            <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/PageServices.java</file>
+            <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/ServiceErrorPage.java</file>
             <file>file:/C:/Biography/ApartEase/ApartEase/src/apartease/DBConnection.java</file>
         </group>
     </open-files>
