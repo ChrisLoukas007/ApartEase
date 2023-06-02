@@ -119,12 +119,12 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
     }//GEN-LAST:event_returnMessagePage
 
     private void sendAdminMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendAdminMessage
-        String messageText = jTextArea1.getText().trim();
-        String[] words = messageText.split("\\s+");
+        String content = jTextField1.getText().trim();
+        String[] words = content.split("\\s+");
         int wordCount = words.length;
 
-        if (wordCount >= 1 && wordCount <= 15 && messageText.toLowerCase().contains("insert")) {
-            boolean isInsertSuccessful = insertMessageIntoTable(messageText);
+        if (wordCount >= 1 && wordCount <= 15 && !content.toLowerCase().contains("insert")) {
+            boolean isInsertSuccessful = insertMessageIntoTable(content);
 
             if (isInsertSuccessful) {
                 JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -144,11 +144,11 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
             if (rs.next()) {
-                int userID = rs.getInt("user_id");
+                int userID = rs.getInt(1);
 
-                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'manager' and login_status.user_id = user.id");
+                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'tenant' and id = " +userID);
                 if (rs2.next()) {
-                    String receiverMail = rs2.getString("email");
+                    String receiverMail = rs2.getString(1);
 
                     String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, CURDATE(), ?, 'private', ?)";
 
@@ -167,7 +167,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
 
         return true;
     }
-    
+
     private void loadMessages() {
 
         StringBuilder sb = new StringBuilder();
