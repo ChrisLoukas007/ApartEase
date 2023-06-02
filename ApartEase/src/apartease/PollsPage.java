@@ -71,6 +71,9 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
                 String user_type = rs.getString(1);    
                     if ("tenant".equals(user_type)){
                         JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
+                        PollsPage PollsPage = new PollsPage();
+                        PollsPage.setVisible(true);
+                        this.dispose();
                     }
                     else {
                         this.dispose(); 

@@ -51,7 +51,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
         jButton1.setText("Επιβεβαίωση");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                StoreAnnouncement(evt);
             }
         });
 
@@ -93,7 +93,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void StoreAnnouncement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoreAnnouncement
         try
             {                            
                 Connection con=DBConnection.getConnection();
@@ -115,7 +115,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
             {
                 JOptionPane.showMessageDialog(this,e);
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_StoreAnnouncement
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         AnnouncementTypePage AnnouncementType = new AnnouncementTypePage(AnnounceText,AnnounceTitle);
