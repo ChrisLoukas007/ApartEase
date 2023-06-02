@@ -31,7 +31,7 @@ public class PollAnswerPage extends javax.swing.JFrame {
         String answer2=jTextField2.getText();
         String answer3=jTextField3.getText();
         String answer4=jTextField4.getText();
-        if ("".equals(answer3) || "".equals(answer4)){
+        if ("".equals(answer1) || "".equals(answer2)){
             return false;
       }
         else {

@@ -117,7 +117,7 @@ public class PollConfirmPage extends javax.swing.JFrame {
             {                            
                 Connection con=DBConnection.getConnection();
                 Statement stm = con.createStatement();
-                String sql="INSERT INTO poll VALUES (2,'"+Poll_question+"','now()','2023-06-20','"+Poll_answer1+"','"+Poll_answer2+"','"+Poll_answer3+"','"+Poll_answer4+"',2)";
+                String sql="INSERT INTO poll VALUES (2,'"+Poll_question+"','2023-06-02','2023-06-20','"+Poll_answer1+"','"+Poll_answer2+"','"+Poll_answer3+"','"+Poll_answer4+"',2)";
                 stm.executeUpdate(sql);
       
                 JOptionPane.showMessageDialog(this,"Επιτυχία");
