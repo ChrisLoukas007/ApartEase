@@ -31,6 +31,7 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
         
          try
             {
+                
                 Statement stmt = connectdata();
                 ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
                 rs.next();
@@ -141,14 +142,14 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
         jButton1.setText("Πληρωμή");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                payUtilityBillsButton(evt);
             }
         });
 
         jButton2.setText("Αναλυτικά");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                utilityBillsAnalysisButton(evt);
             }
         });
 
@@ -212,7 +213,7 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
         ob.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void payUtilityBillsButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payUtilityBillsButton
         try
             {
                 Connection con=DBConnection.getConnection();
@@ -260,19 +261,19 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
                  JOptionPane.showMessageDialog(this,e);
                  
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                 this.dispose();
-                 UtilityBillsRev ob = new UtilityBillsRev();
-                 ob.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_payUtilityBillsButton
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
                  this.dispose();
                  HomePage ob = new HomePage();
                  ob.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void utilityBillsAnalysisButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_utilityBillsAnalysisButton
+        this.dispose();
+        UtilityBillsRev ob = new UtilityBillsRev();
+        ob.setVisible(true);
+    }//GEN-LAST:event_utilityBillsAnalysisButton
 
     /**
      * @param args the command line arguments

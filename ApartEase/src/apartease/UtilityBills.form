@@ -166,7 +166,7 @@
         <Property name="text" type="java.lang.String" value="&#x3a0;&#x3bb;&#x3b7;&#x3c1;&#x3c9;&#x3bc;&#x3ae;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="payUtilityBillsButton"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
@@ -174,7 +174,7 @@
         <Property name="text" type="java.lang.String" value="&#x391;&#x3bd;&#x3b1;&#x3bb;&#x3c5;&#x3c4;&#x3b9;&#x3ba;&#x3ac;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="utilityBillsAnalysisButton"/>
       </Events>
     </Component>
   </SubComponents>
