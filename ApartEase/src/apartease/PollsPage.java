@@ -62,8 +62,11 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
     public void checkRights(){
          try
             {               
-                Statement stmt = connectdata();                             
-                ResultSet rs=stmt.executeQuery("Select user_type from user");
+                Statement stmt = connectdata();
+                ResultSet rs =  stmt.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                rs = stmt.executeQuery("Select user_type from user where id='"+user_id+"'");
                 rs.next();
                 String user_type = rs.getString(1);    
                     if ("tenant".equals(user_type)){

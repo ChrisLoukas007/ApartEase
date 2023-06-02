@@ -5,6 +5,7 @@
 package apartease;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -63,7 +64,7 @@ public class PollConfirmPage extends javax.swing.JFrame {
         jButton2.setText("Επιβεβαίωση");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                storePoll(evt);
             }
         });
 
@@ -112,17 +113,20 @@ public class PollConfirmPage extends javax.swing.JFrame {
             this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void storePoll(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storePoll
        try
             {                            
                 Connection con=DBConnection.getConnection();
                 Statement stm = con.createStatement();
-                String sql="INSERT INTO poll VALUES (2,'"+Poll_question+"','2023-06-02','2023-06-20','"+Poll_answer1+"','"+Poll_answer2+"','"+Poll_answer3+"','"+Poll_answer4+"',2)";
+                ResultSet rs =   stm.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                String sql="INSERT INTO poll VALUES (NULL,'"+Poll_question+"','2023-06-02','2023-06-20','"+Poll_answer1+"','"+Poll_answer2+"','"+Poll_answer3+"','"+Poll_answer4+"','"+user_id+"')";
                 stm.executeUpdate(sql);
       
                 JOptionPane.showMessageDialog(this,"Επιτυχία");
-                AnnouncementPage AnnouncementPage = new AnnouncementPage();
-                AnnouncementPage.setVisible(true);
+                PollsPage PollsPage = new PollsPage();
+                PollsPage.setVisible(true);
                 this.dispose();
                 con.close();
             }
@@ -131,7 +135,7 @@ public class PollConfirmPage extends javax.swing.JFrame {
             {
                 JOptionPane.showMessageDialog(this,e);
             }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_storePoll
 
     /**
      * @param args the command line arguments

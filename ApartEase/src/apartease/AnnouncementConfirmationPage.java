@@ -98,9 +98,12 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
             {                            
                 Connection con=DBConnection.getConnection();
                 Statement stm = con.createStatement();
-                String sql="INSERT INTO announcements VALUES (2,'"+AnnounceText+"',2,'"+AnnounceTitle+"','"+AnnounceChoice+"')";
+                ResultSet rs =   stm.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                String sql="INSERT INTO announcements VALUES (NULL,'"+AnnounceText+"','"+user_id+"','"+AnnounceTitle+"','"+AnnounceChoice+"')";
                 stm.executeUpdate(sql);
-      
+                
                 JOptionPane.showMessageDialog(this,"Επιτυχία");
                 AnnouncementPage AnnouncementPage = new AnnouncementPage();
                 AnnouncementPage.setVisible(true);
