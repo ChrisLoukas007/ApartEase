@@ -173,7 +173,7 @@ public class ChosenServicePage extends javax.swing.JFrame implements DBConnectio
 
     private void showServiceRatingPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showServiceRatingPage
         // Create an instance of the ServiceRatingPage frame
-        ServiceRatingPage ratingPage = new ServiceRatingPage();
+        ServiceRatingPage ratingPage = new ServiceRatingPage(selectedValue);
 
         // Display the ServiceRatingPage frame
         ratingPage.setVisible(true);

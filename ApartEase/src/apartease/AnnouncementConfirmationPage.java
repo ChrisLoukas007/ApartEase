@@ -18,9 +18,9 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
     /**
      * Creates new form AnnouncementConfirmationPage
      */
-    public String AnnounceText;
-    public String AnnounceTitle;
-    public String AnnounceChoice;
+    private String AnnounceText;
+    private String AnnounceTitle;
+    private String AnnounceChoice;
     
     public AnnouncementConfirmationPage() {
         initComponents();

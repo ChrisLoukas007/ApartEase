@@ -10,6 +10,8 @@ package apartease;
  */
 public class ServiceErrorPage extends javax.swing.JFrame {
 
+    private String selectedValue;
+
     /**
      * Creates new form ServiceErrorPage
      */
@@ -79,8 +81,8 @@ public class ServiceErrorPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void correction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correction
-        PageServices pageService = new PageServices();
-        pageService.setVisible(true);
+            ServiceRatingPage rateService = new ServiceRatingPage(selectedValue);
+        rateService.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_correction
 

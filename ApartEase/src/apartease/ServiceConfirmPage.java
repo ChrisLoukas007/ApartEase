@@ -22,7 +22,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
 
     private String ratingValue;
     private String descriptionValue;
-    
+    private String selectedValue;
 
     /**
      * Creates new form ServiceConfirmPage
@@ -31,12 +31,13 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
         initComponents();
     }
 
-    // Add a new constructor that takes serviceId and userId as parameters
-    public ServiceConfirmPage(String ratingValue, String descriptionValue) {
+    public ServiceConfirmPage(String ratingValue, String descriptionValue, String selectedValue) {
         initComponents();
-        ratingValue = ratingValue;
-        ratingValue = descriptionValue;
+        this.ratingValue = ratingValue;
+        this.descriptionValue = descriptionValue;
+        this.selectedValue = selectedValue;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,7 +67,7 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
         jButton2.setText("Επιβεβαίωση");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showPageService(evt);
+                saveRating(evt);
             }
         });
 
@@ -108,36 +109,45 @@ public class ServiceConfirmPage extends javax.swing.JFrame implements DBConnecti
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PageServices pageService = new PageServices();
-        pageService.setVisible(true);
+        ServiceRatingPage pageRatingService = new ServiceRatingPage(selectedValue);
+        pageRatingService.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void showPageService(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPageService
-        try
-            {   
-                Statement stmt = connectdata();
-                ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
-                rs.next();
-                int user_id = Integer.valueOf(rs.getString(1));
-                Connection con=DBConnection.getConnection();
-                Statement stm = con.createStatement();
-                String sql="INSERT INTO review VALUES (user_id'"+ratingValue+"','"+descriptionValue+"',1,1)";
-                stm.executeUpdate(sql);
-      
-                JOptionPane.showMessageDialog(this,"Επιτυχία");
-                PageServices pageService = new PageServices();
-                pageService.setVisible(true);
-                this.dispose();
-                con.close();
-            }
-            
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
+    private void saveRating(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveRating
+        try {
+            Statement stmt = connectdata();
+            ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
+            rs.next();
+            int user_id = Integer.valueOf(rs.getString(1));
 
-    }//GEN-LAST:event_showPageService
+            Connection con = DBConnection.getConnection();
+            Statement stm = con.createStatement();
+
+            ResultSet rrs = stm.executeQuery("SELECT id FROM service WHERE name = '" + selectedValue + "'");
+            rrs.next();
+            int service_id = rrs.getInt(1);
+
+            String sql = "INSERT INTO review(rating, description, service_id, user_id) VALUES ('" + ratingValue + "','" + descriptionValue + "','" + service_id + "','" + user_id + "')";
+            stm.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(this, "Επιτυχία");
+
+            // Call the continue method
+            continueToChosenServicePage(selectedValue);
+
+            con.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+
+    }//GEN-LAST:event_saveRating
+
+    private void continueToChosenServicePage(String selectedValue) {
+        ChosenServicePage pagechosenService = new ChosenServicePage(selectedValue);
+        pagechosenService.setVisible(true);
+        this.dispose();
+    }
 
     /**
      * @param args the command line arguments

@@ -31,7 +31,6 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
         
          try
             {
-                
                 Statement stmt = connectdata();
                 ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
                 rs.next();

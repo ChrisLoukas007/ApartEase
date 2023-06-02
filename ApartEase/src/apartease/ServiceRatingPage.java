@@ -27,13 +27,17 @@ import java.sql.SQLException;
  */
 public class ServiceRatingPage extends javax.swing.JFrame implements DBConnection {
 
+    private String selectedValue;
+
     /**
      * Creates new form RatingPage
      */
-    public ServiceRatingPage() {
+    public ServiceRatingPage(String selectedValue) {
+        this.selectedValue = selectedValue; // Assign the parameter value to the field
         initComponents();
         Dimensions.setDefaultFrameSize(this, 888, 546); // Set the dimensions to 888x546 pixels
 
+        jLabel1.setText(selectedValue);
     }
 
     /**
@@ -53,11 +57,11 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Rating Page ");
 
         jLabel2.setText("Παρακαλώ αξιολογείστε την υπηρεσία μας. Η κάθε αξιολόγηση μας φέρνει ένα βήμα να γίνουμε ακόμη καλύτεροι ");
 
@@ -81,6 +85,8 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
             }
         });
 
+        jLabel4.setText("Φόρμα Αξιολόγησης για : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +107,9 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
                             .addComponent(jButton3)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(357, 357, 357)
+                        .addGap(181, 181, 181)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -109,7 +117,9 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -128,12 +138,8 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void showServiceConfirmPage() {
-//      JOptionPane.showMessageDialog(this, "Your evaluation was submitted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-        String ratingValue = jTextField1.getText(); // Get the rating value from jTextField1
-        String descriptionValue = jTextArea1.getText();
-        
-        ServiceConfirmPage confirmPage = new ServiceConfirmPage(ratingValue, descriptionValue);
+    private void showServiceConfirmPage(String ratingValue, String descriptionValue, String selectedValue) {
+        ServiceConfirmPage confirmPage = new ServiceConfirmPage(ratingValue, descriptionValue, selectedValue);
         confirmPage.setVisible(true);
         this.dispose();
     }
@@ -145,37 +151,30 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         this.dispose();
     }
 
-    private void limitCheck() {
-        String text = jTextArea1.getText();
-        int wordCount = text.trim().split("\\s+").length;
+    private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
+        String descriptionValue = jTextArea1.getText();
+        int wordCount = descriptionValue.trim().split("\\s+").length;
 
-        String ratingText = jTextField1.getText();
+        String ratingValue = jTextField1.getText();
         int rating = -1;
         boolean isRatingValid = false;
 
         // Check if the rating is a valid integer between 0 and 5
         try {
-            rating = Integer.parseInt(ratingText);
+            rating = Integer.parseInt(ratingValue);
             isRatingValid = (rating >= 0 && rating <= 5);
         } catch (NumberFormatException ex) {
             isRatingValid = false;
         }
 
         if (wordCount >= 2 && wordCount <= 50 && isRatingValid) {
-            showServiceConfirmPage();
+            showServiceConfirmPage(ratingValue, descriptionValue, selectedValue);
         } else {
             showServiceErrorPage();
-        }
-    }
-
-
-    private void runCheck(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runCheck
-        limitCheck();
-    }//GEN-LAST:event_runCheck
+        }    }//GEN-LAST:event_runCheck
 
     private void retChosenServicePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retChosenServicePage
         // Navigate to ChosenServicePage frame
-        String selectedValue = "";
         ChosenServicePage pageChosenService = new ChosenServicePage(selectedValue); //CHECK THIS AFTER LOAD THE MYSQL DB!!
         pageChosenService.setVisible(true);
         this.dispose();
@@ -195,16 +194,24 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ServiceRatingPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ServiceRatingPage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -212,7 +219,6 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServiceRatingPage().setVisible(true);
             }
         });
     }
@@ -223,8 +229,10 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
 }
