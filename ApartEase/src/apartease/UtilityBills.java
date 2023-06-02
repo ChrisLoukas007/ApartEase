@@ -35,9 +35,9 @@ public class UtilityBills extends javax.swing.JFrame implements DBConnection{
                 ResultSet rs =   stmt.executeQuery("select user_id from login_status where id=1");
                 rs.next();
                 int user_id = Integer.valueOf(rs.getString(1));
+                
                 rs =   stmt.executeQuery("select utility_bills_apartment.apartment_amount, utility_bills_apartment.paid from utility_bills_apartment, apartment, user_has_apartment, utility_bills_building where '"+user_id+"'=user_has_apartment.user_id AND user_has_apartment.apartment_id=apartment.id AND apartment.id=utility_bills_apartment.apartment_id AND utility_bills_apartment.utility_bills_building_id=utility_bills_building.id AND month(curdate())=month(utility_bills_building.publish_date) ");
                 rs.next();
-                
                 String utility_bills=rs.getString(1);
                 
                 String paid=rs.getString(2);

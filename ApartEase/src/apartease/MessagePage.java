@@ -10,6 +10,8 @@ package apartease;
  */
 public class MessagePage extends javax.swing.JFrame {
 
+    private String content;
+
     /**
      * Creates new form MessagePage
      */
@@ -118,7 +120,7 @@ public class MessagePage extends javax.swing.JFrame {
     }//GEN-LAST:event_showGroupMessagePage
 
     private void showAdminMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAdminMessagePage
-        AdminMessagePage adminMessage = new AdminMessagePage();
+        AdminMessagePage adminMessage = new AdminMessagePage(content);
         adminMessage.setVisible(true);
         dispose();    }//GEN-LAST:event_showAdminMessagePage
 

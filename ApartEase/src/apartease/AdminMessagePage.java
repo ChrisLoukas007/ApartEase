@@ -4,12 +4,13 @@
  */
 package apartease;
 
-import com.mysql.cj.xdevapi.Statement;
-import com.sun.jdi.connect.spi.Connection;
+import static apartease.DBConnection.getConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,12 +18,15 @@ import java.sql.ResultSet;
  */
 public class AdminMessagePage extends javax.swing.JFrame implements DBConnection {
 
+    private String content;
+
     /**
      * Creates new form AdminMessage
      */
-    public AdminMessagePage() {
+    public AdminMessagePage(String content) {
         initComponents();
         loadMessages();
+        this.content = content;
     }
 
     /**
@@ -53,7 +57,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         jButton1.setText("Αποστολή");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendMessage(evt);
+                sendAdminMessage(evt);
             }
         });
 
@@ -69,19 +73,20 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +118,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         dispose();
     }//GEN-LAST:event_returnMessagePage
 
-    private void sendMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMessage
+    private void sendAdminMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendAdminMessage
         String messageText = jTextArea1.getText().trim();
         String[] words = messageText.split("\\s+");
         int wordCount = words.length;
@@ -131,53 +136,67 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         } else {
             JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_sendMessage
+    }//GEN-LAST:event_sendAdminMessage
 
-    private boolean insertMessageIntoTable(String messageText) {
+    private boolean insertMessageIntoTable(String content) {
         try {
             Connection con = DBConnection.getConnection();
-            Statement st = con.createStatement();
-            Statement stmt = connectdata();
+            Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
-            rs.next();
-            int user_id = rs.getInt("user_id");
+            if (rs.next()) {
+                int userID = rs.getInt("user_id");
 
-            Statement stmt2 = connectdata();
-            ResultSet rs2 = stmt2.executeQuery("SELECT email FROM user WHERE user_type = 'manager'");
-            rs2.next();
-            String receiver_email = rs2.getString("email");
+                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'manager' and login_status.user_id = user.id");
+                if (rs2.next()) {
+                    String receiverMail = rs2.getString("email");
 
-            String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, CURDATE(), ?, 'private', ?)";
-            PreparedStatement statement = connectdata().prepareStatement(sql);
-            statement.setString(1, messageText);
-            statement.setInt(2, user_id);
-            statement.setString(3, receiver_email);
+                    String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, CURDATE(), ?, 'private', ?)";
 
-            int rowsAffected = statement.executeUpdate();
-
-            return rowsAffected > 0;
-        }catch (SQLException e) {
+                    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                        pstmt.setString(1, content);
+                        pstmt.setInt(2, userID);
+                        pstmt.setString(3, receiverMail);
+                        pstmt.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true;
     }
-// user -> user_has_apartment -> apartment -> building 
-
+    
     private void loadMessages() {
-        String sql = "SELECT content FROM message WHERE user_id = (SELECT user_id FROM login_status WHERE id = 1) "
-                + "AND user_id IN (SELECT id FROM user WHERE user_type = 'manager') "
-                + "ORDER BY sent_date DESC";
+
+        StringBuilder sb = new StringBuilder();
 
         try {
-            Statement stmt = connectdata();
-            ResultSet rs = stmt.executeQuery(sql);
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
 
-            StringBuilder sb = new StringBuilder();
+            // Fetching buildingID
+            ResultSet buildingRS = stmt.executeQuery("SELECT building.id FROM user, user_has_apartment, apartment, building, login_status WHERE 1 = user.id AND user.id = user_has_apartment.user_id AND user_has_apartment.apartment_id = apartment.id AND apartment.id = building.id");
+            String buildingID = "";
+            if (buildingRS.next()) {
+                buildingID = buildingRS.getString("building.id");
+            }
 
-            while (rs.next()) {
-                String content = rs.getString("content");
-                sb.append(content).append("\n");
+            // Fetching tenant messages
+            String tenantSql = "SELECT message.content FROM aparteasedb.message JOIN login_status ON message.user_id = login_status.user_id JOIN user ON login_status.user_id = user.id WHERE user.user_type = 'tenant' AND message.message_type = 'private' ORDER BY message.sent_date ASC";
+            ResultSet tenantRS = stmt.executeQuery(tenantSql);
+            while (tenantRS.next()) {
+                String content = tenantRS.getString("message.content");
+                sb.append("Tenant: ").append(content).append("\n");
+            }
+
+            // Fetching manager messages
+            String managerSql = "SELECT message.content FROM message, user, user_has_apartment, apartment, building WHERE message.user_id = user.id AND user.id = user_has_apartment.user_id AND user.user_type = 'manager' AND message.message_type = 'private' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
+            ResultSet managerRS = stmt.executeQuery(managerSql);
+            while (managerRS.next()) {
+                String content = managerRS.getString("message.content");
+                sb.append("Manager: ").append(content).append("\n");
             }
 
             jTextArea1.setText(sb.toString());
@@ -186,10 +205,10 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
         }
     }
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -201,27 +220,23 @@ public static void main(String args[]) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class  
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminMessagePage.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AdminMessagePage.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -229,7 +244,6 @@ public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMessagePage().setVisible(true);
             }
         });
     }
