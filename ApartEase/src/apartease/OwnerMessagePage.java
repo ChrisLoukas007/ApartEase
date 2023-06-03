@@ -208,7 +208,7 @@ public class OwnerMessagePage extends javax.swing.JFrame {
             ResultSet managerRS = stmt.executeQuery(managerSql);
             while (managerRS.next()) {
                 String content = managerRS.getString("message.content");
-                sb.append("Manager: ").append(content).append("\n");
+                sb.append("Owner: ").append(content).append("\n");
             }
 
             msg_area.setText(sb.toString());

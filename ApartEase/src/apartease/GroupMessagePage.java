@@ -176,26 +176,34 @@ public class GroupMessagePage extends javax.swing.JFrame {
             Statement stmt = con.createStatement();
 
             // Fetching buildingID
-            ResultSet buildingRS = stmt.executeQuery("SELECT building.id FROM user, user_has_apartment, apartment, building, login_status WHERE 1 = user.id AND user.id = user_has_apartment.user_id AND user_has_apartment.apartment_id = apartment.id AND apartment.id = building.id");
+            ResultSet buildingRS = stmt.executeQuery("SELECT building.id FROM user, user_has_apartment, apartment, building, login_status WHERE user.id = user_has_apartment.user_id AND user_has_apartment.apartment_id = apartment.id AND apartment.building_id = building.id");
             String buildingID = "";
             if (buildingRS.next()) {
-                buildingID = buildingRS.getString("building.id");
+                buildingID = buildingRS.getString("id");
             }
 
             // Fetching tenant messages
-            String tenantSql = "SELECT message.content FROM aparteasedb.message JOIN login_status ON message.user_id = login_status.user_id JOIN user ON login_status.user_id = user.id WHERE user.user_type = 'tenant' AND message.message_type = 'private' ORDER BY message.sent_date ASC";
+            String tenantSql = "SELECT message.content FROM message JOIN login_status ON message.user_id = login_status.user_id JOIN user ON login_status.user_id = user.id WHERE user.user_type = 'tenant' AND message.message_type = 'public' ORDER BY message.sent_date ASC";
             ResultSet tenantRS = stmt.executeQuery(tenantSql);
             while (tenantRS.next()) {
-                String content = tenantRS.getString("message.content");
+                String content = tenantRS.getString("content");
                 sb.append("Tenant: ").append(content).append("\n");
             }
 
             // Fetching manager messages
-            String managerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'manager' AND message.message_type = 'private' AND building.id = '" + buildingID + "'ORDER BY message.sent_date ASC";
+            String managerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'manager' AND message.message_type = 'public' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
             ResultSet managerRS = stmt.executeQuery(managerSql);
             while (managerRS.next()) {
-                String content = managerRS.getString("message.content");
+                String content = managerRS.getString("content");
                 sb.append("Manager: ").append(content).append("\n");
+            }
+
+            // Fetching owner messages
+            String ownerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'owner' AND message.message_type = 'private' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
+            ResultSet ownerRS = stmt.executeQuery(ownerSql);
+            while (ownerRS.next()) {
+                String content = ownerRS.getString("content");
+                sb.append("Owner: ").append(content).append("\n");
             }
 
             jTextArea1.setText(sb.toString());
