@@ -108,13 +108,10 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
     }// </editor-fold>//GEN-END:initComponents
 
     private void returnMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessagePage
-        // Create an instance of the MessagePge frame
         MessagePage messagePage = new MessagePage();
 
-        // Display the messagePage frame
         messagePage.setVisible(true);
 
-        // Close the current messagePage frame
         dispose();
     }//GEN-LAST:event_returnMessagePage
 
@@ -146,7 +143,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
             if (rs.next()) {
                 int userID = rs.getInt(1);
 
-                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'tenant' and id = " +userID);
+                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'tenant' and id = " + userID);
                 if (rs2.next()) {
                     String receiverMail = rs2.getString(1);
 

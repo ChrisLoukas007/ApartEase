@@ -4,13 +4,16 @@
  */
 package apartease;
 
+import static apartease.DBConnection.getConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 /**
  *
  * @author DELL
  */
-public class MessagePage extends javax.swing.JFrame {
+public class MessagePage extends javax.swing.JFrame implements DBConnection {
 
-    private String content;
+    public String content;
 
     /**
      * Creates new form MessagePage
@@ -60,7 +63,7 @@ public class MessagePage extends javax.swing.JFrame {
             }
         });
 
-        retrnHome.setText("Back");
+        retrnHome.setText("Πίσω");
         retrnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retrnHomeActionPerformed(evt);
