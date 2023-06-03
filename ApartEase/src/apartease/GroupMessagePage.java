@@ -1,35 +1,31 @@
 package apartease;
 
-import com.sun.jdi.connect.spi.Connection;
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author DELL
  */
 public class GroupMessagePage extends javax.swing.JFrame {
 
-    private Connection connection;
-    private PreparedStatement insertStatement;
-    private PreparedStatement selectStatement;
-    private ResultSet resultSet;
+    private String contentG;
 
     /**
      * Creates new form GroupMessage
      */
-    public GroupMessagePage() {
+    public GroupMessagePage(String contentG) {
         initComponents();
-        connectToDatabase();
-        retrievePreviousMessages();
+        loadGroupMessages();
+        this.contentG = contentG;
     }
 
     /**
@@ -111,22 +107,22 @@ public class GroupMessagePage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgActionPerformed
-        String message = jTextField1.getText().trim();
+        String contentG = jTextField1.getText().trim();
+        String[] words = contentG.split("\\s+");
+        int wordCount = words.length;
 
-        if (!message.isEmpty()) {
-            try {
-                insertStatement.setString(1, "Chris"); // Replace 'Chris' with the actual user's name
-                insertStatement.setString(2, message);
-                insertStatement.executeUpdate();
+        if (wordCount >= 1 && wordCount <= 15 && !contentG.toLowerCase().contains("insert")) {
+            boolean isInsertSuccessful = insertMessageIntoTable(contentG);
 
-                displayMessage("Chris", message);
-
-                jTextField1.setText("");
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (isInsertSuccessful) {
+                JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                loadGroupMessages(); // Refresh the messages after sending a new one
+                jTextField1.setText(""); // Clear the text field
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to send message. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please enter a message.");
+            JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_sendMsgActionPerformed
 
@@ -140,6 +136,73 @@ public class GroupMessagePage extends javax.swing.JFrame {
         // Close the current messagePage frame
         dispose();
     }//GEN-LAST:event_returnMessage
+
+    private boolean insertMessageIntoTable(String content) {
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
+            if (rs.next()) {
+                int userID = rs.getInt(1);
+
+                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'tenant' and id = " + userID);
+                if (rs2.next()) {
+                    String receiverMail = rs2.getString(1);
+
+                    String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, CURDATE(), ?, 'public', ?)";
+
+                    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                        pstmt.setString(1, content);
+                        pstmt.setInt(2, userID);
+                        pstmt.setString(3, receiverMail);
+                        pstmt.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void loadGroupMessages() {
+
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+
+            // Fetching buildingID
+            ResultSet buildingRS = stmt.executeQuery("SELECT building.id FROM user, user_has_apartment, apartment, building, login_status WHERE 1 = user.id AND user.id = user_has_apartment.user_id AND user_has_apartment.apartment_id = apartment.id AND apartment.id = building.id");
+            String buildingID = "";
+            if (buildingRS.next()) {
+                buildingID = buildingRS.getString("building.id");
+            }
+
+            // Fetching tenant messages
+            String tenantSql = "SELECT message.content FROM aparteasedb.message JOIN login_status ON message.user_id = login_status.user_id JOIN user ON login_status.user_id = user.id WHERE user.user_type = 'tenant' AND message.message_type = 'private' ORDER BY message.sent_date ASC";
+            ResultSet tenantRS = stmt.executeQuery(tenantSql);
+            while (tenantRS.next()) {
+                String content = tenantRS.getString("message.content");
+                sb.append("Tenant: ").append(content).append("\n");
+            }
+
+            // Fetching manager messages
+            String managerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'manager' AND message.message_type = 'private' AND building.id = '" + buildingID + "'ORDER BY message.sent_date ASC";
+            ResultSet managerRS = stmt.executeQuery(managerSql);
+            while (managerRS.next()) {
+                String content = managerRS.getString("message.content");
+                sb.append("Manager: ").append(content).append("\n");
+            }
+
+            jTextArea1.setText(sb.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -172,7 +235,6 @@ public class GroupMessagePage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GroupMessagePage().setVisible(true);
             }
         });
     }
@@ -185,34 +247,5 @@ public class GroupMessagePage extends javax.swing.JFrame {
     private javax.swing.JButton retrnMesagePg;
     private javax.swing.JButton sendMsg;
     // End of variables declaration//GEN-END:variables
-private void connectToDatabase() {
-        try {
-            // Replace 'your_database' with the actual name of your database
-            connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/your_database", "root", "password");
-
-            insertStatement = connection.prepareStatement("INSERT INTO messages (sender, message) VALUES (?, ?)");
-
-            selectStatement = connection.prepareStatement("SELECT sender, message FROM messages");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void displayMessage(String chris, String message) {
-        jTextArea1.append(sender + ": " + message + "\n");
-    }
-
-    private void retrievePreviousMessages() {
-        try {
-            resultSet = selectStatement.executeQuery();
-            while (resultSet.next()) {
-                String sender = resultSet.getString("sender");
-                String message = resultSet.getString("message");
-                displayMessage(sender, message);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

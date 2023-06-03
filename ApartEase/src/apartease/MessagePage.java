@@ -16,6 +16,7 @@ public class MessagePage extends javax.swing.JFrame implements DBConnection {
 
     public String content;
     public String contentO;
+    public String contentG;
 
     /**
      * Creates new form MessagePage
@@ -115,7 +116,7 @@ public class MessagePage extends javax.swing.JFrame implements DBConnection {
 
     private void showGroupMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGroupMessagePage
         // Create an instance of the GroupMessagePage frame
-        GroupMessagePage groupMessage = new GroupMessagePage();
+        GroupMessagePage groupMessage = new GroupMessagePage(contentG);
 
         // Display the GroupMessagePage frame
         groupMessage.setVisible(true);
