@@ -7,6 +7,7 @@ package apartease;
 import static apartease.DBConnection.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 /**
  *
  * @author DELL
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 public class MessagePage extends javax.swing.JFrame implements DBConnection {
 
     public String content;
+    public String contentO;
 
     /**
      * Creates new form MessagePage
@@ -128,7 +130,7 @@ public class MessagePage extends javax.swing.JFrame implements DBConnection {
         dispose();    }//GEN-LAST:event_showAdminMessagePage
 
     private void showOwnerMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOwnerMessagePage
-        OwnerMessagePage ownerMessage = new OwnerMessagePage();
+        OwnerMessagePage ownerMessage = new OwnerMessagePage(contentO);
         ownerMessage.setVisible(true);
         dispose();
     }//GEN-LAST:event_showOwnerMessagePage

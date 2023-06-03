@@ -102,7 +102,7 @@
         <Property name="text" type="java.lang.String" value="&#x391;&#x3c0;&#x3bf;&#x3c3;&#x3c4;&#x3bf;&#x3bb;&#x3ae;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="msg_sendActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendOwnerMesage"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

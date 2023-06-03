@@ -189,7 +189,7 @@ public class AdminMessagePage extends javax.swing.JFrame implements DBConnection
             }
 
             // Fetching manager messages
-            String managerSql = "SELECT message.content FROM message, user, user_has_apartment, apartment, building WHERE message.user_id = user.id AND user.id = user_has_apartment.user_id AND user.user_type = 'manager' AND message.message_type = 'private' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
+            String managerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'manager' AND message.message_type = 'private' AND building.id = '" + buildingID + "'ORDER BY message.sent_date ASC";
             ResultSet managerRS = stmt.executeQuery(managerSql);
             while (managerRS.next()) {
                 String content = managerRS.getString("message.content");
