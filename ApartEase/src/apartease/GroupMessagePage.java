@@ -182,28 +182,23 @@ public class GroupMessagePage extends javax.swing.JFrame {
                 buildingID = buildingRS.getString("id");
             }
 
-            // Fetching tenant messages
-            String tenantSql = "SELECT message.content FROM message JOIN login_status ON message.user_id = login_status.user_id JOIN user ON login_status.user_id = user.id WHERE user.user_type = 'tenant' AND message.message_type = 'public' ORDER BY message.sent_date ASC";
-            ResultSet tenantRS = stmt.executeQuery(tenantSql);
-            while (tenantRS.next()) {
-                String content = tenantRS.getString("content");
-                sb.append("Tenant: ").append(content).append("\n");
-            }
+            // Fetching tenant, manager, and owner messages
+            String messagesSql = "SELECT message.content, user.user_type FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE (user.user_type = 'tenant' OR user.user_type = 'manager' OR user.user_type = 'owner') AND message.message_type = 'public' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
 
-            // Fetching manager messages
-            String managerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'manager' AND message.message_type = 'public' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
-            ResultSet managerRS = stmt.executeQuery(managerSql);
-            while (managerRS.next()) {
-                String content = managerRS.getString("content");
-                sb.append("Manager: ").append(content).append("\n");
-            }
+            ResultSet messagesRS = stmt.executeQuery(messagesSql);
+            while (messagesRS.next()) {
+                String userType = messagesRS.getString("user_type");
+                String content = messagesRS.getString("content");
 
-            // Fetching owner messages
-            String ownerSql = "SELECT message.content FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE user.user_type = 'owner' AND message.message_type = 'private' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
-            ResultSet ownerRS = stmt.executeQuery(ownerSql);
-            while (ownerRS.next()) {
-                String content = ownerRS.getString("content");
-                sb.append("Owner: ").append(content).append("\n");
+                if (userType.equals("tenant")) {
+                    sb.append("Tenant: ");
+                } else if (userType.equals("manager")) {
+                    sb.append("Manager: ");
+                } else if (userType.equals("owner")) {
+                    sb.append("Owner: ");
+                }
+
+                sb.append(content).append("\n");
             }
 
             jTextArea1.setText(sb.toString());
