@@ -57,7 +57,7 @@ public class AnnouncementTypePage extends javax.swing.JFrame {
         jButton1.setText("Δημοσίευση");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                publishButton(evt);
             }
         });
 
@@ -98,7 +98,7 @@ public class AnnouncementTypePage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void publishButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publishButton
         String Selection = "";  
         Selection=jList1.getSelectedValue();
         if ("Ιδιοκτήτες".equals(Selection)){
@@ -119,7 +119,7 @@ public class AnnouncementTypePage extends javax.swing.JFrame {
         else {
         JOptionPane.showMessageDialog(this,"Παρακαλώ επιλέξετε μία από τις επιλογές");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_publishButton
 
     /**
      * @param args the command line arguments

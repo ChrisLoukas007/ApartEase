@@ -101,7 +101,7 @@
         <Property name="text" type="java.lang.String" value="&#x394;&#x3b7;&#x3bc;&#x3bf;&#x3c3;&#x3af;&#x3b5;&#x3c5;&#x3c3;&#x3b7;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="publishButton"/>
       </Events>
     </Component>
   </SubComponents>

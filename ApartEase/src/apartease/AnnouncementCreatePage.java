@@ -66,7 +66,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
         jButton1.setText("Συνέχεια");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ContinuteButton(evt);
             }
         });
 
@@ -77,7 +77,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
         jButton2.setText("Πίσω");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                backButton(evt);
             }
         });
 
@@ -132,7 +132,7 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ContinuteButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinuteButton
 
          if (checkWordcount()) {
             String title = Title.getText();
@@ -146,13 +146,13 @@ public class AnnouncementCreatePage extends javax.swing.JFrame {
             AnnouncementCreatePage.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ContinuteButton
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void backButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton
         AnnouncementPage AnnouncementPage = new AnnouncementPage();
         AnnouncementPage.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_backButton
 
     /**
      * @param args the command line arguments
