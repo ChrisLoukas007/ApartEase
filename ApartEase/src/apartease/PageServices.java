@@ -155,10 +155,10 @@ public class PageServices extends javax.swing.JFrame implements DBConnection {
         // Check if an item is selected from the list
         if (selectedValue != null) {
             // Create a new instance of the ChosenServicePage and pass the selected service name
-            ChosenServicePage targetFrame = new ChosenServicePage(selectedValue);
+            ChosenServicePage chosenService = new ChosenServicePage(selectedValue);
 
             // Set the visibility of the ChosenServicePage to true
-            targetFrame.setVisible(true);
+            chosenService.setVisible(true);
 
             // Close the current frame (optional)
             this.dispose();

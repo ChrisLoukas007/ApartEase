@@ -52,7 +52,7 @@ public class GroupMessagePage extends javax.swing.JFrame {
         sendMsg.setText("Αποστολή");
         sendMsg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendMsgActionPerformed(evt);
+                chechGrMsg(evt);
             }
         });
 
@@ -106,7 +106,7 @@ public class GroupMessagePage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sendMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMsgActionPerformed
+    private void chechGrMsg(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chechGrMsg
         String contentG = jTextField1.getText().trim();
         String[] words = contentG.split("\\s+");
         int wordCount = words.length;
@@ -124,7 +124,7 @@ public class GroupMessagePage extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_sendMsgActionPerformed
+    }//GEN-LAST:event_chechGrMsg
 
     private void returnMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessage
         // Create an instance of the MessagePge frame
