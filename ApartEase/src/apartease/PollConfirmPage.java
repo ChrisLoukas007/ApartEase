@@ -35,6 +35,25 @@ public class PollConfirmPage extends javax.swing.JFrame {
         Poll_answer4=answer4;
         Poll_question=Question;
     }
+     
+     public void savePoll(){
+         try
+            {                            
+                Connection con=DBConnection.getConnection();
+                Statement stm = con.createStatement();
+                ResultSet rs =   stm.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                String sql="INSERT INTO poll VALUES (NULL,'"+Poll_question+"','2023-06-02','2023-06-20','"+Poll_answer1+"','"+Poll_answer2+"','"+Poll_answer3+"','"+Poll_answer4+"','"+user_id+"')";
+                stm.executeUpdate(sql);  
+                con.close();
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,7 +83,7 @@ public class PollConfirmPage extends javax.swing.JFrame {
         jButton2.setText("Επιβεβαίωση");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                storePoll(evt);
+                storePollButton(evt);
             }
         });
 
@@ -113,29 +132,13 @@ public class PollConfirmPage extends javax.swing.JFrame {
             this.dispose();
     }//GEN-LAST:event_goBack
 
-    private void storePoll(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storePoll
-       try
-            {                            
-                Connection con=DBConnection.getConnection();
-                Statement stm = con.createStatement();
-                ResultSet rs =   stm.executeQuery("select user_id from login_status where id=1");
-                rs.next();
-                int user_id = Integer.valueOf(rs.getString(1));
-                String sql="INSERT INTO poll VALUES (NULL,'"+Poll_question+"','2023-06-02','2023-06-20','"+Poll_answer1+"','"+Poll_answer2+"','"+Poll_answer3+"','"+Poll_answer4+"','"+user_id+"')";
-                stm.executeUpdate(sql);
-      
-                JOptionPane.showMessageDialog(this,"Επιτυχία");
-                PollsPage PollsPage = new PollsPage();
-                PollsPage.setVisible(true);
-                this.dispose();
-                con.close();
-            }
-            
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
-    }//GEN-LAST:event_storePoll
+    private void storePollButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_storePollButton
+       savePoll();
+       JOptionPane.showMessageDialog(this,"Επιτυχία");
+       PollsPage PollsPage = new PollsPage();
+       PollsPage.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_storePollButton
 
     /**
      * @param args the command line arguments

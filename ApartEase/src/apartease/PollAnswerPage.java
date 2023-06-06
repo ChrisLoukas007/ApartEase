@@ -80,7 +80,7 @@ public class PollAnswerPage extends javax.swing.JFrame {
         jButton1.setText("Συνέχεια");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ContinueButton(evt);
             }
         });
 
@@ -154,7 +154,7 @@ public class PollAnswerPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ContinueButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContinueButton
         String answer1=jTextField1.getText();
         String answer2=jTextField2.getText();
         String answer3=jTextField3.getText();
@@ -170,7 +170,7 @@ public class PollAnswerPage extends javax.swing.JFrame {
             PollAnswer.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ContinueButton
 
     private void goBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBack
             this.dispose(); 
