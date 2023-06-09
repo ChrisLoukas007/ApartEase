@@ -121,24 +121,30 @@ public class OwnerMessagePage extends javax.swing.JFrame {
 
     private void sendOwnerMesage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendOwnerMesage
         String content = msg_text.getText().trim();
-        String[] words = content.split("\\s+");
-        int wordCount = words.length;
 
-        if (wordCount >= 1 && wordCount <= 15 && !content.toLowerCase().contains("insert")) {
-            boolean isInsertSuccessful = insertMessageIntoTable(content);
+    if (isValidContent(content)) {
+        boolean isInsertSuccessful = insertMessageIntoTable(content);
 
-            if (isInsertSuccessful) {
-                JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                loadOwnerMessages(); // Refresh the messages after sending a new one
-                msg_text.setText(""); // Clear the text field
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to send message. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if (isInsertSuccessful) {
+            JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            loadOwnerMessages(); // Refresh the messages after sending a new one
+            msg_text.setText(""); // Clear the text field
         } else {
-            JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Failed to send message. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_sendOwnerMesage
 
+    
+    private boolean isValidContent(String content) {
+    String[] words = content.split("\\s+");
+    int wordCount = words.length;
+
+    return wordCount >= 1 && wordCount <= 15 && !content.toLowerCase().contains("insert");
+}
+    
     private void returnMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessage
         // Create an instance of the MessagePge frame
         MessagePage messagePage = new MessagePage();
