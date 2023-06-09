@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `aparteasedb`.`service` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `description` VARCHAR(100) NOT NULL,
-  `phone_number` INT NOT NULL,
+  `phone_number` BIGINT(100) NOT NULL,
   `Building_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_services_Building1_idx` (`Building_id` ASC) VISIBLE,
