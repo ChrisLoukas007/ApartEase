@@ -1,0 +1,36 @@
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('1', 'Theodosios', 'Chronopoulos', 'up1072595@upnet.gr', 'employee', '2001-02-17', 'test1 description', '0');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('2', 'Vasileios', 'Pouris', 'up1072485@upnet.gr', 'tenant', '2001-07-24', 'test2 description', '500');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('3', 'Chris', 'Dais', 'up1072635@upnet.gr', 'owner', '2001-02-01', 'test3 description', '200');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('4', 'Antria', 'Karvouni', 'up1080481@upnet.gr', 'manager', '2001-06-25', 'test4 description', '300');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('5', 'Test1 ', 'Testios1', 'test1', 'tenant', '2001-06-06', 'test5 description', '300');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('6', 'Test2', 'Testios2', 'test2', 'owner', '2001-06-06', 'test6', '300');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('7', 'Test3', 'Testios3', 'test3', 'owner', '2001-06-06', 'test7', '300');
+INSERT INTO `aparteasedb`.`user` (`id`, `name`, `surname`, `email`, `user_type`, `birth_date`, `description`, `wallet`) VALUES ('8', 'Test4', 'Testios4', 'test4', 'owner', '2001-06-06', 'test8', '200');
+
+INSERT INTO `aparteasedb`.`building` (`id`, `address`, `apartments_number`, `floors`) VALUES ('1', 'Agiou Andreou 24', '4', '2');
+
+INSERT INTO `aparteasedb`.`apartment` (`id`, `number`, `floor`, `Building_id`, `apartment_size`) VALUES ('1', '1', '1', '1', '56');
+INSERT INTO `aparteasedb`.`apartment` (`id`, `number`, `floor`, `Building_id`, `apartment_size`) VALUES ('2', '2', '1', '1', '65');
+INSERT INTO `aparteasedb`.`apartment` (`id`, `number`, `floor`, `Building_id`, `apartment_size`) VALUES ('3', '1', '2', '1', '65');
+INSERT INTO `aparteasedb`.`apartment` (`id`, `number`, `floor`, `Building_id`, `apartment_size`) VALUES ('4', '2', '2', '1', '56');
+
+INSERT INTO `aparteasedb`.`user_has_apartment` (`user_id`, `apartment_id`) VALUES ('2', '1');
+INSERT INTO `aparteasedb`.`user_has_apartment` (`user_id`, `apartment_id`) VALUES ('3', '1');
+INSERT INTO `aparteasedb`.`user_has_apartment` (`user_id`, `apartment_id`) VALUES ('4', '2');
+INSERT INTO `aparteasedb`.`user_has_apartment` (`user_id`, `apartment_id`) VALUES ('5', '3');
+INSERT INTO `aparteasedb`.`user_has_apartment` (`user_id`, `apartment_id`) VALUES ('6', '4');
+
+INSERT INTO `aparteasedb`.`announcements` (`id`, `content`, `user_id`, `title`, `viewed_by`) VALUES ('1', 'Test content test content', '3', 'Test title test', 'all');
+
+INSERT INTO `aparteasedb`.`event` (`id`, `description`, `start_date`, `end_date`, `user_id`, `building_id`) VALUES ('1', 'test description test', '2023-06-29', '2023-06-30', '2', '1');
+
+INSERT INTO `aparteasedb`.`message` (`id`, `content`, `sent_date`, `user_id`, `message_type`, `receiver_email`) VALUES ('1', 'test message 1', '2023-06-01', '2', 'private', 'up1072635@upnet.gr');
+INSERT INTO `aparteasedb`.`message` (`id`, `content`, `sent_date`, `user_id`, `message_type`, `receiver_email`) VALUES ('2', 'test message 2', '2023-06-01', '3', 'private', 'up1072485@upnet.gr');
+
+INSERT INTO `aparteasedb`.`poll` (`id`, `question`, `start_date`, `end_date`, `answer1_content`, `answer2_content`, `user_id`) VALUES ('1', 'test question 1', '2023-06-25', '2023-06-26', 'test1 ', 'test2', '3');
+
+INSERT INTO `aparteasedb`.`service` (`id`, `name`, `description`, `phone_number`, `Building_id`) VALUES ('1', 'Ηλεκτρολόγος', 'Τεστ τεστ τεστ', '6900000000', '1');
+
+INSERT INTO `aparteasedb`.`review` (`id`, `rating`, `description`, `service_id`, `user_id`) VALUES ('1', '4', 'τεστ τεστ τεστ', '1', '3');
+
+
