@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/GroupMessagePage.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/Profile.java</file>
+            <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/ServiceErrorPage.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/UtilityBillsRev.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/UtilityBillsForm.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/HomePage.java</file>
@@ -12,10 +13,12 @@
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/Welcome_Page.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/PageServices.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/EventDataPage.java</file>
+            <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/PollsPage.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/EventsPage.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/EmployeeHomePage.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/UtilityBills.java</file>
             <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/DBConnection.java</file>
+            <file>file:/C:/Users/Θεοδόσης/Documents/GitHub/ApartEase/ApartEase/src/apartease/AdminMessagePage.java</file>
         </group>
     </open-files>
 </project-private>

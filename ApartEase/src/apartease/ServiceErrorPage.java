@@ -8,15 +8,16 @@ package apartease;
  *
  * @author DELL
  */
-public class ServiceErrorPage extends javax.swing.JFrame {
+public class ServiceErrorPage extends javax.swing.JFrame{
 
     private String selectedValue;
 
     /**
      * Creates new form ServiceErrorPage
      */
-    public ServiceErrorPage() {
+    public ServiceErrorPage(String selectedValue) {
         initComponents();
+        this.selectedValue=selectedValue;
     }
 
     /**
@@ -116,7 +117,7 @@ public class ServiceErrorPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ServiceErrorPage().setVisible(true);
+                
             }
         });
     }

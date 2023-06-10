@@ -115,7 +115,7 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
         jButton6.setText("Αποθήκευση");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                saveProfileButton(evt);
             }
         });
 
@@ -206,7 +206,7 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void saveProfileButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProfileButton
          try
             {
                 
@@ -314,7 +314,7 @@ public class Profile extends javax.swing.JFrame implements DBConnection{
                 JOptionPane.showMessageDialog(this,e);
             }
     
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_saveProfileButton
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try

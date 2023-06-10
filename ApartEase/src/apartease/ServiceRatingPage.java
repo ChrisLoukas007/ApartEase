@@ -146,7 +146,7 @@ public class ServiceRatingPage extends javax.swing.JFrame implements DBConnectio
 
     private void showServiceErrorPage() {
 //        JOptionPane.showMessageDialog(this, "Sorry, you have exceeded the word limit. Please fix it to submit your evaluation.", "Error", JOptionPane.ERROR_MESSAGE);
-        ServiceErrorPage errorPage = new ServiceErrorPage();
+        ServiceErrorPage errorPage = new ServiceErrorPage(selectedValue);
         errorPage.setVisible(true);
         this.dispose();
     }
