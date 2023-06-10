@@ -4,13 +4,19 @@
  */
 package apartease;
 
+import static apartease.DBConnection.getConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author DELL
  */
-public class MessagePage extends javax.swing.JFrame {
+public class MessagePage extends javax.swing.JFrame implements DBConnection {
 
-    private String content;
+    public String content;
+    public String contentO;
+    public String contentG;
 
     /**
      * Creates new form MessagePage
@@ -60,7 +66,7 @@ public class MessagePage extends javax.swing.JFrame {
             }
         });
 
-        retrnHome.setText("Back");
+        retrnHome.setText("Πίσω");
         retrnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 retrnHomeActionPerformed(evt);
@@ -110,7 +116,7 @@ public class MessagePage extends javax.swing.JFrame {
 
     private void showGroupMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGroupMessagePage
         // Create an instance of the GroupMessagePage frame
-        GroupMessagePage groupMessage = new GroupMessagePage();
+        GroupMessagePage groupMessage = new GroupMessagePage(contentG);
 
         // Display the GroupMessagePage frame
         groupMessage.setVisible(true);
@@ -125,7 +131,7 @@ public class MessagePage extends javax.swing.JFrame {
         dispose();    }//GEN-LAST:event_showAdminMessagePage
 
     private void showOwnerMessagePage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showOwnerMessagePage
-        OwnerMessagePage ownerMessage = new OwnerMessagePage();
+        OwnerMessagePage ownerMessage = new OwnerMessagePage(contentO);
         ownerMessage.setVisible(true);
         dispose();
     }//GEN-LAST:event_showOwnerMessagePage

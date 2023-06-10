@@ -59,7 +59,7 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
             }
     }
     
-    public void checkRights(){
+    public boolean checkRights(){
          try
             {               
                 Statement stmt = connectdata();
@@ -70,15 +70,7 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
                 rs.next();
                 String user_type = rs.getString(1);    
                     if ("tenant".equals(user_type)){
-                        JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
-                        PollsPage PollsPage = new PollsPage();
-                        PollsPage.setVisible(true);
-                        this.dispose();
-                    }
-                    else {
-                        this.dispose(); 
-                        PollQuestionPage obj = new PollQuestionPage();
-                        obj.setVisible(true); 
+                        return true;       
                     }
             }
             
@@ -86,6 +78,7 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
             {
                 JOptionPane.showMessageDialog(this,e);
             }
+         return false;
     }
     public PollsPage() {
         initComponents();
@@ -119,7 +112,7 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
         jButton1.setText("Δημιουργία Δημοσίευσης");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createPollButton(evt);
             }
         });
 
@@ -208,9 +201,19 @@ public class PollsPage extends javax.swing.JFrame implements DBConnection {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            checkRights();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void createPollButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPollButton
+          if  (checkRights()){
+              JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
+              PollsPage PollsPage = new PollsPage();
+              PollsPage.setVisible(true);
+              this.dispose();
+          }
+          else{
+              this.dispose(); 
+              PollQuestionPage obj = new PollQuestionPage();
+              obj.setVisible(true); 
+          }
+    }//GEN-LAST:event_createPollButton
 
     private void PollQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PollQuestionActionPerformed
         // TODO add your handling code here:

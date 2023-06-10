@@ -42,7 +42,7 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
         
     }
     
-    public void checkRights(){
+    public boolean checkRights(){
          try
             {               
                 Statement stmt = connectdata(); 
@@ -52,20 +52,16 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
                 rs=stmt.executeQuery("Select user_type from user where id='"+user_id+"'");
                 rs.next();
                 String user_type = rs.getString(1);    
-                    if ("tenant".equals(user_type)){
-                        JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
-                    }
-                    else {
-                        this.dispose(); 
-                        AnnouncementCreatePage obj = new AnnouncementCreatePage();
-                        obj.setVisible(true); 
-                    }
+                if ("tenant".equals(user_type)){
+                    return true;                       
+                }               
             }
             
         catch(Exception e)
             {
                 JOptionPane.showMessageDialog(this,e);
             }
+        return false;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,7 +87,7 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
         jButton1.setText("Δημιουργία Ανακοίνωσης");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AnnouncementCreateButton(evt);
             }
         });
 
@@ -162,10 +158,17 @@ public class AnnouncementPage extends javax.swing.JFrame implements DBConnection
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void AnnouncementCreateButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnouncementCreateButton
         
-        checkRights();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (checkRights()){
+            JOptionPane.showMessageDialog(this,"Δεν έχετε δικαίωμα δημιουργίας ψήφου");
+        }
+        else {
+            this.dispose(); 
+            AnnouncementCreatePage obj = new AnnouncementCreatePage();
+            obj.setVisible(true); 
+        }
+    }//GEN-LAST:event_AnnouncementCreateButton
 
     private void AnnouncementTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnouncementTitleActionPerformed
         // TODO add your handling code here:

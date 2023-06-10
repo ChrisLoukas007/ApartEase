@@ -59,7 +59,7 @@ public class PollQuestionPage extends javax.swing.JFrame {
         jButton1.setText("Προσθήκη Απαντήσεων");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AddAnswersButton(evt);
             }
         });
 
@@ -116,7 +116,7 @@ public class PollQuestionPage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_QuestionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void AddAnswersButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAnswersButton
         if (checkWordcount()) {
             String question = Question.getText();
             PollAnswerPage PollAnswer = new PollAnswerPage(question);
@@ -128,7 +128,7 @@ public class PollQuestionPage extends javax.swing.JFrame {
             PollQuestionPage obj = new PollQuestionPage();
             obj.setVisible(true); 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_AddAnswersButton
 
     private void goBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBack
        PollsPage PollsPage = new PollsPage();

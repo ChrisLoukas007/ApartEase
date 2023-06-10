@@ -31,6 +31,26 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
         AnnounceTitle = title;
         AnnounceChoice = choice;
     }
+    public void SaveAnnouncement(){
+         try
+            {                            
+                Connection con=DBConnection.getConnection();
+                Statement stm = con.createStatement();
+                ResultSet rs =   stm.executeQuery("select user_id from login_status where id=1");
+                rs.next();
+                int user_id = Integer.valueOf(rs.getString(1));
+                String sql="INSERT INTO announcements VALUES (NULL,'"+AnnounceText+"','"+user_id+"','"+AnnounceTitle+"','"+AnnounceChoice+"')";
+                stm.executeUpdate(sql);
+                
+                
+                con.close();
+            }
+            
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(this,e);
+            }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +71,7 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
         jButton1.setText("Επιβεβαίωση");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StoreAnnouncement(evt);
+                ConfirmAnnouncementButton(evt);
             }
         });
 
@@ -93,29 +113,13 @@ public class AnnouncementConfirmationPage extends javax.swing.JFrame implements 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void StoreAnnouncement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoreAnnouncement
-        try
-            {                            
-                Connection con=DBConnection.getConnection();
-                Statement stm = con.createStatement();
-                ResultSet rs =   stm.executeQuery("select user_id from login_status where id=1");
-                rs.next();
-                int user_id = Integer.valueOf(rs.getString(1));
-                String sql="INSERT INTO announcements VALUES (NULL,'"+AnnounceText+"','"+user_id+"','"+AnnounceTitle+"','"+AnnounceChoice+"')";
-                stm.executeUpdate(sql);
-                
-                JOptionPane.showMessageDialog(this,"Επιτυχία");
+    private void ConfirmAnnouncementButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmAnnouncementButton
+        SaveAnnouncement();
+        JOptionPane.showMessageDialog(this,"Επιτυχία");
                 AnnouncementPage AnnouncementPage = new AnnouncementPage();
                 AnnouncementPage.setVisible(true);
                 this.dispose();
-                con.close();
-            }
-            
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(this,e);
-            }
-    }//GEN-LAST:event_StoreAnnouncement
+    }//GEN-LAST:event_ConfirmAnnouncementButton
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         AnnouncementTypePage AnnouncementType = new AnnouncementTypePage(AnnounceText,AnnounceTitle);

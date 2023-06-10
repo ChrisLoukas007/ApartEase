@@ -4,11 +4,15 @@
  */
 package apartease;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
+import static apartease.DBConnection.getConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,18 +20,15 @@ import java.text.SimpleDateFormat;
  */
 public class OwnerMessagePage extends javax.swing.JFrame {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
-    static ServerSocket ss;
-    static Socket s;
-    static DataInputStream dis;
-    static DataOutputStream dout;
+    private String contentO;
 
     /**
      * Creates new form OwnerMessage
      */
-    public OwnerMessagePage() {
+    public OwnerMessagePage(String contentO) {
         initComponents();
+        loadOwnerMessages();
+        this.contentO = contentO;
     }
 
     /**
@@ -64,7 +65,7 @@ public class OwnerMessagePage extends javax.swing.JFrame {
         msg_send.setText("Αποστολή");
         msg_send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                msg_sendActionPerformed(evt);
+                sendOwnerMesage(evt);
             }
         });
 
@@ -118,18 +119,32 @@ public class OwnerMessagePage extends javax.swing.JFrame {
     private void msg_textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msg_textActionPerformed
     }//GEN-LAST:event_msg_textActionPerformed
 
-    private void msg_sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_msg_sendActionPerformed
-        try{
-            String msg="";
-            msg = msg_text.getText();
-            dout.writeUTF(msg);
-            msg_text.setText("");
-        }
-        catch(Exception e){
+    private void sendOwnerMesage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendOwnerMesage
+        String content = msg_text.getText().trim();
 
-        }
-    }//GEN-LAST:event_msg_sendActionPerformed
+    if (isValidContent(content)) {
+        boolean isInsertSuccessful = insertMessageIntoTable(content);
 
+        if (isInsertSuccessful) {
+            JOptionPane.showMessageDialog(this, "Message sent successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            loadOwnerMessages(); // Refresh the messages after sending a new one
+            msg_text.setText(""); // Clear the text field
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to send message. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to send message. Please check the length and content of your message.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_sendOwnerMesage
+
+    
+    private boolean isValidContent(String content) {
+    String[] words = content.split("\\s+");
+    int wordCount = words.length;
+
+    return wordCount >= 1 && wordCount <= 15 && !content.toLowerCase().contains("insert");
+}
+    
     private void returnMessage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnMessage
         // Create an instance of the MessagePge frame
         MessagePage messagePage = new MessagePage();
@@ -141,6 +156,74 @@ public class OwnerMessagePage extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_returnMessage
 
+    private boolean insertMessageIntoTable(String content) {
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT user_id FROM login_status WHERE id = 1");
+            if (rs.next()) {
+                int userID = rs.getInt(1);
+
+                ResultSet rs2 = stmt.executeQuery("SELECT email FROM user WHERE user_type = 'tenant' and id = " + userID);
+                if (rs2.next()) {
+                    String receiverMail = rs2.getString(1);
+
+                    String sql = "INSERT INTO message(content, sent_date, user_id, message_type, receiver_email) VALUES (?, CURDATE(), ?, 'private', ?)";
+
+                    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+                        pstmt.setString(1, content);
+                        pstmt.setInt(2, userID);
+                        pstmt.setString(3, receiverMail);
+                        pstmt.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void loadOwnerMessages() {
+
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+
+            // Fetching buildingID
+            ResultSet buildingRS = stmt.executeQuery("SELECT building.id FROM user, user_has_apartment, apartment, building, login_status WHERE 1 = user.id AND user.id = user_has_apartment.user_id AND user_has_apartment.apartment_id = apartment.id AND apartment.id = building.id");
+            String buildingID = "";
+            if (buildingRS.next()) {
+                buildingID = buildingRS.getString("building.id");
+            }
+
+            // Fetching tenant, manager, and owner messages
+            String messagesSql = "SELECT message.content, user.user_type FROM message JOIN user ON message.user_id = user.id JOIN user_has_apartment ON user.id = user_has_apartment.user_id JOIN apartment ON user_has_apartment.apartment_id = apartment.id JOIN building ON apartment.building_id = building.id WHERE (user.user_type = 'tenant' OR user.user_type = 'owner') AND message.message_type = 'private' AND building.id = '" + buildingID + "' ORDER BY message.sent_date ASC";
+
+            ResultSet messagesRS = stmt.executeQuery(messagesSql);
+            while (messagesRS.next()) {
+                String userType = messagesRS.getString("user_type");
+                String content = messagesRS.getString("content");
+
+                if (userType.equals("tenant")) {
+                    sb.append("Tenant: ");
+                } else if (userType.equals("owner")) {
+                    sb.append("Owner: ");
+                }
+
+                sb.append(content).append("\n");
+            }
+
+            msg_area.setText(sb.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -148,25 +231,8 @@ public class OwnerMessagePage extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OwnerMessagePage().setVisible(true);
             }
         });
-
-        try{
-            String msgin = "";
-            ss= new ServerSocket(1201);   
-            s=ss.accept();
-            dis = new DataInputStream(s.getInputStream());
-            dout = new DataOutputStream(s.getOutputStream());
-
-            while(!msgin.equals("exit")){
-                msgin = dis.readUTF(); // here we read the received message from the Owner
-                msg_area.setText(msg_area.getText() + "\n Owner: " + msgin);
-            }
-
-        } catch(Exception e){
-
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -177,4 +243,5 @@ public class OwnerMessagePage extends javax.swing.JFrame {
     private javax.swing.JButton msg_send;
     private javax.swing.JTextField msg_text;
     // End of variables declaration//GEN-END:variables
+
 }

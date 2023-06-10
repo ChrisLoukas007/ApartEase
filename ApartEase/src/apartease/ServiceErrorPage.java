@@ -82,8 +82,8 @@ public class ServiceErrorPage extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void correction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correction
-            ServiceRatingPage rateService = new ServiceRatingPage(selectedValue);
-        rateService.setVisible(true);
+            ServiceRatingPage correction = new ServiceRatingPage(selectedValue);
+        correction.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_correction
 
